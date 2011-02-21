@@ -1,3 +1,3 @@
-ifeq ($(filter-out s5pv210,$(TARGET_BOARD_PLATFORM)),)
-    include $(call my-dir)/aries/Android.mk
+ifeq ($(filter-out aries,$(TARGET_BOOTLOADER_BOARD_NAME)),)
+    include device/samsung/common/aries/Android.mk
 endif
