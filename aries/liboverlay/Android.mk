@@ -30,6 +30,6 @@ LOCAL_C_INCLUDES := \
 
 LOCAL_SRC_FILES := v4l2_utils.c overlay.cpp
 
-LOCAL_MODULE := overlay.$(TARGET_BOARD_PLATFORM)
+LOCAL_MODULE := overlay.aries
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
