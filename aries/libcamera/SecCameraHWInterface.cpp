@@ -846,13 +846,32 @@ int CameraHardwareSec::autoFocusThread()
     }
 
 #ifdef SWP1_CAMERA_ADD_ADVANCED_FUNCTION
-    af_status = mSecCamera->getAutoFocusResult();
 
-    if (af_status == 0x05) {
+    int i;
+    
+    i = 0;   
+    
+    af_status = mSecCamera->getAutoFocusResult();
+    
+    while(af_status == 0x05 && i < 100)
+    {
+        LOGV("%s : AF Result == 0X05 sleeping!!", __func__);
+        usleep(50000);
+        af_status = mSecCamera->getAutoFocusResult();
+        i++;        
+    }
+    
+    LOGV("%s : AF Result == %d", __func__, af_status);
+
+    if (af_status == 0x02) {
         LOGV("%s : AF Success!!", __func__);
         if (mMsgEnabled & CAMERA_MSG_FOCUS)
             mNotifyCb(CAMERA_MSG_FOCUS, true, 0, mCallbackCookie);
-    } else if (af_status == 0x02) {
+    }
+    
+//FIXME: determine that the user cancled the AF  
+#if 0
+     else if (af_status == 0x02) {
         LOGV("%s : AF Cancelled !!", __func__);
         if (mMsgEnabled & CAMERA_MSG_FOCUS) {
             /* CAMERA_MSG_FOCUS only takes a bool.  true for
@@ -861,7 +880,9 @@ int CameraHardwareSec::autoFocusThread()
              */
             mNotifyCb(CAMERA_MSG_FOCUS, true, 0, mCallbackCookie);
         }
-    } else {
+    }
+#endif
+     else {
         LOGV("%s : AF Fail !!", __func__);
         LOGV("%s : mMsgEnabled = 0x%x", __func__, mMsgEnabled);
         if (mMsgEnabled & CAMERA_MSG_FOCUS)
@@ -1845,10 +1866,17 @@ status_t CameraHardwareSec::setParameters(const CameraParameters& params)
         }
 
         if (new_image_effect >= 0) {
+                        
             if (mSecCamera->setImageEffect(new_image_effect) < 0) {
                 LOGE("ERR(%s):Fail on mSecCamera->setImageEffect(effect(%d))", __func__, new_image_effect);
                 ret = UNKNOWN_ERROR;
             } else {
+                
+                if (mSecCamera->stopPreview() < 0) {
+                LOGE("ERR(%s):Fail on mSecCamera->stopPreview", __func__);
+                ret = UNKNOWN_ERROR;
+                }
+                
                 const char *old_image_effect_str = mParameters.get(CameraParameters::KEY_EFFECT);
 
                 if (old_image_effect_str) {
@@ -1858,7 +1886,15 @@ status_t CameraHardwareSec::setParameters(const CameraParameters& params)
                 }
 
                 mParameters.set(CameraParameters::KEY_EFFECT, new_image_effect_str);
+                
+                //sleep a bit to give the cam a chance to get ready
+                usleep(100000);
+                if (mSecCamera->startPreview() < 0) {
+                    LOGE("ERR(%s):Fail on mSecCamera->startPreview", __func__);
+                    ret = UNKNOWN_ERROR;
+                }
             }
+           
         }
     }
 
