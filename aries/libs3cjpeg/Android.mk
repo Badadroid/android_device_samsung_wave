@@ -25,7 +25,7 @@ LOCAL_SRC_FILES:= \
 LOCAL_SHARED_LIBRARIES:= liblog
 LOCAL_SHARED_LIBRARIES+= libdl
 
-LOCAL_MODULE:= libs3cjpeg
+LOCAL_MODULE:= libs3cjpeg.aries
 
 LOCAL_MODULE_TAGS := optional
 
