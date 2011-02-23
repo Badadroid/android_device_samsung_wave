@@ -27,6 +27,11 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 LOCAL_MODULE_TAGS := optional
 
 LOCAL_CFLAGS := -DLOG_TAG=\"Sensors\"
+
+ifeq ($(filter-out captivate,$(PRODUCT_DEVICE)),)
+	LOCAL_CFLAGS +=  -DCAPTIVATE
+endif
+
 LOCAL_SRC_FILES := 						\
 				sensors.cpp 			\
 				SensorBase.cpp			\
