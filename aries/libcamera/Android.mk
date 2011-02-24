@@ -29,7 +29,7 @@ LOCAL_SRC_FILES:= \
 
 
 LOCAL_SHARED_LIBRARIES:= libutils libui liblog libbinder libcutils
-LOCAL_SHARED_LIBRARIES+= libs3cjpeg
+LOCAL_SHARED_LIBRARIES+= libs3cjpeg.aries
 LOCAL_SHARED_LIBRARIES+= libcamera_client
 
 #Enable the below code to show the video output (without GUI) on TV
