@@ -257,6 +257,15 @@ int BoschYamaha::readEvents(sensors_event_t* data, int count)
 			//Everything is ABS!
 			if (type == EV_ABS) {
 				float value = event->value;
+#ifdef CAPTIVATE
+					if (event->code == EVENT_TYPE_MAGV_X) {
+						mPendingEvents[MagneticField].magnetic.y = (value * CONVERT_M_X);
+					} else if (event->code == EVENT_TYPE_MAGV_Y) {
+						mPendingEvents[MagneticField].magnetic.x = (value * CONVERT_M_Y);
+					} else if (event->code == EVENT_TYPE_MAGV_Z) {
+						mPendingEvents[MagneticField].magnetic.z = (value * CONVERT_M_Z);
+					}
+#else
 					if (event->code == EVENT_TYPE_MAGV_X) {
 						mPendingEvents[MagneticField].magnetic.x = (value * CONVERT_M_X);
 					} else if (event->code == EVENT_TYPE_MAGV_Y) {
@@ -264,6 +273,7 @@ int BoschYamaha::readEvents(sensors_event_t* data, int count)
 					} else if (event->code == EVENT_TYPE_MAGV_Z) {
 						mPendingEvents[MagneticField].magnetic.z = (value * CONVERT_M_Z);
 					}
+#endif
 			}
 			else if (type == EV_SYN) {
 				mPendingEvents[MagneticField].timestamp = timevalToNano(event->time);
@@ -305,6 +315,15 @@ int BoschYamaha::readEvents(sensors_event_t* data, int count)
 			if (type == EV_ABS) {
 				//LOGD("Sensor: Received one EV_ABS Event");
 				float value = event->value;
+#ifdef CAPTIVATE
+				if (event->code == EVENT_TYPE_ACCEL_X) {
+					mPendingEvents[Accelerometer].acceleration.y = value * CONVERT_A_X;
+				} else if (event->code == EVENT_TYPE_ACCEL_Y) {
+					mPendingEvents[Accelerometer].acceleration.x = value * CONVERT_A_Y;
+				} else if (event->code == EVENT_TYPE_ACCEL_Z) {
+					mPendingEvents[Accelerometer].acceleration.z = value * CONVERT_A_Z;
+				}
+#else
 				if (event->code == EVENT_TYPE_ACCEL_X) {
 					mPendingEvents[Accelerometer].acceleration.x = value * CONVERT_A_X;
 				} else if (event->code == EVENT_TYPE_ACCEL_Y) {
@@ -312,6 +331,7 @@ int BoschYamaha::readEvents(sensors_event_t* data, int count)
 				} else if (event->code == EVENT_TYPE_ACCEL_Z) {
 					mPendingEvents[Accelerometer].acceleration.z = value * CONVERT_A_Z;
 				}
+#endif
 			} else if (type == EV_SYN) {
 				mPendingEvents[Accelerometer].timestamp = timevalToNano(event->time);
 				if (accelEnabled) {

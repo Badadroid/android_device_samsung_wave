@@ -84,20 +84,26 @@ __BEGIN_DECLS
 #define RANGE_A                     (2*GRAVITY_EARTH)
 #define RESOLUTION_A                (RANGE_A/(512))
 #define CONVERT_A                   (RANGE_A/(512))
-#define CONVERT_A_X                 (CONVERT_A)
 #ifdef CAPTIVATE
+#define CONVERT_A_X                 (CONVERT_A)
 #define CONVERT_A_Y                 (-CONVERT_A)
-#define CONVERT_A_Z                 (-CONVERT_A)
 #else
+#define CONVERT_A_X                 (CONVERT_A)
 #define CONVERT_A_Y                 (CONVERT_A)
-#define CONVERT_A_Z                 (CONVERT_A)
 #endif
+#define CONVERT_A_Z                 (CONVERT_A)
 
 // conversion of magnetic data to uT units
 #define CONVERT_M                   (1.0f/1000.0f)
+#ifdef CAPTIVATE
+#define CONVERT_M_X                 (CONVERT_M)
+#define CONVERT_M_Y                 (CONVERT_M)
+#define CONVERT_M_Z                 (-CONVERT_M)
+#else
 #define CONVERT_M_X                 (CONVERT_M)
 #define CONVERT_M_Y                 (CONVERT_M)
 #define CONVERT_M_Z                 (CONVERT_M)
+#endif
 
 /* conversion of orientation data to degree units */
 #define CONVERT_O                   (1.0f/64.0f)
@@ -108,9 +114,15 @@ __BEGIN_DECLS
 // conversion of gyro data to SI units (radian/sec)
 #define RANGE_GYRO                  (2000.0f*(float)M_PI/180.0f)
 #define CONVERT_GYRO                ((70.0f / 1000.0f) * ((float)M_PI / 180.0f))
+#ifdef CAPTIVATE
+#define CONVERT_GYRO_X              (CONVERT_GYRO)
+#define CONVERT_GYRO_Y              (-CONVERT_GYRO)
+#define CONVERT_GYRO_Z              (-CONVERT_GYRO)
+#else
 #define CONVERT_GYRO_X              (CONVERT_GYRO)
 #define CONVERT_GYRO_Y              (-CONVERT_GYRO)
 #define CONVERT_GYRO_Z              (CONVERT_GYRO)
+#endif
 
 #define SENSOR_STATE_MASK           (0x7FFF)
 
