@@ -54,8 +54,13 @@ __BEGIN_DECLS
 
 #define AKM_DEVICE_NAME     "/dev/akm8973_aot"
 
+#ifdef CAPTIVATE
+#define EVENT_TYPE_ACCEL_X          ABS_Y
+#define EVENT_TYPE_ACCEL_Y          ABS_X
+#else
 #define EVENT_TYPE_ACCEL_X          ABS_X
 #define EVENT_TYPE_ACCEL_Y          ABS_Y
+#endif
 #define EVENT_TYPE_ACCEL_Z          ABS_Z
 
 #define EVENT_TYPE_YAW              REL_RX
@@ -64,8 +69,13 @@ __BEGIN_DECLS
 #define EVENT_TYPE_ORIENT_STATUS    REL_WHEEL
 
 /* For AK8973iB */
+#ifdef CAPTIVATE
+#define EVENT_TYPE_MAGV_X           ABS_Y
+#define EVENT_TYPE_MAGV_Y           ABS_X
+#else
 #define EVENT_TYPE_MAGV_X           ABS_X
 #define EVENT_TYPE_MAGV_Y           ABS_Y
+#endif
 #define EVENT_TYPE_MAGV_Z           ABS_Z
 
 #define EVENT_TYPE_PROXIMITY        ABS_DISTANCE
@@ -85,8 +95,9 @@ __BEGIN_DECLS
 #define RESOLUTION_A                (RANGE_A/(512))
 #define CONVERT_A                   (RANGE_A/(512))
 #ifdef CAPTIVATE
-#define CONVERT_A_X                 (CONVERT_A)
-#define CONVERT_A_Y                 (-CONVERT_A)
+// x->y, -y->x
+#define CONVERT_A_X                 (-CONVERT_A)
+#define CONVERT_A_Y                 (CONVERT_A)
 #else
 #define CONVERT_A_X                 (CONVERT_A)
 #define CONVERT_A_Y                 (CONVERT_A)
@@ -114,15 +125,9 @@ __BEGIN_DECLS
 // conversion of gyro data to SI units (radian/sec)
 #define RANGE_GYRO                  (2000.0f*(float)M_PI/180.0f)
 #define CONVERT_GYRO                ((70.0f / 1000.0f) * ((float)M_PI / 180.0f))
-#ifdef CAPTIVATE
-#define CONVERT_GYRO_X              (CONVERT_GYRO)
-#define CONVERT_GYRO_Y              (-CONVERT_GYRO)
-#define CONVERT_GYRO_Z              (-CONVERT_GYRO)
-#else
 #define CONVERT_GYRO_X              (CONVERT_GYRO)
 #define CONVERT_GYRO_Y              (-CONVERT_GYRO)
 #define CONVERT_GYRO_Z              (CONVERT_GYRO)
-#endif
 
 #define SENSOR_STATE_MASK           (0x7FFF)
 
