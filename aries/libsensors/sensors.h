@@ -87,7 +87,7 @@ __BEGIN_DECLS
 #define CONVERT_A_X                 (CONVERT_A)
 #ifdef CAPTIVATE
 #define CONVERT_A_Y                 (-CONVERT_A)
-#define CONVERT_A_Z                 (-CONVERT_A)
+#define CONVERT_A_Z                 (CONVERT_A)
 #else
 #define CONVERT_A_Y                 (CONVERT_A)
 #define CONVERT_A_Z                 (CONVERT_A)
