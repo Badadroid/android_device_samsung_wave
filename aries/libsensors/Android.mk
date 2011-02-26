@@ -28,7 +28,7 @@ LOCAL_MODULE_TAGS := optional
 
 LOCAL_CFLAGS := -DLOG_TAG=\"Sensors\"
 
-ifeq ($(PRODUCT_DEVICE), captivate)
+ifeq ($(TARGET_DEVICE),captivate)
 	LOCAL_CFLAGS +=  -DCAPTIVATE
 endif
 
