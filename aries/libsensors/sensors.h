@@ -95,7 +95,6 @@ __BEGIN_DECLS
 #define RESOLUTION_A                (RANGE_A/(512))
 #define CONVERT_A                   (RANGE_A/(512))
 #ifdef CAPTIVATE
-// x->y, -y->x
 #define CONVERT_A_X                 (-CONVERT_A)
 #define CONVERT_A_Y                 (CONVERT_A)
 #else

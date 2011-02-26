@@ -2204,10 +2204,12 @@ static CameraInfo sCameraInfo[] = {
         CAMERA_FACING_BACK,
         90,  /* orientation */
     },
+#ifdef FFC_PRESENT
     {
         CAMERA_FACING_FRONT,
         270,  /* orientation */
     }
+#endif
 };
 
 extern "C" int HAL_getNumberOfCameras()
