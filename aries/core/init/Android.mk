@@ -40,7 +40,7 @@ include $(BUILD_EXECUTABLE)
 
 # Make a symlink from /sbin/ueventd to /init
 SYMLINKS := $(TARGET_ROOT_OUT)/sbin/ueventd
-$(SYMLINKS): INIT_BINARY := $(LOCAL_MODULE)
+$(SYMLINKS): INIT_BINARY := $(LOCAL_MODULE_STEM)
 $(SYMLINKS): $(LOCAL_INSTALLED_MODULE) $(LOCAL_PATH)/Android.mk
 	@echo "Symlink: $@ -> ../$(INIT_BINARY)"
 	@mkdir -p $(dir $@)
