@@ -49,9 +49,12 @@ BoschYamaha::BoschYamaha()
       mInputReaderAccel(4)
 {
 
+    counterAccel = 0;
+
     /* FIXME set input device name for magnetic sensor */
     data_name = "input0";
     data_compass_fd = openInput("geomagnetic");
+
 	
 	//Open Compass
 	if (data_compass_fd) {
@@ -131,6 +134,7 @@ int BoschYamaha::enable(int32_t handle, int en)
     int newState  = en ? 1 : 0;
     int err = 0;
 
+	/*
 	//FIXME enabling the right sensor over sysfs interface
 	if(what == MagneticField){
 		what = Accelerometer; //Enable also Accel
@@ -160,6 +164,7 @@ int BoschYamaha::enable(int32_t handle, int en)
 			}
 		}
 	}
+	*/
 	
 	if(what == Accelerometer){
 		//Accelerometer
@@ -176,11 +181,15 @@ int BoschYamaha::enable(int32_t handle, int en)
 				int err;
 				buf[1] = 0;
 				if (flags) {
+				//	counterAccel++;
 					buf[0] = '1';
 				} else {
+				//	counterAccel--;
 					buf[0] = '0';
 				}
-				err = write(fd, buf, sizeof(buf));
+				//if(counterAccel <= 1){
+					err = write(fd, buf, sizeof(buf));
+				//}
 				close(fd);
 				//mEnabled = flags;
 				accelEnabled = flags;

@@ -64,7 +64,8 @@ private:
 	float accelLastRead[3];
 	float compassLastRead[3];
 	int compassDataReady;
-	int accelDataReady;	
+	int accelDataReady;
+	int counterAccel;	
     uint32_t mPendingMask;
     InputEventCircularReader mInputReaderMagnetic;
     InputEventCircularReader mInputReaderAccel;
