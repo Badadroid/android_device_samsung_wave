@@ -404,7 +404,9 @@ static void import_kernel_nv(char *name, int in_qemu)
             strlcpy(qemu, value, sizeof(qemu));
         } else if (!strcmp(name,"androidboot.console")) {
             strlcpy(console, value, sizeof(console));
-        /* Samsung bootmode string */
+        } else if (!strcmp(name,"androidboot.mode")) {
+            strlcpy(bootmode, value, sizeof(bootmode));
+        /* Samsung Bootloader recovery cmdline */
         } else if (!strcmp(name,"bootmode")) {
             strlcpy(bootmode, value, sizeof(bootmode));
         } else if (!strcmp(name,"androidboot.serialno")) {
@@ -581,14 +583,10 @@ static int set_init_properties_action(int nargs, char **args)
     if (qemu[0])
         import_kernel_cmdline(1);
 
-    if (!strcmp(bootmode,"1"))
+    if (!strcmp(bootmode,"factory"))
         property_set("ro.factorytest", "1");
-    else if (!strcmp(bootmode,"2"))
+    else if (!strcmp(bootmode,"factory2"))
         property_set("ro.factorytest", "2");
-    else if (!strcmp(bootmode,"3"))
-        property_set("ro.factorytest", "3");
-    else if (!strcmp(bootmode,"4"))
-        property_set("ro.factorytest", "4");
     else
         property_set("ro.factorytest", "0");
 
@@ -695,24 +693,26 @@ int main(int argc, char **argv)
     open_devnull_stdio();
     log_init();
     
+    INFO("reading config file\n");
+    init_parse_config_file("/init.rc");
+
     /* pull the kernel commandline and ramdisk properties file in */
     import_kernel_cmdline(0);
 
-   INFO("reading config file\n");
-    if (!strcmp(bootmode, "1"))
-        init_parse_config_file("/factorytest.rc");
-    else if (!strcmp(bootmode, "2"))
+#ifdef BOARD_PROVIDES_BOOTMODE
+    /* Samsung Galaxy S: special bootmode for recovery
+     * Samsung Bootloader only knows one Kernel, which has to detect
+     * from bootmode if it should run recovery. */
+    if (!strcmp(bootmode, "2"))
         init_parse_config_file("/recovery.rc");
-    else if (!strcmp(bootmode, "3"))
-        init_parse_config_file("/fota.rc");
-    else if (!strcmp(bootmode, "4"))
-        init_parse_config_file("/lpm.rc");
-    else {
-        init_parse_config_file("/init.rc");
+    else
+#endif
+     {
         get_hardware_name(hardware, &revision);
         snprintf(tmp, sizeof(tmp), "/init.%s.rc", hardware);
         init_parse_config_file(tmp);
-    }
+     }
+
 
     action_for_each_trigger("early-init", action_add_queue_tail);
 

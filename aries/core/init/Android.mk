@@ -26,9 +26,11 @@ ifeq ($(TARGET_HAS_ANCIENT_MSMCAMERA), true)
     LOCAL_CFLAGS += -DNO_MSM_CAMDIR
 endif
 
-LOCAL_MODULE:= init.galaxys
-LOCAL_MODULE_STEM:= init
-LOCAL_MODULE_TAGS := eng
+ifeq ($(BOARD_PROVIDES_BOOTMODE), true)
+    LOCAL_CFLAGS += -DBOARD_PROVIDES_BOOTMODE
+endif
+
+LOCAL_MODULE:= init
 
 LOCAL_FORCE_STATIC_EXECUTABLE := true
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
@@ -40,7 +42,7 @@ include $(BUILD_EXECUTABLE)
 
 # Make a symlink from /sbin/ueventd to /init
 SYMLINKS := $(TARGET_ROOT_OUT)/sbin/ueventd
-$(SYMLINKS): INIT_BINARY := $(LOCAL_MODULE_STEM)
+$(SYMLINKS): INIT_BINARY := $(LOCAL_MODULE)
 $(SYMLINKS): $(LOCAL_INSTALLED_MODULE) $(LOCAL_PATH)/Android.mk
 	@echo "Symlink: $@ -> ../$(INIT_BINARY)"
 	@mkdir -p $(dir $@)
