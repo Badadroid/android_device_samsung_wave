@@ -69,13 +69,8 @@ __BEGIN_DECLS
 #define EVENT_TYPE_ORIENT_STATUS    REL_WHEEL
 
 /* For AK8973iB */
-#ifdef CAPTIVATE
-#define EVENT_TYPE_MAGV_X           ABS_Y
-#define EVENT_TYPE_MAGV_Y           ABS_X
-#else
 #define EVENT_TYPE_MAGV_X           ABS_X
 #define EVENT_TYPE_MAGV_Y           ABS_Y
-#endif
 #define EVENT_TYPE_MAGV_Z           ABS_Z
 
 #define EVENT_TYPE_PROXIMITY        ABS_DISTANCE
@@ -105,21 +100,15 @@ __BEGIN_DECLS
 
 // conversion of magnetic data to uT units
 #define CONVERT_M                   (1.0f/1000.0f)
-#ifdef CAPTIVATE
-#define CONVERT_M_X                 (CONVERT_M)
-#define CONVERT_M_Y                 (CONVERT_M)
-#define CONVERT_M_Z                 (-CONVERT_M)
-#else
 #define CONVERT_M_X                 (CONVERT_M)
 #define CONVERT_M_Y                 (CONVERT_M)
 #define CONVERT_M_Z                 (CONVERT_M)
-#endif
 
 /* conversion of orientation data to degree units */
 #define CONVERT_O                   (1.0f/64.0f)
 #define CONVERT_O_A                 (CONVERT_O)
 #define CONVERT_O_P                 (CONVERT_O)
-#define CONVERT_O_R                 (-CONVERT_O)
+#define CONVERT_O_R                 (CONVERT_O)
 
 // conversion of gyro data to SI units (radian/sec)
 #define RANGE_GYRO                  (2000.0f*(float)M_PI/180.0f)
