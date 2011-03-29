@@ -26,12 +26,8 @@
 #include <sys/types.h>
 #include <hardware/lights.h>
 
-#define LIGHT_ATTENTION 1
-#define LIGHT_NOTIFY 1
-
 static pthread_once_t g_init = PTHREAD_ONCE_INIT;
 static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
-static struct light_state_t g_notify;
 
 char const *const LCD_FILE = "/sys/class/backlight/s5p_bl/brightness";
 char const *const LED_FILE = "/sys/class/misc/notification/led";
@@ -69,33 +65,21 @@ static int rgb_to_brightness(struct light_state_t const *state)
 		+ (150*((color>>8) & 0x00ff)) + (29*(color & 0x00ff))) >> 8;
 }
 
-static int handle_led_notification(struct light_device_t *dev)
-{
-	if (g_notify.flashMode == LIGHT_FLASH_TIMED) {
-		write_int(LED_FILE, 1);
-	} else if (g_notify.flashMode == LIGHT_FLASH_NONE) {
-		write_int(LED_FILE, 0);
-	} else {
-		SLOGE("handle_led_notification, unknown mode %d for notification\n",
-			g_notify.flashMode);
-	}
-	return 0;
-}
-
 static int set_light_notifications(struct light_device_t* dev,
 			struct light_state_t const* state)
 {
 	int brightness =  rgb_to_brightness(state);
+	int v = 0;
 	pthread_mutex_lock(&g_lock);
-	g_notify = *state;
-	/* If LEDs are dim'd (not full brightness) it means we are in CM's quiet hours.
-	 * Since we can't dim our bright touchkeys, we just don't light anything up
-	 * during quiet hours
-	 */
-	if ((brightness+state->color == 0) || brightness > 100)
-		handle_led_notification(dev);
+
+	if (state->flashMode != LIGHT_FLASH_NONE && (brightness+state->color == 0 || brightness > 100)) {
+		if (state->color & 0x00ffffff)
+			v = 1;
+	} else
+		v = 0;
+
 	pthread_mutex_unlock(&g_lock);
-	return 0;
+	return write_int(LED_FILE, v);
 }
 
 static int set_light_backlight(struct light_device_t *dev,
@@ -131,8 +115,6 @@ static int open_lights(const struct hw_module_t *module, char const *name,
 	if (0 == strcmp(LIGHT_ID_BACKLIGHT, name))
 		set_light = set_light_backlight;
 	else if (0 == strcmp(LIGHT_ID_NOTIFICATIONS, name))
-		set_light = set_light_notifications;
-	else if (0 == strcmp(LIGHT_ID_ATTENTION, name))
 		set_light = set_light_notifications;
 	else
 		return -EINVAL;
