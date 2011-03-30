@@ -70,16 +70,19 @@ static int set_light_notifications(struct light_device_t* dev,
 {
 	int brightness =  rgb_to_brightness(state);
 	int v = 0;
+	int ret = 0;
 	pthread_mutex_lock(&g_lock);
 
-	if (state->flashMode != LIGHT_FLASH_NONE && (brightness+state->color == 0 || brightness > 100)) {
+	if (brightness+state->color == 0 || brightness > 100) {
 		if (state->color & 0x00ffffff)
 			v = 1;
 	} else
 		v = 0;
 
+	LOGI("color %u fm %u status %u is lit %u brightness", state->color, state->flashMode, v, (state->color & 0x00ffffff), brightness);
+	ret = write_int(LED_FILE, v);
 	pthread_mutex_unlock(&g_lock);
-	return write_int(LED_FILE, v);
+	return ret;
 }
 
 static int set_light_backlight(struct light_device_t *dev,
