@@ -54,13 +54,9 @@ __BEGIN_DECLS
 
 #define AKM_DEVICE_NAME     "/dev/akm8973_aot"
 
-#ifdef CAPTIVATE
-#define EVENT_TYPE_ACCEL_X          ABS_Y
-#define EVENT_TYPE_ACCEL_Y          ABS_X
-#else
+
 #define EVENT_TYPE_ACCEL_X          ABS_X
 #define EVENT_TYPE_ACCEL_Y          ABS_Y
-#endif
 #define EVENT_TYPE_ACCEL_Z          ABS_Z
 
 #define EVENT_TYPE_YAW              REL_X
