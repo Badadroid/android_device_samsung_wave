@@ -248,8 +248,6 @@ public:
 
     int             flagCreate(void) const;
 
-
-    int             setCameraId(int camera_id);
     int             getCameraId(void);
 
     int             startPreview(void);
