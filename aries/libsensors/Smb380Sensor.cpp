@@ -29,7 +29,7 @@
 
 /*****************************************************************************/
 Smb380Sensor::Smb380Sensor()
-    : SensorBase(NULL, "SMB380-Sensor"),
+    : SensorBase(NULL, "accelerometer_sensor"),
       mEnabled(0),
 
       mInputReader(4),
@@ -161,7 +161,7 @@ int Smb380Sensor::readEvents(sensors_event_t* data, int count)
 	
     while (count && mInputReader.readEvent(&event)) {
         int type = event->type;
-        if (type == EV_ABS) {
+        if (type == EV_REL) {
             float value = event->value;
             if (event->code == EVENT_TYPE_ACCEL_X) {
                 mPendingEvent.acceleration.x = value * CONVERT_A_X;

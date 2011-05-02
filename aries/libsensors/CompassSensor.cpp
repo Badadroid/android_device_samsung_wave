@@ -29,7 +29,7 @@
 
 /*****************************************************************************/
 CompassSensor::CompassSensor()
-    : SensorBase(NULL, "yas529"),
+    : SensorBase(NULL, "magnetic_sensor"),
       //mEnabled(0),
       mInputReader(4),
       mHasPendingEvent(false)
@@ -163,7 +163,7 @@ int CompassSensor::readEvents(sensors_event_t* data, int count)
 	
     while (count && mInputReader.readEvent(&event)) {
         int type = event->type;
-        if (type == EV_ABS) {
+        if (type == EV_REL) {
             float value = event->value;
             if (event->code == EVENT_TYPE_MAGV_X) {
                 mPendingEvent.magnetic.x = value * CONVERT_M_X;

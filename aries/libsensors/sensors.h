@@ -63,9 +63,9 @@ __BEGIN_DECLS
 #endif
 #define EVENT_TYPE_ACCEL_Z          ABS_Z
 
-#define EVENT_TYPE_YAW              REL_RX
-#define EVENT_TYPE_PITCH            REL_RY
-#define EVENT_TYPE_ROLL             REL_RZ
+#define EVENT_TYPE_YAW              REL_X
+#define EVENT_TYPE_PITCH            REL_Y
+#define EVENT_TYPE_ROLL             REL_Z
 #define EVENT_TYPE_ORIENT_STATUS    REL_WHEEL
 
 /* For AK8973iB */
@@ -105,7 +105,7 @@ __BEGIN_DECLS
 #define CONVERT_M_Z                 (CONVERT_M)
 
 /* conversion of orientation data to degree units */
-#define CONVERT_O                   (1.0f/64.0f)
+#define CONVERT_O                   (1.0f/1000.0f)
 #define CONVERT_O_A                 (CONVERT_O)
 #define CONVERT_O_P                 (CONVERT_O)
 #define CONVERT_O_R                 (CONVERT_O)

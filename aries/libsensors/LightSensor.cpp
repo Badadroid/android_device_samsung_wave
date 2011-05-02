@@ -35,7 +35,7 @@
 #define FIRST_GOOD_EVENT    5
 
 LightSensor::LightSensor()
-    : SensorBase(NULL, "lightsensor-level"),
+    : SensorBase(NULL, "light_sensor"),
       mEnabled(0),
       mEventsSinceEnable(0),
       mInputReader(4),

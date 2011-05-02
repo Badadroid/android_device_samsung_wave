@@ -35,8 +35,10 @@
 
 #include "LightSensor.h"
 #include "ProximitySensor.h"
-#include "BoschYamaha.h"
-//#include "Smb380Sensor.h"
+//#include "BoschYamaha.h"
+#include "Smb380Sensor.h"
+#include "CompassSensor.h"
+#include "OrientationSensor.h"
 
 /*****************************************************************************/
 
@@ -76,8 +78,8 @@ static const struct sensor_t sSensorList[] = {
           "Yamaha ",
           1, SENSORS_MAGNETIC_FIELD_HANDLE,
           SENSOR_TYPE_MAGNETIC_FIELD, 2000.0f, CONVERT_M, 6.8f, 30000, { } },
-		 { "Fake Orientation Sensor",
-          "BoschYamaha ",
+	{ "Fake Orientation Sensor",
+          "CM7 Team",
           1, SENSORS_ORIENTATION_HANDLE,
           SENSOR_TYPE_ORIENTATION,  360.0f, CONVERT_O, 7.8f, 30000, { } },  
         { "GP2A Light sensor",
@@ -132,10 +134,10 @@ private:
     enum {
         light           = 0,
         proximity       = 1,
-        //akm             = 2,
-        boschyama     = 2,
-        //yamaha          = 3,
-        numSensorDrivers,
+        bosch           = 2,
+        yamaha          = 3,
+	orientation 	= 4,        
+	numSensorDrivers,
         numFds,
     };
 
@@ -149,10 +151,12 @@ private:
         switch (handle) {
            
             case ID_A:
-			case ID_O:
-			case ID_M:
-                return boschyama;
-            case ID_P:
+            	return bosch;
+	    case ID_M:
+            	return yamaha;
+	    case ID_O:
+		return orientation;
+	    case ID_P:
                 return proximity;
             case ID_L:
                 return light;
@@ -176,10 +180,20 @@ sensors_poll_context_t::sensors_poll_context_t()
     mPollFds[proximity].events = POLLIN;
     mPollFds[proximity].revents = 0;
 
-    mSensors[boschyama] = new BoschYamaha();
-    mPollFds[boschyama].fd = mSensors[boschyama]->getFd();
-    mPollFds[boschyama].events = POLLIN;
-    mPollFds[boschyama].revents = 0;
+    mSensors[bosch] = new Smb380Sensor();
+    mPollFds[bosch].fd = mSensors[bosch]->getFd();
+    mPollFds[bosch].events = POLLIN;
+    mPollFds[bosch].revents = 0;
+
+    mSensors[yamaha] = new CompassSensor();
+    mPollFds[yamaha].fd = mSensors[yamaha]->getFd();
+    mPollFds[yamaha].events = POLLIN;
+    mPollFds[yamaha].revents = 0;
+
+    mSensors[orientation] = new OrientationSensor();
+    mPollFds[orientation].fd = mSensors[orientation]->getFd();
+    mPollFds[orientation].events = POLLIN;
+    mPollFds[orientation].revents = 0;
 
     int wakeFds[2];
     int result = pipe(wakeFds);
@@ -255,6 +269,7 @@ int sensors_poll_context_t::pollEvents(sensors_event_t* data, int count)
                 int result = read(mPollFds[wake].fd, &msg, 1);
                 LOGE_IF(result<0, "error reading from wake pipe (%s)", strerror(errno));
                 LOGE_IF(msg != WAKE_MESSAGE, "unknown message on wake queue (0x%02x)", int(msg));
+
                 mPollFds[wake].revents = 0;
             }
         }
