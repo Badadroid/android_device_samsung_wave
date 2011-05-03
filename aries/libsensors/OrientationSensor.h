@@ -39,7 +39,6 @@ class OrientationSensor : public SensorBase {
     char input_sysfs_path[PATH_MAX];
     int input_sysfs_path_len;
 
-    int setInitialState();
 
 public:
             OrientationSensor();

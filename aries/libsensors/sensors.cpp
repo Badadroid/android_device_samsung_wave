@@ -79,7 +79,7 @@ static const struct sensor_t sSensorList[] = {
           1, SENSORS_MAGNETIC_FIELD_HANDLE,
           SENSOR_TYPE_MAGNETIC_FIELD, 2000.0f, CONVERT_M, 6.8f, 30000, { } },
 	{ "CM Hacked Orientation Sensor",
-          "CMSGS Team",
+          "CM Team",
           1, SENSORS_ORIENTATION_HANDLE,
           SENSOR_TYPE_ORIENTATION,  360.0f, CONVERT_O, 7.8f, 30000, { } },  
         { "GP2A Light sensor",

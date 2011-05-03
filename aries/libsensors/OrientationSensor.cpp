@@ -61,32 +61,6 @@ OrientationSensor::~OrientationSensor() {
 }
 
 
-int OrientationSensor::setInitialState() {
-    
-    LOGD("OrientationSensor::~setInitialState()");
-    struct input_absinfo absinfo_x;
-    struct input_absinfo absinfo_y;
-    struct input_absinfo absinfo_z;
-    float value;
-    if (!ioctl(data_fd, EVIOCGABS(EVENT_TYPE_YAW), &absinfo_x) &&
-        !ioctl(data_fd, EVIOCGABS(EVENT_TYPE_PITCH), &absinfo_y) &&
-        !ioctl(data_fd, EVIOCGABS(EVENT_TYPE_ROLL), &absinfo_z)) {
-        value = absinfo_x.value;
-        mPendingEvent.orientation.azimuth = value * CONVERT_O_A;
-        value = absinfo_y.value;
-        mPendingEvent.orientation.pitch= value * CONVERT_O_P;
-        value = absinfo_z.value;
-        mPendingEvent.orientation.roll = value * CONVERT_O_R;
-        mHasPendingEvent = true;
-    }
-    else
-    {
-        LOGD("OrientationSensor::~setInitialState() ioctl failed");
-    }
-    return 0;
-}
-
-
 int OrientationSensor::enable(int32_t, int en) {
 
 	   
@@ -110,7 +84,7 @@ int OrientationSensor::enable(int32_t, int en) {
             err = write(fd, buf, sizeof(buf));
             close(fd);
             mEnabled = flags;
-            setInitialState();
+            //setInitialState();
             return 0;
         }
         return -1;        
