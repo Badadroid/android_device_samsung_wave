@@ -2119,7 +2119,7 @@ static CameraInfo sCameraInfo[] = {
 #ifdef FFC_PRESENT
     {
         CAMERA_FACING_FRONT,
-        270,  /* orientation */
+        0,  /* orientation */
     }
 #endif
 };
