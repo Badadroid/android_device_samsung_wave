@@ -54,7 +54,6 @@ class Smb380Sensor : public SensorBase {
     char input_sysfs_path[PATH_MAX];
     int input_sysfs_path_len;
 
-    int setInitialState();
 
 public:
             Smb380Sensor();

@@ -62,31 +62,6 @@ Smb380Sensor::~Smb380Sensor() {
 }
 
 
-int Smb380Sensor::setInitialState() {
-    
-    LOGD("Smb380Sensor::~setInitialState()");
-    struct input_absinfo absinfo_x;
-    struct input_absinfo absinfo_y;
-    struct input_absinfo absinfo_z;
-    float value;
-    if (!ioctl(data_fd, EVIOCGABS(EVENT_TYPE_ACCEL_X), &absinfo_x) &&
-        !ioctl(data_fd, EVIOCGABS(EVENT_TYPE_ACCEL_Y), &absinfo_y) &&
-        !ioctl(data_fd, EVIOCGABS(EVENT_TYPE_ACCEL_Z), &absinfo_z)) {
-        value = absinfo_x.value;
-        mPendingEvent.acceleration.x = value * CONVERT_A_X;
-        value = absinfo_y.value;
-        mPendingEvent.acceleration.y = value * CONVERT_A_Y;
-        value = absinfo_z.value;
-        mPendingEvent.acceleration.z = value * CONVERT_A_Z;
-        mHasPendingEvent = true;
-    }
-    else
-    {
-        LOGD("Smb380Sensor::~setInitialState() ioctl failed");
-    }
-    return 0;
-}
-
 
 int Smb380Sensor::enable(int32_t, int en) {
 
@@ -111,7 +86,7 @@ int Smb380Sensor::enable(int32_t, int en) {
             err = write(fd, buf, sizeof(buf));
             close(fd);
             mEnabled = flags;
-            setInitialState();
+            //setInitialState();
             return 0;
         }
         return -1;        

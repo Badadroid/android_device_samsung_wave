@@ -64,31 +64,6 @@ CompassSensor::~CompassSensor() {
 }
 
 
-int CompassSensor::setInitialState() {
-    
-    LOGD("CompassSensor::~setInitialState()");
-    struct input_absinfo absinfo_x;
-    struct input_absinfo absinfo_y;
-    struct input_absinfo absinfo_z;
-    float value;
-    if (!ioctl(data_fd, EVIOCGABS(EVENT_TYPE_MAGV_X), &absinfo_x) &&
-        !ioctl(data_fd, EVIOCGABS(EVENT_TYPE_MAGV_Y), &absinfo_y) &&
-        !ioctl(data_fd, EVIOCGABS(EVENT_TYPE_MAGV_Z), &absinfo_z)) {
-        value = absinfo_x.value;
-        mPendingEvent.magnetic.x = value * CONVERT_M_X;
-        value = absinfo_y.value;
-        mPendingEvent.magnetic.y = value * CONVERT_M_Y;
-        value = absinfo_z.value;
-        mPendingEvent.magnetic.z = value * CONVERT_M_Z;
-        mHasPendingEvent = true;
-    }
-    else
-    {
-        LOGD("CompassSensor::~setInitialState() ioctl failed");
-    }
-    return 0;
-}
-
 
 int CompassSensor::enable(int32_t, int en) {
 
@@ -113,7 +88,6 @@ int CompassSensor::enable(int32_t, int en) {
             err = write(fd, buf, sizeof(buf));
             close(fd);
             mEnabled = flags;
-            setInitialState();
             return 0;
         }
         return -1;        
