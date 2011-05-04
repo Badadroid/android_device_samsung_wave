@@ -48,7 +48,7 @@ OrientationSensor::OrientationSensor()
         strcat(input_sysfs_path, "/device/");
         input_sysfs_path_len = strlen(input_sysfs_path);
 
-        enable(0, 1);
+       // enable(0, 1);
     }
 }
 
