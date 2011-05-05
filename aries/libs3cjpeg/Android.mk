@@ -1,3 +1,4 @@
+ifeq ($(Y_U_NO_HAVE_CAMERA),true)
 # Copyright (C) 2008 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,3 +33,4 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_PRELINK_MODULE := false
 
 include $(BUILD_SHARED_LIBRARY)
+endif
