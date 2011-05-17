@@ -1,8 +1,0 @@
-INSTALLED_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.img
-$(INSTALLED_BOOTIMAGE_TARGET): device/samsung/common/aries/mkshbootimg.py \
-		$(TARGET_RECOVERY_COMPRESSED_INITRAMFS) \
-		$(BUILT_COMPRESSED_INITRAMFS_TARGET) \
-		$(TARGET_PREBUILT_KERNEL)
-	$(call pretty,"Boot image: $@")
-	$(hide) ./device/samsung/common/aries/mkshbootimg.py $@ $(TARGET_PREBUILT_KERNEL) $(BUILT_COMPRESSED_INITRAMFS_TARGET) $(TARGET_RECOVERY_COMPRESSED_INITRAMFS)
-	
