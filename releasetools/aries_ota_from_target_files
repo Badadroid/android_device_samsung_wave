@@ -41,6 +41,7 @@ def CopyBootFiles(input_zip, output_zip):
 
 def CopyBMLoverMTD(output_zip):
   """Copy the bml_over_mtd utility and script to the output."""
+  output_zip.write(os.path.join(TARGET_DIR, "modem.bin"),"modem.bin")
   output_zip.write(os.path.join(UTILITIES_DIR, "make_ext4fs"),"make_ext4fs")
   output_zip.write(os.path.join(UTILITIES_DIR, "busybox"),"busybox")
   output_zip.write(os.path.join(UTILITIES_DIR, "flash_image"),"flash_image")

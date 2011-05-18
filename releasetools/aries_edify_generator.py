@@ -17,12 +17,22 @@ import os, sys
 
 LOCAL_DIR = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 RELEASETOOLS_DIR = os.path.abspath(os.path.join(LOCAL_DIR, '../../../build/tools/releasetools'))
+VENDOR_SAMSUNG_DIR = os.path.abspath(os.path.join(LOCAL_DIR, '../../../vendor/samsung'))
 
 import edify_generator
 
 class EdifyGenerator(edify_generator.EdifyGenerator):
-    def RunBackup(self, command):
-      edify_generator.EdifyGenerator.RunBackup(self, command)
+    def AssertDevice(self, device):
+      edify_generator.EdifyGenerator(self, device)
+
+      self.script.append('ui_print("Checking state of BML/MTD...");')
+
+      self.script.append(
+            ('package_extract_file("modem.bin, "/tmp/modem.bin");\n'
+             'set_perm(0, 0, 0777, "/tmp/modem.bin");'))
+      self.script.append(
+            ('package_extract_file("updater.sh", "/tmp/updater.sh");\n'
+             'set_perm(0, 0, 0777, "/tmp/updater.sh");'))
       self.script.append(
             ('package_extract_file("updater.sh", "/tmp/updater.sh");\n'
              'set_perm(0, 0, 0777, "/tmp/updater.sh");'))
@@ -44,6 +54,9 @@ class EdifyGenerator(edify_generator.EdifyGenerator):
 
       self.script.append('package_extract_file("boot.img", "/tmp/boot.img");')
       self.script.append('run_program("/tmp/updater.sh");')
+
+    def RunBackup(self, command):
+      edify_generator.EdifyGenerator.RunBackup(self, command)
 
     def WriteBMLoverMTD(self, partition, partition_start_block, reservoirpartition, reservoir_start_block, image):
       """Write the given package file into the given partition."""
