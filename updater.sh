@@ -49,7 +49,7 @@ if /tmp/busybox test -e /dev/block/bml7 ; then
         fi
 
 	# write new kernel to boot partition
-	/tmp/flash_image /tmp/boot.img /dev/block/bml7
+	/tmp/flash_image boot /tmp/boot.img
 	
 	/sbin/reboot now
 	exit 0
