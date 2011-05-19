@@ -50,7 +50,7 @@ class EdifyGenerator(edify_generator.EdifyGenerator):
              'set_perm(0, 0, 0777, "/tmp/bml_over_mtd.sh");'))
 
       self.script.append('package_extract_file("boot.img", "/tmp/boot.img");')
-      self.script.append('assert(run_program("/tmp/updater.sh"));')
+      self.script.append('assert(run_program("/tmp/updater.sh") == 0);')
 
     def RunBackup(self, command):
       edify_generator.EdifyGenerator.RunBackup(self, command)
