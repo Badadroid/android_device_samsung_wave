@@ -23,12 +23,12 @@ import edify_generator
 
 class EdifyGenerator(edify_generator.EdifyGenerator):
     def AssertDevice(self, device):
-      edify_generator.EdifyGenerator(self, device)
+      edify_generator.EdifyGenerator.AssertDevice(self, device)
 
       self.script.append('ui_print("Checking state of BML/MTD...");')
 
       self.script.append(
-            ('package_extract_file("modem.bin, "/tmp/modem.bin");\n'
+            ('package_extract_file("modem.bin", "/tmp/modem.bin");\n'
              'set_perm(0, 0, 0777, "/tmp/modem.bin");'))
       self.script.append(
             ('package_extract_file("updater.sh", "/tmp/updater.sh");\n'
