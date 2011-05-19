@@ -34,6 +34,9 @@ class EdifyGenerator(edify_generator.EdifyGenerator):
             ('package_extract_file("updater.sh", "/tmp/updater.sh");\n'
              'set_perm(0, 0, 0777, "/tmp/updater.sh");'))
       self.script.append(
+           ('package_extract_file("make_ext4fs", "/tmp/make_ext4fs");\n'
+            'set_perm(0, 0, 0777, "/tmp/make_ext4fs");'))
+      self.script.append(
             ('package_extract_file("busybox", "/tmp/busybox");\n'
              'set_perm(0, 0, 0777, "/tmp/busybox");'))
       self.script.append(
