@@ -33,7 +33,7 @@ if /tmp/busybox test -e /dev/block/bml7 ; then
         /tmp/busybox umount -l /dev/block/stl3
         if ! /tmp/busybox mount -t rfs /dev/block/stl3 /efs ; then
             /tmp/busybox echo "Cannot mount efs."
-            exit 1
+            exit 2
         fi
     fi
 
@@ -57,6 +57,9 @@ if /tmp/busybox test -e /dev/block/bml7 ; then
 
     # write new kernel to boot partition
     /tmp/flash_image boot /tmp/boot.img
+    if [ "$?" != "0" ] ; then
+        exit 3
+    fi
     /tmp/busybox sync
 
     /sbin/reboot now
@@ -72,7 +75,7 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
         /tmp/busybox umount -l /dev/block/mmcblk0p1
         if ! /tmp/busybox mount -t vfat /dev/block/mmcblk0p1 /sdcard ; then
             /tmp/busybox echo "Cannot mount sdcard."
-            exit 1
+            exit 4
         fi
     fi
 
@@ -85,7 +88,7 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
     # if a cyanogenmod.cfg exists, then this is a first time install
     # let's format the volumes and restore radio and efs
     if ! /tmp/busybox test -e /sdcard/cyanogenmod.cfg ; then
-        exit 1
+        exit 0
     fi
     # remove the cyanogenmod.cfg to prevent this from looping
     /tmp/busybox rm -f /sdcard/cyanogenmod.cfg
@@ -119,7 +122,7 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
         if ! /tmp/busybox grep -q /efs /proc/mounts ; then
             if ! /tmp/busybox mount -t yaffs2 /dev/block/mtdblock4 /efs ; then
                 /tmp/busybox echo "Cannot mount efs."
-                exit 1
+                exit 6
             fi
         fi
 
@@ -127,6 +130,7 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
         /tmp/busybox umount -l /efs
     else
         /tmp/busybox echo "Cannot restore efs."
+        exit 7
     fi
 
     # flash boot image
