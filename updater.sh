@@ -42,7 +42,7 @@ if /tmp/busybox test -e /dev/block/bml7 ; then
         /tmp/busybox/mv /mnt/sdcard/backup/efs /mnt/sdcard/backup/efs-$$
     fi
     /tmp/busybox rm -rf /mnt/sdcard/backup/efs
-
+    
     /tmp/busybox mkdir -p /mnt/sdcard/backup/efs
     /tmp/busybox cp -R /efs/ /mnt/sdcard/backup
 
@@ -51,6 +51,9 @@ if /tmp/busybox test -e /dev/block/bml7 ; then
         PACKAGE_LOCATION=${UPDATE_PACKAGE#/mnt}
         /tmp/busybox echo "$PACKAGE_LOCATION" > /mnt/sdcard/cyanogenmod.cfg
     fi
+
+    # Scorch any ROM Manager settings to require the user to reflash recovery
+    /tmp/busybox rm -f /mnt/sdcard/clockworkmod/.settings
 
     # write new kernel to boot partition
     /tmp/flash_image boot /tmp/boot.img
