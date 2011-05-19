@@ -103,6 +103,7 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
     /tmp/erase_image cache
 
     # unmount and format data
+    /tmp/busybox umount /data
     /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data /dev/block/mmcblk0p2
 
     # unmount and format datadata
