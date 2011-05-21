@@ -15,11 +15,12 @@
 # limitations under the License.
 
 DEVICE=galaxysmtd
+COMMON=aries-common
 MANUFACTURER=samsung
 
 mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE
 
-(cat << EOF) | sed s/__DEVICE__/$DEVICE/g | sed s/__MANUFACTURER__/$MANUFACTURER/g > ../../../vendor/$MANUFACTURER/$DEVICE/$DEVICE-vendor.mk
+(cat << EOF) | sed s/__DEVICE__/$DEVICE/g | sed s/__MANUFACTURER__/$MANUFACTURER/g | sed s/__COMMON__/$COMMON/g > ../../../vendor/$MANUFACTURER/$DEVICE/$DEVICE-vendor.mk
 # Copyright (C) 2010 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,11 +48,12 @@ PRODUCT_COPY_FILES := \\
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
 
 # Pick up overlay for features that depend on non-open-source files
-DEVICE_PACKAGE_OVERLAYS := vendor/$MANUFACTURER/aries-common/overlay
+DEVICE_PACKAGE_OVERLAYS := vendor/__MANUFACTURER__/aries-common/overlay
 
-\$(call inherit-product, vendor/$MANUFACTURER/$DEVICE/$DEVICE-vendor-blobs.mk)
-\$(call inherit-product, vendor/$MANUFACTURER/aries-common/aries-vendor-blobs.mk)
+\$(call inherit-product, vendor/__MANUFACTURER__/__DEVICE__/__DEVICE__-vendor-blobs.mk)
+\$(call inherit-product, vendor/__MANUFACTURER__/__COMMON__/aries-vendor-blobs.mk)
 EOF
+
 
 (cat << EOF) | sed s/__DEVICE__/$DEVICE/g | sed s/__MANUFACTURER__/$MANUFACTURER/g > ../../../vendor/$MANUFACTURER/$DEVICE/BoardConfigVendor.mk
 # Copyright (C) 2010 The Android Open Source Project
@@ -78,10 +80,12 @@ BOARD_USES_LIBSECRIL_STUB := false
 
 BOARD_NO_PAGE_FLIPPING := false
 BOARD_NO_32BPP := false
+
 EOF
 
-mkdir -p ../../../vendor/$MANUFACTURER/aries-common/overlay/packages/apps/Launcher2/res/layout
-(cat << EOF) | sed s/__DEVICE__/$DEVICE/g | sed s/__MANUFACTURER__/$MANUFACTURER/g > ../../../vendor/$MANUFACTURER/aries-common/overlay/packages/apps/Launcher2/res/layout/all_apps.xml
+
+mkdir -p ../../../vendor/$MANUFACTURER/$COMMON/overlay/packages/apps/Launcher2/res/layout
+(cat << EOF) | sed s/__DEVICE__/$DEVICE/g | sed s/__MANUFACTURER__/$MANUFACTURER/g > ../../../vendor/$MANUFACTURER/$COMMON/overlay/packages/apps/Launcher2/res/layout/all_apps.xml
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (C) 2010 The Android Open Source Project
 
