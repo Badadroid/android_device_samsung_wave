@@ -101,4 +101,4 @@ TARGET_RECOVERY_PRE_COMMAND="echo 1 > /cache/.startrecovery; sync;"
 # Include aries specific stuff
 -include device/samsung/aries-common/Android.mk
 
-TARGET_OTA_ASSERT_DEVICE := aries,galaxys,galaxysmtd,GT-I9000,GT-I9000M,GT-I9000T
+TARGET_OTA_ASSERT_DEVICE := galaxys,galaxysmtd,GT-I9000,GT-I9000M,GT-I9000T
