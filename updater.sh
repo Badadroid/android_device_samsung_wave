@@ -126,8 +126,16 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
                 exit 6
             fi
         fi
-
+        
+        # copy efsbackup from sdcard to new efs partition
         /tmp/busybox cp -R /sdcard/backup/efs /
+
+        # set permissions on /efs
+        /tmp/busybox chown -R radio:radio /efs
+        /tmp/busybox chown -R bluetooth:bluetooth /efs/bluetooth
+        /tmp/busybox chmod -R 660 /efs
+
+        # unmount /efs
         /tmp/busybox umount -l /efs
     else
         /tmp/busybox echo "Cannot restore efs."
