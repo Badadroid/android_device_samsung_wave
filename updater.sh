@@ -85,11 +85,39 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
     # everything is logged into /sdcard/cyanogenmod.log
     exec >> /sdcard/cyanogenmod_mtd.log 2>&1
 
+    # create mountpoint for radio partition
+    /tmp/busybox mkdir -p /radio
+	
+    # make sure radio partition is mounted
+    if ! /tmp/busybox grep -q /radio /proc/mounts ; then
+        /tmp/busybox umount -l /dev/block/mtdblock5
+        if ! /tmp/busybox mount -t yaffs2 /dev/block/mtdblock5 /radio ; then
+            /tmp/busybox echo "Cannot mount radio partition."
+            exit 5
+	fi
+    fi
+	
+    # if modem.bin doesn't exist on radio partition, format the partition and copy it
+    if ! /tmp/busybox test -e /radio/modem.bin ; then
+	    /tmp/busybox umount -l /dev/block/mtdblock5
+        /tmp/erase_image radio
+	    if ! /tmp/busybox mount -t yaffs2 /dev/block/mtdblock5 /radio ; then
+            /tmp/busybox echo "Cannot copy modem.bin to radio partition."
+            exit 5
+	else
+            /tmp/busybox cp /tmp/modem.bin /radio/modem.bin
+	fi
+    fi
+	
+    # unmount radio partition
+    /tmp/busybox umount -l /dev/block/mtdblock5
+	
     # if a cyanogenmod.cfg exists, then this is a first time install
     # let's format the volumes and restore radio and efs
     if ! /tmp/busybox test -e /sdcard/cyanogenmod.cfg ; then
         exit 0
     fi
+	
     # remove the cyanogenmod.cfg to prevent this from looping
     /tmp/busybox rm -f /sdcard/cyanogenmod.cfg
 
@@ -110,10 +138,6 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
     /tmp/busybox umount -l /datadata
     /tmp/erase_image datadata
 
-    # flash radio image
-    /tmp/erase_image radio
-    /tmp/flash_image radio /tmp/modem.bin
-
     # restore efs backup
     if /tmp/busybox test -e /sdcard/backup/efs/nv_data.bin ; then
         /tmp/busybox umount -l /efs
@@ -126,16 +150,8 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
                 exit 6
             fi
         fi
-        
-        # copy efsbackup from sdcard to new efs partition
+
         /tmp/busybox cp -R /sdcard/backup/efs /
-
-        # set permissions on /efs
-        /tmp/busybox chown -R radio:radio /efs
-        /tmp/busybox chown -R bluetooth:bluetooth /efs/bluetooth
-        /tmp/busybox chmod -R 660 /efs
-
-        # unmount /efs
         /tmp/busybox umount -l /efs
     else
         /tmp/busybox echo "Cannot restore efs."
@@ -147,3 +163,4 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
 
     exit 0
 fi
+
