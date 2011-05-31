@@ -117,6 +117,10 @@ public:
 
             status_t setIncallPath_l(uint32_t device);
 
+#ifdef HAVE_FM_RADIO
+            status_t setFMRadioPath_l(uint32_t device);
+#endif
+
             status_t setInputSource_l(audio_source source);
 
     static uint32_t    getInputSampleRate(uint32_t sampleRate);

@@ -16,7 +16,7 @@
 
 #include <math.h>
 
-//#define LOG_NDEBUG 0
+#define LOG_NDEBUG 0
 
 #define LOG_TAG "AudioHardware"
 
@@ -471,6 +471,12 @@ status_t AudioHardware::setParameters(const String8& keyValuePairs)
     const char TTY_MODE_VALUE_VCO[] = "tty_vco";
     const char TTY_MODE_VALUE_HCO[] = "tty_hco";
     const char TTY_MODE_VALUE_FULL[] = "tty_full";
+#ifdef HAVE_FM_RADIO
+    const char FM_RADIO_KEY_ON[] = "fm_on";
+    const char FM_RADIO_KEY_OFF[] = "fm_off";
+    const char FM_RADIO_VALUE_ON[] = "2055";
+    const char FM_RADIO_VALUE_OFF[] = "7";
+#endif
 
     key = String8(BT_NREC_KEY);
     if (param.get(key, value) == NO_ERROR) {
@@ -508,6 +514,53 @@ status_t AudioHardware::setParameters(const String8& keyValuePairs)
         }
         param.remove(String8(TTY_MODE_KEY));
      }
+
+#ifdef HAVE_FM_RADIO
+    // fm radio on
+    key = String8(FM_RADIO_KEY_ON);
+    if (param.get(key, value) == NO_ERROR) {
+        if (value == FM_RADIO_VALUE_ON) {
+            LOGV("AudioHardware::setParameters() Turning FM Radio ON");
+            if (mMixer == NULL) {
+                openPcmOut_l();
+                openMixer_l();
+                setInputSource_l(AUDIO_SOURCE_DEFAULT);
+            }
+            if (mMixer != NULL) {
+                LOGV("AudioHardware::setParameters() FM Radio is ON, calling setFMRadioPath_l()");
+                setFMRadioPath_l(mOutput->device());
+            }
+        }
+    }
+    param.remove(String8(FM_RADIO_KEY_ON));
+
+    // fm radio off
+    key = String8(FM_RADIO_KEY_OFF);
+    if (param.get(key, value) == NO_ERROR) {
+        if (value == FM_RADIO_VALUE_OFF) {
+            LOGV("AudioHardware::setParameters() Turning FM Radio OFF");
+
+            if (mMixer != NULL) {
+                TRACE_DRIVER_IN(DRV_MIXER_GET)
+                struct mixer_ctl *ctl= mixer_get_control(mMixer, "FM Radio Path", 0);
+                TRACE_DRIVER_OUT
+
+                if (ctl != NULL) {
+                    TRACE_DRIVER_IN(DRV_MIXER_SEL)
+                    mixer_ctl_select(ctl, "FMR_MIX_OFF");
+                    TRACE_DRIVER_OUT
+
+                    TRACE_DRIVER_IN(DRV_MIXER_SEL)
+                    mixer_ctl_select(ctl, "FMR_OFF");
+                    TRACE_DRIVER_OUT
+                }
+                closeMixer_l();
+                closePcmOut_l();
+            }
+        }
+    }
+    param.remove(String8(FM_RADIO_KEY_OFF));
+#endif
 
     return NO_ERROR;
 }
@@ -742,6 +795,58 @@ status_t AudioHardware::setIncallPath_l(uint32_t device)
     return NO_ERROR;
 }
 
+#ifdef HAVE_FM_RADIO
+status_t AudioHardware::setFMRadioPath_l(uint32_t device)
+{
+    LOGV("setFMRadioPath_l() device %x", device);
+
+    AudioPath path;
+    const char *fmpath;
+
+    switch(device){
+         case AudioSystem::DEVICE_OUT_SPEAKER:
+            LOGD("setFMRadioPath_l() fmradio speaker route");
+            fmpath = "FMR_SPK";
+            break;
+
+        case AudioSystem::DEVICE_OUT_BLUETOOTH_SCO:
+        case AudioSystem::DEVICE_OUT_BLUETOOTH_SCO_HEADSET:
+        case AudioSystem::DEVICE_OUT_BLUETOOTH_SCO_CARKIT:
+            LOGD("setFMRadioPath_l() fmradio bluetooth route");
+            break;
+
+        case AudioSystem::DEVICE_OUT_WIRED_HEADSET:
+            LOGD("setFMRadioPath_l() fmradio headphone route");
+            fmpath = "FMR_HP";
+            break;
+        default:
+            LOGE("setFMRadioPath_l() fmradio error, route = [%d]", device);
+            fmpath = "FMR_HP";
+            break;
+    }
+
+    if (mMixer != NULL) {
+        LOGV("setFMRadioPath_l() mixer is open");
+        TRACE_DRIVER_IN(DRV_MIXER_GET)
+        struct mixer_ctl *ctl= mixer_get_control(mMixer, "FM Radio Path", 0);
+        TRACE_DRIVER_OUT
+
+        if (ctl != NULL) {
+            LOGV("setFMRadioPath_l() FM Radio Path, (%s)", fmpath);
+            TRACE_DRIVER_IN(DRV_MIXER_SEL)
+            mixer_ctl_select(ctl, fmpath);
+            TRACE_DRIVER_OUT
+        } else {
+            LOGE("setFMRadioPath_l() could not get mixer ctl");
+        }
+    } else {
+        LOGE("setFMRadioPath_l() mixer is not open");
+    }
+
+    return NO_ERROR;
+}
+#endif
+
 struct pcm *AudioHardware::openPcmOut_l()
 {
     LOGD("openPcmOut_l() mPcmOpenCnt: %d", mPcmOpenCnt);
@@ -897,6 +1002,12 @@ const char *AudioHardware::getInputRouteFromDevice(uint32_t device)
         return "Hands Free Mic";
     case AudioSystem::DEVICE_IN_BLUETOOTH_SCO_HEADSET:
         return "BT Sco Mic";
+#ifdef HAVE_FM_RADIO
+    case AudioSystem::DEVICE_IN_FM_RX:
+        return "FM Radio";
+    case AudioSystem::DEVICE_IN_FM_RX_A2DP:
+        return "FM Radio A2DP";
+#endif
     default:
         return "MIC OFF";
     }
@@ -1230,6 +1341,7 @@ bool AudioHardware::AudioStreamOutALSA::checkStandby()
 status_t AudioHardware::AudioStreamOutALSA::setParameters(const String8& keyValuePairs)
 {
     AudioParameter param = AudioParameter(keyValuePairs);
+
     status_t status = NO_ERROR;
     int device;
     LOGD("AudioStreamOutALSA::setParameters() %s", keyValuePairs.string());
@@ -1246,6 +1358,7 @@ status_t AudioHardware::AudioStreamOutALSA::setParameters(const String8& keyValu
 
                 if (mDevices != (uint32_t)device) {
                     mDevices = (uint32_t)device;
+
                     if (mHardware->mode() != AudioSystem::MODE_IN_CALL) {
                         doStandby_l();
                     }
@@ -1262,9 +1375,7 @@ status_t AudioHardware::AudioStreamOutALSA::setParameters(const String8& keyValu
         status = BAD_VALUE;
     }
 
-
     return status;
-
 }
 
 String8 AudioHardware::AudioStreamOutALSA::getParameters(const String8& keys)
