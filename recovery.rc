@@ -246,6 +246,7 @@ on boot
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
 
     write /dev/graphics/fb3 1
+    umount /system
 
     class_start default
 
