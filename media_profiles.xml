@@ -80,7 +80,7 @@
     <CamcorderProfiles cameraId="0">
         <EncoderProfile quality="hd" fileFormat="mp4" duration="60">
             <Video codec="h264"
-                   bitRate="12000000"
+                   bitRate="10000000"
                    width="1280"
                    height="720"
                    frameRate="30" />
