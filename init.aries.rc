@@ -53,6 +53,7 @@ on boot
 on fs
     mkdir /radio 0775 radio radio
     mount yaffs2 mtd@system /system
+    mount yaffs2 mtd@system /system ro remount
     mount yaffs2 mtd@cache /cache
     mount yaffs2 mtd@radio /radio
     mount ext4 /dev/block/mmcblk0p2 /data wait nosuid nodev noatime nodiratime noauto_da_alloc
@@ -80,8 +81,6 @@ on fs
     chown system system /sys/class/backlight/s5p_bl/brightness
 
 on post-fs
-    # once everything is setup, no need to modify /
-    #mount rootfs rootfs / ro remount
 
     # remove /sbin/sh so that "adb install" can work properly
     exec /sbin/setupenv.sh
