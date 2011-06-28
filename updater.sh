@@ -7,6 +7,19 @@
 set -x
 export PATH=/:/sbin:/system/xbin:/system/bin:/tmp:$PATH
 
+# check device model
+if /tmp/busybox test "`getprop ro.product.model`" = "SCH-I500" ; then
+    # we're on fascinate/mesmerize/showcase
+    sdcard_device="/dev/block/mmcblk1p1"
+    data_device="/dev/block/mmcblk0p1"
+    use_radio_files="false"
+else
+    # gsm sgs devices
+    sdcard_device="/dev/block/mmcblk0p1"
+    data_device="/dev/block/mmcblk0p2"
+    use_radio_files="true"
+fi
+
 # check if we're running on a bml or mtd device
 if /tmp/busybox test -e /dev/block/bml7 ; then
 # we're running on a bml device
@@ -14,8 +27,8 @@ if /tmp/busybox test -e /dev/block/bml7 ; then
     # make sure sdcard is mounted
     if ! /tmp/busybox grep -q /mnt/sdcard /proc/mounts ; then
         /tmp/busybox mkdir -p /mnt/sdcard
-        /tmp/busybox umount -l /dev/block/mmcblk0p1
-        if ! /tmp/busybox mount -t vfat /dev/block/mmcblk0p1 /mnt/sdcard ; then
+        /tmp/busybox umount -l $sdcard_device
+        if ! /tmp/busybox mount -t vfat $sdcard_device /mnt/sdcard ; then
             /tmp/busybox echo "Cannot mount sdcard."
             exit 1
         fi
@@ -26,6 +39,9 @@ if /tmp/busybox test -e /dev/block/bml7 ; then
 
     # everything is logged into /sdcard/cyanogenmod.log
     exec >> /mnt/sdcard/cyanogenmod_bml.log 2>&1
+
+# gsm
+if $use_radio_files ; then
 
     # make sure efs is mounted
     if ! /tmp/busybox grep -q /efs /proc/mounts ; then
@@ -45,6 +61,8 @@ if /tmp/busybox test -e /dev/block/bml7 ; then
     
     /tmp/busybox mkdir -p /mnt/sdcard/backup/efs
     /tmp/busybox cp -R /efs/ /mnt/sdcard/backup
+
+fi
 
     # write the package path to sdcard cyanogenmod.cfg
     if /tmp/busybox test -n "$UPDATE_PACKAGE" ; then
@@ -72,8 +90,8 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
     /tmp/busybox mkdir -p /sdcard
 
     if ! /tmp/busybox grep -q /sdcard /proc/mounts ; then
-        /tmp/busybox umount -l /dev/block/mmcblk0p1
-        if ! /tmp/busybox mount -t vfat /dev/block/mmcblk0p1 /sdcard ; then
+        /tmp/busybox umount -l $sdcard_device
+        if ! /tmp/busybox mount -t vfat $sdcard_device /sdcard ; then
             /tmp/busybox echo "Cannot mount sdcard."
             exit 4
         fi
@@ -84,6 +102,9 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
 
     # everything is logged into /sdcard/cyanogenmod.log
     exec >> /sdcard/cyanogenmod_mtd.log 2>&1
+
+# gsm
+if $use_radio_files ; then
 
     # create mountpoint for radio partition
     /tmp/busybox mkdir -p /radio
@@ -111,6 +132,8 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
 	
     # unmount radio partition
     /tmp/busybox umount -l /dev/block/mtdblock5
+
+fi
 	
     # if a cyanogenmod.cfg exists, then this is a first time install
     # let's format the volumes and restore radio and efs
@@ -132,11 +155,14 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
 
     # unmount and format data
     /tmp/busybox umount /data
-    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data /dev/block/mmcblk0p2
+    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data $data_device
 
     # unmount and format datadata
     /tmp/busybox umount -l /datadata
     /tmp/erase_image datadata
+
+# gsm
+if $use_radio_files ; then
 
     # restore efs backup
     if /tmp/busybox test -e /sdcard/backup/efs/nv_data.bin ; then
@@ -157,6 +183,12 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
         /tmp/busybox echo "Cannot restore efs."
         exit 7
     fi
+
+else
+# erase partitions anyways
+    /tmp/erase_image radio
+    /tmp/erase_image efs
+fi
 
     # flash boot image
     /tmp/bml_over_mtd.sh boot 72 reservoir 2004 /tmp/boot.img
