@@ -55,7 +55,7 @@ if $use_radio_files ; then
 
     # create a backup of efs
     if /tmp/busybox test -e /mnt/sdcard/backup/efs ; then
-        /tmp/busybox/mv /mnt/sdcard/backup/efs /mnt/sdcard/backup/efs-$$
+        /tmp/busybox mv /mnt/sdcard/backup/efs /mnt/sdcard/backup/efs-$$
     fi
     /tmp/busybox rm -rf /mnt/sdcard/backup/efs
     
