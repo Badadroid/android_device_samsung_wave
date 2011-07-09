@@ -1,3 +1,5 @@
+ifneq ($(TARGET_DEVICE),fascinatemtd)
+
 LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -51,3 +53,5 @@ ifeq ($(BOARD_HAVE_BLUETOOTH),true)
   LOCAL_CFLAGS += -DWITH_A2DP
 endif
 include $(BUILD_SHARED_LIBRARY)
+
+endif
