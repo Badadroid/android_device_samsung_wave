@@ -1,4 +1,4 @@
-ifneq ($(TARGET_DEVICE),fascinatemtd)
+ifneq ($(TARGET_PROVIDES_LIBAUDIO),true)
 
 LOCAL_PATH:= $(call my-dir)
 
