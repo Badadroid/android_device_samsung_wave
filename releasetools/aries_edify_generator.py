@@ -64,6 +64,9 @@ class EdifyGenerator(edify_generator.EdifyGenerator):
       args = {'partition': partition, 'partition_start_block': partition_start_block, 'reservoirpartition': reservoirpartition, 'reservoir_start_block': reservoir_start_block, 'image': image}
 
       self.script.append(
+            ('assert(run_program("/tmp/erase_image", "%(partition)s"));') % args)
+
+      self.script.append(
             ('assert(package_extract_file("%(image)s", "/tmp/%(partition)s.img"),\n'
              '       run_program("/tmp/bml_over_mtd.sh", "%(partition)s", "%(partition_start_block)s", "%(reservoirpartition)s", "%(reservoir_start_block)s", "/tmp/%(partition)s.img"),\n'
              '       delete("/tmp/%(partition)s.img"));') % args)
