@@ -16,7 +16,6 @@ on boot
     setprop ro.build.product aries
     setprop ro.product.device aries
     setprop ro.radio.noril yes
-    setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
 
 # fake some battery state
     setprop status.battery.state Slow
@@ -69,8 +68,6 @@ on fs
     chmod 770 /efs/imei
 
 # permissions for bluetooth.
-    chown bluetooth bluetooth /efs/bluetooth
-    chown bluetooth bluetooth ro.bt.bdaddr_path
     chown bluetooth bluetooth /dev/s3c2410_serial0
     chmod 0600 /dev/s3c2410_serial0
     chmod 0660 /sys/class/rfkill/rfkill0/state
@@ -208,6 +205,14 @@ service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
 service iprenew_eth0 /system/bin/dhcpcd -n
     disabled
     oneshot
+
+service bdaddr /system/bin/bdaddr_read
+    user root
+    disabled
+    oneshot
+
+on property:init.svc.bootanim=running
+    start bdaddr
 
 service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm \
     --baudrate 3000000 --patchram /vendor/firmware/bcm4329.hcd /dev/s3c2410_serial0
