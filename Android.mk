@@ -1,5 +1,3 @@
-ifeq ($(filter-out aries,$(TARGET_BOOTLOADER_BOARD_NAME)),)
-ifeq ($(filter-out s5pv210,$(TARGET_BOARD_PLATFORM)),)
+ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),aries)
     include $(all-subdir-makefiles)
-endif
 endif
