@@ -157,10 +157,9 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_LOCALES := hdpi
 
 # kernel modules
-PRODUCT_COPY_FILES += \
-    device/samsung/galaxysmtd/bcm4329.ko:system/lib/modules/bcm4329.ko \
-    device/samsung/galaxysmtd/cifs.ko:system/lib/modules/cifs.ko \
-    device/samsung/galaxysmtd/tun.ko:system/lib/modules/tun.ko
+PRODUCT_COPY_FILES += $(foreach module,\
+	$(wildcard device/samsung/galaxysmtd/*.ko),\
+	$(module):system/lib/modules/$(notdir $(module)))
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
     LOCAL_KERNEL := device/samsung/galaxysmtd/kernel
