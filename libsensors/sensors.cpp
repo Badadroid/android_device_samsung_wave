@@ -147,6 +147,13 @@ private:
     int mWritePipeFd;
     SensorBase* mSensors[numSensorDrivers];
 
+    // For keeping track of usage (only count from system)
+    bool mAccelActive;
+    bool mMagnetActive;
+    bool mOrientationActive;
+
+    int real_activate(int handle, int enabled);
+
     int handleToDriver(int handle) const {
         switch (handle) {
            
@@ -205,6 +212,10 @@ sensors_poll_context_t::sensors_poll_context_t()
     mPollFds[wake].fd = wakeFds[0];
     mPollFds[wake].events = POLLIN;
     mPollFds[wake].revents = 0;
+
+    mAccelActive = false;
+    mMagnetActive = false;
+    mOrientationActive = false;
 }
 
 sensors_poll_context_t::~sensors_poll_context_t() {
@@ -216,6 +227,36 @@ sensors_poll_context_t::~sensors_poll_context_t() {
 }
 
 int sensors_poll_context_t::activate(int handle, int enabled) {
+    int err;
+
+    // Orientation requires accelerometer and magnetic sensor
+    if (handle == ID_O) {
+        mOrientationActive = enabled ? true : false;
+        if (!mAccelActive) {
+            err = real_activate(ID_A, enabled);
+            if (err) return err;
+        }
+        if (!mMagnetActive) {
+            err = real_activate(ID_M, enabled);
+            if (err) return err;
+        }
+    }
+    // Keep track of magnetic and accelerometer use from system
+    else if (handle == ID_A) {
+        mAccelActive = enabled ? true : false;
+        // No need to enable or disable if orientation sensor is active as that will handle it
+        if (mOrientationActive) return 0;
+    }
+    else if (handle == ID_M) {
+        mMagnetActive = enabled ? true : false;
+        // No need to enable or disable if orientation sensor is active as that will handle it
+        if (mOrientationActive) return 0;
+    }
+
+    return real_activate(handle, enabled);
+}
+
+int sensors_poll_context_t::real_activate(int handle, int enabled) {
     int index = handleToDriver(handle);
     if (index < 0) return index;
     int err =  mSensors[index]->enable(handle, enabled);
