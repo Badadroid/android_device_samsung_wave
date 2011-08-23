@@ -471,12 +471,6 @@ status_t AudioHardware::setParameters(const String8& keyValuePairs)
     const char TTY_MODE_VALUE_VCO[] = "tty_vco";
     const char TTY_MODE_VALUE_HCO[] = "tty_hco";
     const char TTY_MODE_VALUE_FULL[] = "tty_full";
-#ifdef HAVE_FM_RADIO
-    const char FM_RADIO_KEY_ON[] = "fm_on";
-    const char FM_RADIO_KEY_OFF[] = "fm_off";
-    const char FM_RADIO_VALUE_ON[] = "2055";
-    const char FM_RADIO_VALUE_OFF[] = "7";
-#endif
 
     key = String8(BT_NREC_KEY);
     if (param.get(key, value) == NO_ERROR) {
@@ -517,49 +511,45 @@ status_t AudioHardware::setParameters(const String8& keyValuePairs)
 
 #ifdef HAVE_FM_RADIO
     // fm radio on
-    key = String8(FM_RADIO_KEY_ON);
+    key = String8(AudioParameter::keyFmOn);
     if (param.get(key, value) == NO_ERROR) {
-        if (value == FM_RADIO_VALUE_ON) {
-            LOGV("AudioHardware::setParameters() Turning FM Radio ON");
-            if (mMixer == NULL) {
-                openPcmOut_l();
-                openMixer_l();
-                setInputSource_l(AUDIO_SOURCE_DEFAULT);
-            }
-            if (mMixer != NULL) {
-                LOGV("AudioHardware::setParameters() FM Radio is ON, calling setFMRadioPath_l()");
-                setFMRadioPath_l(mOutput->device());
-            }
+        LOGV("AudioHardware::setParameters() Turning FM Radio ON");
+        if (mMixer == NULL) {
+            openPcmOut_l();
+            openMixer_l();
+            setInputSource_l(AUDIO_SOURCE_DEFAULT);
+        }
+        if (mMixer != NULL) {
+            LOGV("AudioHardware::setParameters() FM Radio is ON, calling setFMRadioPath_l()");
+            setFMRadioPath_l(mOutput->device());
         }
     }
-    param.remove(String8(FM_RADIO_KEY_ON));
+    param.remove(key);
 
     // fm radio off
-    key = String8(FM_RADIO_KEY_OFF);
+    key = String8(AudioParameter::keyFmOff);
     if (param.get(key, value) == NO_ERROR) {
-        if (value == FM_RADIO_VALUE_OFF) {
-            LOGV("AudioHardware::setParameters() Turning FM Radio OFF");
+        LOGV("AudioHardware::setParameters() Turning FM Radio OFF");
 
-            if (mMixer != NULL) {
-                TRACE_DRIVER_IN(DRV_MIXER_GET)
-                struct mixer_ctl *ctl= mixer_get_control(mMixer, "FM Radio Path", 0);
+        if (mMixer != NULL) {
+            TRACE_DRIVER_IN(DRV_MIXER_GET)
+            struct mixer_ctl *ctl= mixer_get_control(mMixer, "FM Radio Path", 0);
+            TRACE_DRIVER_OUT
+
+            if (ctl != NULL) {
+                TRACE_DRIVER_IN(DRV_MIXER_SEL)
+                mixer_ctl_select(ctl, "FMR_MIX_OFF");
                 TRACE_DRIVER_OUT
 
-                if (ctl != NULL) {
-                    TRACE_DRIVER_IN(DRV_MIXER_SEL)
-                    mixer_ctl_select(ctl, "FMR_MIX_OFF");
-                    TRACE_DRIVER_OUT
-
-                    TRACE_DRIVER_IN(DRV_MIXER_SEL)
-                    mixer_ctl_select(ctl, "FMR_OFF");
-                    TRACE_DRIVER_OUT
-                }
-                closeMixer_l();
-                closePcmOut_l();
+                TRACE_DRIVER_IN(DRV_MIXER_SEL)
+                mixer_ctl_select(ctl, "FMR_OFF");
+                TRACE_DRIVER_OUT
             }
+            closeMixer_l();
+            closePcmOut_l();
         }
     }
-    param.remove(String8(FM_RADIO_KEY_OFF));
+    param.remove(key);
 #endif
 
     return NO_ERROR;
@@ -816,6 +806,7 @@ status_t AudioHardware::setFMRadioPath_l(uint32_t device)
             break;
 
         case AudioSystem::DEVICE_OUT_WIRED_HEADSET:
+        case AudioSystem::DEVICE_OUT_WIRED_HEADPHONE:
             LOGD("setFMRadioPath_l() fmradio headphone route");
             fmpath = "FMR_HP";
             break;
