@@ -86,6 +86,9 @@ public:
 
     virtual status_t setVoiceVolume(float volume);
     virtual status_t setMasterVolume(float volume);
+#ifdef HAVE_FM_RADIO
+    virtual status_t setFmVolume(float volume);
+#endif
 
     virtual status_t setMode(int mode);
 
@@ -176,6 +179,10 @@ private:
     int             (*setCallClockSync)(HRilClient, SoundClockCondition);
     void            loadRILD(void);
     status_t        connectRILDIfRequired(void);
+
+#ifdef HAVE_FM_RADIO
+    int             mFmFd;
+#endif
 
     //  trace driver operations for dump
     int             mDriverOp;

@@ -40,6 +40,10 @@ extern "C" {
 #include "alsa_audio.h"
 }
 
+#ifdef HAVE_FM_RADIO
+#define Si4709_IOC_MAGIC  0xFA
+#define Si4709_IOC_VOLUME_SET                       _IOW(Si4709_IOC_MAGIC, 15, __u8)
+#endif
 
 namespace android {
 
@@ -92,6 +96,9 @@ AudioHardware::AudioHardware() :
     mSecRilLibHandle(NULL),
     mRilClient(0),
     mActivatedCP(false),
+#ifdef HAVE_FM_RADIO
+    mFmFd(-1),
+#endif
     mDriverOp(DRV_NONE)
 {
     loadRILD();
@@ -523,6 +530,10 @@ status_t AudioHardware::setParameters(const String8& keyValuePairs)
             LOGV("AudioHardware::setParameters() FM Radio is ON, calling setFMRadioPath_l()");
             setFMRadioPath_l(mOutput->device());
         }
+
+        if (mFmFd < 0) {
+            mFmFd = open("/dev/radio0", O_RDWR);
+        }
     }
     param.remove(key);
 
@@ -532,21 +543,26 @@ status_t AudioHardware::setParameters(const String8& keyValuePairs)
         LOGV("AudioHardware::setParameters() Turning FM Radio OFF");
 
         if (mMixer != NULL) {
+            // Disable FM radio flag to allow the codec to be turned off
+            // (the flag is automatically set by the kernel driver when FM is enabled)
+            // No need to turn off the FM Radio path as the kernel driver will handle that
             TRACE_DRIVER_IN(DRV_MIXER_GET)
-            struct mixer_ctl *ctl= mixer_get_control(mMixer, "FM Radio Path", 0);
+            struct mixer_ctl *ctl = mixer_get_control(mMixer, "Codec Status", 0);
             TRACE_DRIVER_OUT
 
             if (ctl != NULL) {
                 TRACE_DRIVER_IN(DRV_MIXER_SEL)
-                mixer_ctl_select(ctl, "FMR_MIX_OFF");
-                TRACE_DRIVER_OUT
-
-                TRACE_DRIVER_IN(DRV_MIXER_SEL)
-                mixer_ctl_select(ctl, "FMR_OFF");
+                mixer_ctl_select(ctl, "FMR_FLAG_CLEAR");
                 TRACE_DRIVER_OUT
             }
+
             closeMixer_l();
             closePcmOut_l();
+        }
+
+        if (mFmFd > 0) {
+            close(mFmFd);
+            mFmFd = -1;
         }
     }
     param.remove(key);
@@ -644,6 +660,21 @@ status_t AudioHardware::setMasterVolume(float volume)
     // return error - software mixer will handle it
     return -1;
 }
+
+#ifdef HAVE_FM_RADIO
+status_t AudioHardware::setFmVolume(float v)
+{
+    if (mFmFd > 0) {
+        __u8 fmVolume = (AudioSystem::logToLinear(v) + 5) / 7;
+        LOGD("%s %f %d", __func__, v, (int) fmVolume);
+        if (ioctl(mFmFd, Si4709_IOC_VOLUME_SET, &fmVolume) < 0) {
+            LOGE("set_volume_fm error.");
+            return -EIO;
+        }
+    }
+    return NO_ERROR;
+}
+#endif
 
 static const int kDumpLockRetries = 50;
 static const int kDumpLockSleep = 20000;
@@ -828,7 +859,22 @@ status_t AudioHardware::setFMRadioPath_l(uint32_t device)
             mixer_ctl_select(ctl, fmpath);
             TRACE_DRIVER_OUT
         } else {
-            LOGE("setFMRadioPath_l() could not get mixer ctl");
+            LOGE("setFMRadioPath_l() could not get FM Radio Path mixer ctl");
+        }
+
+        TRACE_DRIVER_IN(DRV_MIXER_GET)
+        ctl = mixer_get_control(mMixer, "Playback Path", 0);
+        TRACE_DRIVER_OUT
+
+        const char *route = getOutputRouteFromDevice(device);
+        LOGV("setFMRadioPath_l() Playpack Path, (%s)", route);
+        if (ctl) {
+            TRACE_DRIVER_IN(DRV_MIXER_SEL)
+            mixer_ctl_select(ctl, route);
+            TRACE_DRIVER_OUT
+        }
+        else {
+            LOGE("setFMRadioPath_l() could not get Playback Path mixer ctl");
         }
     } else {
         LOGE("setFMRadioPath_l() mixer is not open");
