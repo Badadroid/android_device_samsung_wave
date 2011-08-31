@@ -98,6 +98,7 @@ BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/galaxysmtd/recovery/rec
 BOARD_USES_BML_OVER_MTD := true
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/aries-common/shbootimg.mk
 TARGET_RECOVERY_PRE_COMMAND := "echo 1 > /cache/.startrecovery; sync;"
+BOARD_HAS_NO_SELECT_BUTTON := true
 
 # Include aries specific stuff
 -include device/samsung/aries-common/Android.mk
