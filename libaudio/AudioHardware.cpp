@@ -98,6 +98,7 @@ AudioHardware::AudioHardware() :
     mActivatedCP(false),
 #ifdef HAVE_FM_RADIO
     mFmFd(-1),
+    mFmResumeAfterCall(false),
 #endif
     mDriverOp(DRV_NONE)
 {
@@ -435,6 +436,12 @@ status_t AudioHardware::setMode(int mode)
         spOut->unlock();
     }
 
+    if (mFmResumeAfterCall) {
+        mFmResumeAfterCall = false;
+
+        enableFMRadio();
+    }
+
     return status;
 }
 
@@ -520,50 +527,14 @@ status_t AudioHardware::setParameters(const String8& keyValuePairs)
     // fm radio on
     key = String8(AudioParameter::keyFmOn);
     if (param.get(key, value) == NO_ERROR) {
-        LOGV("AudioHardware::setParameters() Turning FM Radio ON");
-        if (mMixer == NULL) {
-            openPcmOut_l();
-            openMixer_l();
-            setInputSource_l(AUDIO_SOURCE_DEFAULT);
-        }
-        if (mMixer != NULL) {
-            LOGV("AudioHardware::setParameters() FM Radio is ON, calling setFMRadioPath_l()");
-            setFMRadioPath_l(mOutput->device());
-        }
-
-        if (mFmFd < 0) {
-            mFmFd = open("/dev/radio0", O_RDWR);
-        }
+        enableFMRadio();
     }
     param.remove(key);
 
     // fm radio off
     key = String8(AudioParameter::keyFmOff);
     if (param.get(key, value) == NO_ERROR) {
-        LOGV("AudioHardware::setParameters() Turning FM Radio OFF");
-
-        if (mMixer != NULL) {
-            // Disable FM radio flag to allow the codec to be turned off
-            // (the flag is automatically set by the kernel driver when FM is enabled)
-            // No need to turn off the FM Radio path as the kernel driver will handle that
-            TRACE_DRIVER_IN(DRV_MIXER_GET)
-            struct mixer_ctl *ctl = mixer_get_control(mMixer, "Codec Status", 0);
-            TRACE_DRIVER_OUT
-
-            if (ctl != NULL) {
-                TRACE_DRIVER_IN(DRV_MIXER_SEL)
-                mixer_ctl_select(ctl, "FMR_FLAG_CLEAR");
-                TRACE_DRIVER_OUT
-            }
-
-            closeMixer_l();
-            closePcmOut_l();
-        }
-
-        if (mFmFd > 0) {
-            close(mFmFd);
-            mFmFd = -1;
-        }
+        disableFMRadio();
     }
     param.remove(key);
 #endif
@@ -817,12 +788,71 @@ status_t AudioHardware::setIncallPath_l(uint32_t device)
 }
 
 #ifdef HAVE_FM_RADIO
+void AudioHardware::enableFMRadio() {
+    LOGV("AudioHardware::enableFMRadio() Turning FM Radio ON");
+
+    if (mMode == AudioSystem::MODE_IN_CALL) {
+        LOGV("AudioHardware::enableFMRadio() Call is active. Delaying FM enable.");
+        mFmResumeAfterCall = true;
+    }
+    else {
+        openPcmOut_l();
+        openMixer_l();
+        setInputSource_l(AUDIO_SOURCE_DEFAULT);
+
+        if (mMixer != NULL) {
+            LOGV("AudioHardware::enableFMRadio() FM Radio is ON, calling setFMRadioPath_l()");
+            setFMRadioPath_l(mOutput->device());
+        }
+
+        if (mFmFd < 0) {
+            mFmFd = open("/dev/radio0", O_RDWR);
+        }
+    }
+}
+
+void AudioHardware::disableFMRadio() {
+    LOGV("AudioHardware::disableFMRadio() Turning FM Radio OFF");
+
+    if (mMixer != NULL) {
+        // Disable FM radio flag to allow the codec to be turned off
+        // (the flag is automatically set by the kernel driver when FM is enabled)
+        // No need to turn off the FM Radio path as the kernel driver will handle that
+        TRACE_DRIVER_IN(DRV_MIXER_GET)
+        struct mixer_ctl *ctl = mixer_get_control(mMixer, "Codec Status", 0);
+        TRACE_DRIVER_OUT
+
+        if (ctl != NULL) {
+            TRACE_DRIVER_IN(DRV_MIXER_SEL)
+            mixer_ctl_select(ctl, "FMR_FLAG_CLEAR");
+            TRACE_DRIVER_OUT
+        }
+
+        closeMixer_l();
+        closePcmOut_l();
+    }
+
+    if (mFmFd > 0) {
+        close(mFmFd);
+        mFmFd = -1;
+    }
+}
+
 status_t AudioHardware::setFMRadioPath_l(uint32_t device)
 {
     LOGV("setFMRadioPath_l() device %x", device);
 
     AudioPath path;
     const char *fmpath;
+
+    if (device != AudioSystem::DEVICE_OUT_SPEAKER && (device & AudioSystem::DEVICE_OUT_SPEAKER) != 0) {
+        /* Fix the case where we're on headset and the system has just played a 
+         * notification sound to both the speaker and the headset. The device
+         * now is an ORed value and we need to get back its original value.
+         */
+         device -= AudioSystem::DEVICE_OUT_SPEAKER;
+         LOGD("setFMRadioPath_l() device removed speaker %x", device);
+    }
 
     switch(device){
          case AudioSystem::DEVICE_OUT_SPEAKER:

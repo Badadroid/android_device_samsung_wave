@@ -121,6 +121,8 @@ public:
             status_t setIncallPath_l(uint32_t device);
 
 #ifdef HAVE_FM_RADIO
+            void enableFMRadio();
+            void disableFMRadio();
             status_t setFMRadioPath_l(uint32_t device);
 #endif
 
@@ -182,6 +184,7 @@ private:
 
 #ifdef HAVE_FM_RADIO
     int             mFmFd;
+    bool            mFmResumeAfterCall;
 #endif
 
     //  trace driver operations for dump
