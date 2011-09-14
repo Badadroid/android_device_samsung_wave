@@ -436,12 +436,13 @@ status_t AudioHardware::setMode(int mode)
         spOut->unlock();
     }
 
+#ifdef HAVE_FM_RADIO
     if (mFmResumeAfterCall) {
         mFmResumeAfterCall = false;
 
         enableFMRadio();
     }
-
+#endif
     return status;
 }
 
