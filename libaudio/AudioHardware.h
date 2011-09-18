@@ -184,6 +184,7 @@ private:
 
 #ifdef HAVE_FM_RADIO
     int             mFmFd;
+    float           mFmVolume;
     bool            mFmResumeAfterCall;
 #endif
 
