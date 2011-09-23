@@ -51,6 +51,7 @@ private:
     int mCameraId;
     bool mVideoMode;
     bool mContinuousAf;
+    bool mFixFocus;
     bool mTouchFocus;
     int mTouchFocusX;
     int mTouchFocusY;

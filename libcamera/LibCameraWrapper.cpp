@@ -105,6 +105,7 @@ LibCameraWrapper::LibCameraWrapper(int cameraId) :
     mCameraId(cameraId),
     mVideoMode(false),
     mContinuousAf(false),
+    mFixFocus(false),
     mTouchFocus(false)
 {
     LOGV("%s :", __func__);
@@ -164,7 +165,22 @@ status_t
 LibCameraWrapper::startPreview()
 {
     LOGV("%s :", __func__);
-    return mLibInterface->startPreview();
+    status_t ret = mLibInterface->startPreview();
+
+    if (mFixFocus) {
+        LOGV("Fix focus mode");
+        // We need to switch the focus mode once after switching from video or the camera won't work.
+        // Note: If the previous mode was macro, then it actually doesn't matter since the bug doesn't affect that case.
+        CameraParameters pars = mLibInterface->getParameters();
+        const char *prevFocusMode = pars.get("focus-mode");
+        pars.set("focus-mode", "macro");
+        mLibInterface->setParameters(pars);
+        pars.set("focus-mode", prevFocusMode);
+        mLibInterface->setParameters(pars);
+        mFixFocus = false;
+    }
+
+    return ret;
 }
 
 bool
@@ -261,6 +277,7 @@ LibCameraWrapper::setParameters(const CameraParameters& params)
         const char *metering;
         const char *conAf;
         const char *touchCoordinate;
+        bool prevContinuousAf;
 
         /*
          * getInt returns -1 if the value isn't present and 0 on parse failure,
@@ -281,10 +298,15 @@ LibCameraWrapper::setParameters(const CameraParameters& params)
             pars.set("slow_ae", "off");
         }
 
-        // Parse continuous autofoucs into a format the driver understands
+        // Parse continuous autofocus into a format the driver understands
         conAf = pars.get("enable-caf");
+        prevContinuousAf = mContinuousAf;
         mContinuousAf = (conAf != 0 && strcmp(conAf, "on") == 0);
         pars.set("continuous_af", mContinuousAf ? 1 : 0);
+
+        if (prevContinuousAf && !mContinuousAf) {
+            mFixFocus = true;
+        }
 
         // Always set antibanding to 50hz
         pars.set("antibanding", "50hz");
@@ -301,7 +323,7 @@ LibCameraWrapper::setParameters(const CameraParameters& params)
             else if (strcmp(metering, "meter-matrix") == 0) {
                 pars.set("metering", "matrix");
             }
-            pars.remove("auto-exposure");
+            pars.remove("meter-mode");
         }
 
         // Read touch-to-focus
