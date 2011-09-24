@@ -98,6 +98,7 @@ AudioHardware::AudioHardware() :
     mActivatedCP(false),
 #ifdef HAVE_FM_RADIO
     mFmFd(-1),
+    mFmVolume(1),
     mFmResumeAfterCall(false),
 #endif
     mDriverOp(DRV_NONE)
@@ -636,6 +637,7 @@ status_t AudioHardware::setMasterVolume(float volume)
 #ifdef HAVE_FM_RADIO
 status_t AudioHardware::setFmVolume(float v)
 {
+    mFmVolume = v;
     if (mFmFd > 0) {
         __u8 fmVolume = (AudioSystem::logToLinear(v) + 5) / 7;
         LOGD("%s %f %d", __func__, v, (int) fmVolume);
@@ -808,6 +810,8 @@ void AudioHardware::enableFMRadio() {
 
         if (mFmFd < 0) {
             mFmFd = open("/dev/radio0", O_RDWR);
+            // In case setFmVolume was called before FM was enabled, we save the volume and call it here.
+            setFmVolume(mFmVolume);
         }
     }
 }
