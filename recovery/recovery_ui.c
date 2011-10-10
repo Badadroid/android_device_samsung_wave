@@ -61,7 +61,6 @@ int device_handle_key(int key_code, int visible) {
             case KEY_VOLUMEDOWN:
                 return HIGHLIGHT_DOWN;
 
-            case KEY_MENU:
             case KEY_LEFTSHIFT:
             case KEY_UP:
             case KEY_VOLUMEUP:
@@ -88,6 +87,7 @@ int device_handle_key(int key_code, int visible) {
             case KEY_BACKSPACE:
             case KEY_SEARCH:
             case KEY_BACK:
+            case KEY_MENU:
                 return NO_ACTION;
         }
     }
