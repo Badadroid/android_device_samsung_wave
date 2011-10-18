@@ -104,6 +104,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
 	bdaddr_read
 
+# Service Mode Secret Code
+PRODUCT_PACKAGES += \
+	SamsungServiceMode
+
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
 	frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
