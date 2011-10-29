@@ -104,9 +104,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
 	bdaddr_read
 
-# Service Mode Secret Code
+# Device-specific packages
 PRODUCT_PACKAGES += \
-	SamsungServiceMode
+	SamsungServiceMode \
+	AriesParts
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
