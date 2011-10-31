@@ -10,6 +10,7 @@ public class Startup extends BroadcastReceiver {
     public void onReceive(final Context context, final Intent bootintent) {
         ColorTuningPreference.restore(context);
         TouchKeyBacklightTimeout.restore(context);
+        Hspa.restore(context);
     }
 
 }
