@@ -87,6 +87,7 @@ on post-fs
     chmod 0771 /data
     chown system system /datadata
     chmod 0771 /datadata
+    symlink /datadata /data/data
 
     #symlinks for samsung RIL
     symlink /radio/modem.bin /dev/block/bml12
