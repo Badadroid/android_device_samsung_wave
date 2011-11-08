@@ -77,6 +77,7 @@ on fs
 # Permissions for System Server and daemons.
     chown system system /sys/class/backlight/s5p_bl/brightness
 
+    symlink /datadata /data/data
 on post-fs
 
     # remove /sbin/sh so that "adb install" can work properly
@@ -87,7 +88,6 @@ on post-fs
     chmod 0771 /data
     chown system system /datadata
     chmod 0771 /datadata
-    symlink /datadata /data/data
 
     #symlinks for samsung RIL
     symlink /radio/modem.bin /dev/block/bml12
