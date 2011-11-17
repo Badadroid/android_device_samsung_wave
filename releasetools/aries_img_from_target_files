@@ -159,9 +159,7 @@ def main(argv):
     common.Usage(__doc__)
     sys.exit(1)
 
-  OPTIONS.input_tmp = common.UnzipTemp(args[0])
-
-  input_zip = zipfile.ZipFile(args[0], "r")
+  OPTIONS.input_tmp, input_zip = common.UnzipTemp(args[0])
   OPTIONS.info_dict = common.LoadInfoDict(input_zip)
 
   output_zip = zipfile.ZipFile(args[1], "w", compression=zipfile.ZIP_DEFLATED)
