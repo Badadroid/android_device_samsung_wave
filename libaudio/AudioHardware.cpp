@@ -45,7 +45,7 @@ extern "C" {
 #define Si4709_IOC_VOLUME_SET                       _IOW(Si4709_IOC_MAGIC, 15, __u8)
 #endif
 
-namespace android {
+namespace android_audio_legacy {
 
 const uint32_t AudioHardware::inputSamplingRates[] = {
         8000, 11025, 16000, 22050, 44100
@@ -2307,4 +2307,4 @@ extern "C" AudioHardwareInterface* createAudioHardware(void) {
     return new AudioHardware();
 }
 
-}; // namespace android
+}; // namespace android_audio_legacy

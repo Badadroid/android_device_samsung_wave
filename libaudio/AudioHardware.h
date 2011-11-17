@@ -34,7 +34,9 @@ extern "C" {
     struct mixer_ctl;
 };
 
-namespace android {
+namespace android_audio_legacy {
+
+using namespace android;
 
 // TODO: determine actual audio DSP and hardware latency
 // Additionnal latency introduced by audio DSP and hardware in ms
@@ -348,6 +350,10 @@ private:
         virtual status_t getNextBuffer(BufferProvider::Buffer* buffer);
         virtual void releaseBuffer(BufferProvider::Buffer* buffer);
 
+        // Stubs (ICS)
+        virtual status_t addAudioEffect(effect_handle_t effect) { return INVALID_OPERATION; }
+        virtual status_t removeAudioEffect(effect_handle_t effect) { return INVALID_OPERATION; }
+
         int prepareLock();
         void lock();
         void unlock();
@@ -377,6 +383,6 @@ private:
 
 };
 
-}; // namespace android
+}; // namespace android_audio_legacy
 
 #endif
