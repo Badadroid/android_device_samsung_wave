@@ -113,29 +113,29 @@ service pvrsrvinit /system/vendor/bin/pvrsrvinit
     oneshot
 
 service gpsd /system/vendor/bin/gpsd -c /vendor/etc/gps.xml
-    class main
+    class core
     socket gps seqpacket 0660 gps system
     user gps
     group system inet
 
 service wpa_supplicant /system/bin/wpa_supplicant -Dwext -ieth0 -c/data/misc/wifi/wpa_supplicant.conf
-    class main
+    class core
     socket wpa_eth0 dgram 0660 wifi wifi
     disabled
     oneshot
 
 service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
-    class main
+    class core
     disabled
     oneshot
 
 service iprenew_eth0 /system/bin/dhcpcd -n
-    class main
+    class core
     disabled
     oneshot
 
 service bdaddr /system/bin/bdaddr_read
-    class main
+    class core
     user root
     disabled
     oneshot
@@ -145,7 +145,7 @@ on property:init.svc.bootanim=running
 
 service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm \
     --baudrate 3000000 --patchram /vendor/firmware/bcm4329.hcd /dev/s3c2410_serial0
-    class main
+    class core
     user bluetooth
     group bluetooth net_bt_admin
     disabled
@@ -153,22 +153,22 @@ service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm \
 
 # bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/dumpstate -d -v -o /sdcard/bugreports/bugreport
-    class main
+    class core
     disabled
     oneshot
     keycodes 114 115 116
 
 service orientationd /system/vendor/bin/orientationd
-    class main
+    class core
     user compass
     group system input
 
 service geomagneticd /system/vendor/bin/geomagneticd
-    class main
+    class core
     user compass
     group system input
 
 service tvout /system/bin/tvoutserver
-    class main
+    class core
     user system
     group graphics
