@@ -44,7 +44,8 @@ DEVICE_PACKAGE_OVERLAYS := device/samsung/aries-common/overlay
 PRODUCT_COPY_FILES := \
 	device/samsung/galaxysmtd/asound.conf:system/etc/asound.conf \
 	device/samsung/aries-common/vold.fstab:system/etc/vold.fstab \
-	device/samsung/aries-common/egl.cfg:system/lib/egl/egl.cfg
+	device/samsung/aries-common/egl.cfg:system/lib/egl/egl.cfg \
+	device/samsung/aries-common/mxt224_ts_input.idc:system/usr/idc/mxt224_ts_input.idc
 
 # Init files
 PRODUCT_COPY_FILES += \
