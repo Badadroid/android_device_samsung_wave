@@ -93,7 +93,8 @@ BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 
 # Recovery
 TARGET_USERIMAGES_USE_EXT4 := true
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/galaxysmtd/recovery/recovery_ui.c
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/galaxysmtd/recovery/recovery_keys.c
+BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/galaxysmtd/recovery/graphics.c
 BOARD_USES_BML_OVER_MTD := true
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/aries-common/shbootimg.mk
 TARGET_RECOVERY_PRE_COMMAND := "echo 1 > /cache/.startrecovery; sync;"
