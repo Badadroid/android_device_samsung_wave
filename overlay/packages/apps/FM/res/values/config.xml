@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Aries specific FM app config -->
-<resources>
-    <!-- Whether or not Bluetooth must be enabled for FM radio -->
-    <bool name="require_bt">false</bool>
-
-    <!-- Whether or not seek is supported -->
-    <bool name="seek_supported">true</bool>
-</resources>
