@@ -88,19 +88,18 @@ PRODUCT_PACKAGES += \
 # Misc other modules
 PRODUCT_PACKAGES += \
 	lights.aries \
-	overlay.aries \
 	sensors.aries \
 	audio.primary.aries \
 	audio_policy.aries
 
 # Libs
 PRODUCT_PACKAGES += \
-	libcamera \
 	libstagefrighthw
+
 
 # apns config file
 PRODUCT_COPY_FILES += \
-        vendor/cyanogen/prebuilt/common/etc/apns-conf.xml:system/etc/apns-conf.xml
+        device/samsung/aries-common/apns-conf.xml:system/etc/apns-conf.xml
 
 # Bluetooth MAC Address
 PRODUCT_PACKAGES += \
