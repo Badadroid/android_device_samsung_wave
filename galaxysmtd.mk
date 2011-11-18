@@ -89,7 +89,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	lights.aries \
 	overlay.aries \
-	sensors.aries
+	sensors.aries \
+	audio.primary.aries \
+	audio_policy.aries
 
 # Libs
 PRODUCT_PACKAGES += \
