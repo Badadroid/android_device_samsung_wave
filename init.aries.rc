@@ -1,3 +1,5 @@
+import init.aries.usb.rc
+
 on init
     loglevel 9
     export PHONE_STORAGE /mnt/emmc
