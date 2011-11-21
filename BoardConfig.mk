@@ -101,6 +101,9 @@ BOARD_CUSTOM_BOOTIMG_MK := device/samsung/aries-common/shbootimg.mk
 TARGET_RECOVERY_PRE_COMMAND := "echo 1 > /cache/.startrecovery; sync;"
 BOARD_HAS_NO_SELECT_BUTTON := true
 
+# Hardware rendering
+USE_OPENGL_RENDERER := true
+
 # Include aries specific stuff
 -include device/samsung/aries-common/Android.mk
 
