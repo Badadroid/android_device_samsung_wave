@@ -103,10 +103,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
   CopyBootFiles(input_zip, output_zip)
   CopyBMLoverMTD(output_zip)
 
-  script.ShowProgress(0.2, 10)
-  script.WriteBMLoverMTD("boot", "72", "reservoir", "2004", "boot.img")
-
-  script.ShowProgress(0.1, 0)
+  script.ShowProgress(0.3, 0)
   device_specific.FullOTA_InstallEnd()
 
   if OPTIONS.extra_script is not None:

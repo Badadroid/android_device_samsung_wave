@@ -2,50 +2,64 @@
 #
 # Universal Updater Script for Samsung Galaxy S Phones
 # (c) 2011 by Teamhacksung
-# GSM version
+# Combined GSM & CDMA version
 #
+
+check_mount() {
+    if ! /tmp/busybox grep -q $1 /proc/mounts ; then
+        /tmp/busybox mkdir -p $1
+        /tmp/busybox umount -l $2
+        if ! /tmp/busybox mount -t $3 $2 $1 ; then
+            /tmp/busybox echo "Cannot mount $1."
+            exit 1
+        fi
+    fi
+}
+
+set_log() {
+    rm -rf $1
+    exec >> $1 2>&1
+}
 
 set -x
 export PATH=/:/sbin:/system/xbin:/system/bin:/tmp:$PATH
 
-# check if we're running on a bml or mtd device
+# Check if we're in CDMA or GSM mode
+if test "$1" = cdma ; then
+    # CDMA mode
+    IS_GSM='/tmp/busybox false'
+    SD_PART='/dev/block/mmcblk1p1'
+    DATA_PART='/dev/block/mmcblk0p1'
+else
+    # GSM mode
+    IS_GSM='/tmp/busybox true'
+    SD_PART='/dev/block/mmcblk0p1'
+    DATA_PART='/dev/block/mmcblk0p2'
+fi
+
+# check if we're running on a bml, mtd (cm7) or mtd (current) device
 if /tmp/busybox test -e /dev/block/bml7 ; then
-# we're running on a bml device
+    # we're running on a bml device
 
     # make sure sdcard is mounted
-    if ! /tmp/busybox grep -q /mnt/sdcard /proc/mounts ; then
-        /tmp/busybox mkdir -p /mnt/sdcard
-        /tmp/busybox umount -l /dev/block/mmcblk0p1
-        if ! /tmp/busybox mount -t vfat /dev/block/mmcblk0p1 /mnt/sdcard ; then
-            /tmp/busybox echo "Cannot mount sdcard."
-            exit 1
+    check_mount /mnt/sdcard $SD_PART vfat
+
+    # everything is logged into /mnt/sdcard/cyanogenmod_bml.log
+    set_log /mnt/sdcard/cyanogenmod_bml.log
+
+    if $IS_GSM ; then
+        # make sure efs is mounted
+        check_mount /efs /dev/block/stl3 rfs
+
+        # create a backup of efs
+        if /tmp/busybox test -e /mnt/sdcard/backup/efs ; then
+            /tmp/busybox mv /mnt/sdcard/backup/efs /mnt/sdcard/backup/efs-$$
         fi
+        /tmp/busybox rm -rf /mnt/sdcard/backup/efs
+
+        /tmp/busybox mkdir -p /mnt/sdcard/backup/efs
+        /tmp/busybox cp -R /efs/ /mnt/sdcard/backup
     fi
-
-    # remove old log
-    rm -rf /mnt/sdcard/cyanogenmod_bml.log
-
-    # everything is logged into /sdcard/cyanogenmod.log
-    exec >> /mnt/sdcard/cyanogenmod_bml.log 2>&1
-
-    # make sure efs is mounted
-    if ! /tmp/busybox grep -q /efs /proc/mounts ; then
-        /tmp/busybox mkdir -p /efs
-        /tmp/busybox umount -l /dev/block/stl3
-        if ! /tmp/busybox mount -t rfs /dev/block/stl3 /efs ; then
-            /tmp/busybox echo "Cannot mount efs."
-            exit 2
-        fi
-    fi
-
-    # create a backup of efs
-    if /tmp/busybox test -e /mnt/sdcard/backup/efs ; then
-        /tmp/busybox mv /mnt/sdcard/backup/efs /mnt/sdcard/backup/efs-$$
-    fi
-    /tmp/busybox rm -rf /mnt/sdcard/backup/efs
-    
-    /tmp/busybox mkdir -p /mnt/sdcard/backup/efs
-    /tmp/busybox cp -R /efs/ /mnt/sdcard/backup
 
     # write the package path to sdcard cyanogenmod.cfg
     if /tmp/busybox test -n "$UPDATE_PACKAGE" ; then
@@ -66,101 +80,139 @@ if /tmp/busybox test -e /dev/block/bml7 ; then
     /sbin/reboot now
     exit 0
 
-elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
-# we're running on a mtd device
+elif /tmp/busybox test `/tmp/busybox cat /sys/class/mtd/mtd2/size` != 262144000 ; then
+    # we're running on a mtd (cm7) device
 
     # make sure sdcard is mounted
-    /tmp/busybox mkdir -p /sdcard
+    check_mount /sdcard $SD_PART vfat
 
-    if ! /tmp/busybox grep -q /sdcard /proc/mounts ; then
-        /tmp/busybox umount -l /dev/block/mmcblk0p1
-        if ! /tmp/busybox mount -t vfat /dev/block/mmcblk0p1 /sdcard ; then
-            /tmp/busybox echo "Cannot mount sdcard."
-            exit 4
-        fi
+    # everything is logged into /sdcard/cyanogenmod_mtd_old.log
+    set_log /sdcard/cyanogenmod_mtd_old.log
+
+    # write the package path to sdcard cyanogenmod.cfg
+    if /tmp/busybox test -n "$UPDATE_PACKAGE" ; then
+        /tmp/busybox echo "$UPDATE_PACKAGE" > /sdcard/cyanogenmod.cfg
     fi
 
-    # remove old log
-    rm -rf /sdcard/cyanogenmod_mtd.log
+    # inform the script that this is a CM7 upgrade
+    /tmp/busybox echo 1 > /sdcard/cyanogenmod.cm7upd
+
+    # write new kernel to boot partition
+    /tmp/bml_over_mtd.sh boot 72 reservoir 2004 /tmp/boot.img
+
+	# Remove /system/build.prop to trigger emergency boot
+	/tmp/busybox mount /system
+	/tmp/busybox rm -f /system/build.prop
+	/tmp/busybox umount -l /system
+
+    /tmp/busybox sync
+
+    /sbin/reboot now
+    exit 0
+
+elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
+    # we're running on a mtd (current) device
+
+    # make sure sdcard is mounted
+    check_mount /sdcard $SD_PART vfat
 
     # everything is logged into /sdcard/cyanogenmod.log
-    exec >> /sdcard/cyanogenmod_mtd.log 2>&1
+    set_log /sdcard/cyanogenmod_mtd.log
 
-    # create mountpoint for radio partition
-    /tmp/busybox mkdir -p /radio
-	
-    # make sure radio partition is mounted
-    if ! /tmp/busybox grep -q /radio /proc/mounts ; then
+    if $IS_GSM ; then
+        # create mountpoint for radio partition
+        /tmp/busybox mkdir -p /radio
+
+        # make sure radio partition is mounted
+        if ! /tmp/busybox grep -q /radio /proc/mounts ; then
+            /tmp/busybox umount -l /dev/block/mtdblock5
+            if ! /tmp/busybox mount -t yaffs2 /dev/block/mtdblock5 /radio ; then
+                /tmp/busybox echo "Cannot mount radio partition."
+                exit 5
+            fi
+        fi
+
+        # if modem.bin doesn't exist on radio partition, format the partition and copy it
+        if ! /tmp/busybox test -e /radio/modem.bin ; then
+            /tmp/busybox umount -l /dev/block/mtdblock5
+            /tmp/erase_image radio
+            if ! /tmp/busybox mount -t yaffs2 /dev/block/mtdblock5 /radio ; then
+                /tmp/busybox echo "Cannot copy modem.bin to radio partition."
+                exit 5
+            else
+                /tmp/busybox cp /tmp/modem.bin /radio/modem.bin
+            fi
+        fi
+
+        # unmount radio partition
         /tmp/busybox umount -l /dev/block/mtdblock5
-        if ! /tmp/busybox mount -t yaffs2 /dev/block/mtdblock5 /radio ; then
-            /tmp/busybox echo "Cannot mount radio partition."
-            exit 5
-	fi
     fi
-	
-    # if modem.bin doesn't exist on radio partition, format the partition and copy it
-    if ! /tmp/busybox test -e /radio/modem.bin ; then
-	    /tmp/busybox umount -l /dev/block/mtdblock5
-        /tmp/erase_image radio
-	    if ! /tmp/busybox mount -t yaffs2 /dev/block/mtdblock5 /radio ; then
-            /tmp/busybox echo "Cannot copy modem.bin to radio partition."
-            exit 5
-	else
-            /tmp/busybox cp /tmp/modem.bin /radio/modem.bin
-	fi
+
+    if ! /tmp/busybox test -e /sdcard/cyanogenmod.cfg ; then
+        # update install - flash boot image then skip back to updater-script
+        # (boot image is already flashed for first time install or cm7 upgrade)
+
+        # flash boot image
+        /tmp/bml_over_mtd.sh boot 72 reservoir 2004 /tmp/boot.img
+
+		# unmount system (recovery seems to expect system to be unmounted)
+		/tmp/busybox umount -l /system
+
+        exit 0
     fi
-	
-    # unmount radio partition
-    /tmp/busybox umount -l /dev/block/mtdblock5
 
     # if a cyanogenmod.cfg exists, then this is a first time install
     # let's format the volumes and restore radio and efs
-    if ! /tmp/busybox test -e /sdcard/cyanogenmod.cfg ; then
-        exit 0
-    fi
-	
+
     # remove the cyanogenmod.cfg to prevent this from looping
     /tmp/busybox rm -f /sdcard/cyanogenmod.cfg
 
-    # unmount, format and mount system
+    # unmount and format system (recovery seems to expect system to be unmounted)
     /tmp/busybox umount -l /system
     /tmp/erase_image system
-    /tmp/busybox mount -t yaffs2 /dev/block/mtdblock2 /system
 
     # unmount and format cache
     /tmp/busybox umount -l /cache
     /tmp/erase_image cache
 
+    if /tmp/busybox test -e /sdcard/cyanogenmod.cm7upd ; then
+        # this is an upgrade from CM7 with changed MTD mapping for /system and /cache
+        # so return to updater-script after formatting these two
+
+        /tmp/busybox rm -f /sdcard/cyanogenmod.cm7upd
+
+        exit 0
+    fi
+
     # unmount and format data
     /tmp/busybox umount /data
-    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data /dev/block/mmcblk0p2
+    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data $DATA_PART
 
     # unmount and format datadata
     /tmp/busybox umount -l /datadata
     /tmp/erase_image datadata
 
-    # restore efs backup
-    if /tmp/busybox test -e /sdcard/backup/efs/nv_data.bin ; then
-        /tmp/busybox umount -l /efs
-        /tmp/erase_image efs
-        /tmp/busybox mkdir -p /efs
+    if $IS_GSM ; then
+        # restore efs backup
+        if /tmp/busybox test -e /sdcard/backup/efs/nv_data.bin ; then
+            /tmp/busybox umount -l /efs
+            /tmp/erase_image efs
+            /tmp/busybox mkdir -p /efs
 
-        if ! /tmp/busybox grep -q /efs /proc/mounts ; then
-            if ! /tmp/busybox mount -t yaffs2 /dev/block/mtdblock4 /efs ; then
-                /tmp/busybox echo "Cannot mount efs."
-                exit 6
+            if ! /tmp/busybox grep -q /efs /proc/mounts ; then
+                if ! /tmp/busybox mount -t yaffs2 /dev/block/mtdblock4 /efs ; then
+                    /tmp/busybox echo "Cannot mount efs."
+                    exit 6
+                fi
             fi
+
+            /tmp/busybox cp -R /sdcard/backup/efs /
+            /tmp/busybox umount -l /efs
+        else
+            /tmp/busybox echo "Cannot restore efs."
+            exit 7
         fi
-
-        /tmp/busybox cp -R /sdcard/backup/efs /
-        /tmp/busybox umount -l /efs
-    else
-        /tmp/busybox echo "Cannot restore efs."
-        exit 7
     fi
-
-    # flash boot image
-    /tmp/bml_over_mtd.sh boot 72 reservoir 2004 /tmp/boot.img
 
     exit 0
 fi
