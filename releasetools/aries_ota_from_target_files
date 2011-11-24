@@ -74,16 +74,17 @@ def WriteFullOTAPackage(input_zip, output_zip):
 #    ts = GetBuildProp("ro.build.date.utc", input_zip)
 #    script.AssertOlderBuild(ts)
 
+  # script.ShowProgress(0.15, 5) in device-specific assert as I could not get it to show up before it in here
+
   AppendAssertions(script, input_zip)
   device_specific.FullOTA_Assertions()
-
-  script.ShowProgress(0.5, 0)
 
   if OPTIONS.wipe_user_data:
     script.FormatPartition("/data")
 
   script.FormatPartition("/system")
   script.Mount("/system")
+  script.ShowProgress(0.7, 30);
   script.UnpackPackageDir("recovery", "/system")
   script.UnpackPackageDir("system", "/system")
 
@@ -96,14 +97,12 @@ def WriteFullOTAPackage(input_zip, output_zip):
     script.UndoRetouchBinaries(retouch_files)
 
   Item.GetMetadata(input_zip)
+  script.ShowProgress(0.15, 5)
   Item.Get("system").SetPermissions(script)
-
-  script.ShowProgress(0.2, 0)
 
   CopyBootFiles(input_zip, output_zip)
   CopyBMLoverMTD(output_zip)
 
-  script.ShowProgress(0.3, 0)
   device_specific.FullOTA_InstallEnd()
 
   if OPTIONS.extra_script is not None:
