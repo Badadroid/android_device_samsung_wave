@@ -100,7 +100,7 @@ PRODUCT_PACKAGES += \
 
 # apns config file
 PRODUCT_COPY_FILES += \
-        device/samsung/aries-common/apns-conf.xml:system/etc/apns-conf.xml
+	development/data/etc/apns-conf.xml:system/etc/apns-conf.xml
 
 # Bluetooth MAC Address
 PRODUCT_PACKAGES += \
