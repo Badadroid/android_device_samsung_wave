@@ -17,8 +17,11 @@
 # Product-specific compile-time definitions.
 #
 
-# Import the aries-common BoardConfigCommon.mk
-include device/samsung/aries-common/BoardConfigCommon.mk
+#Video Devices
+BOARD_SECOND_CAMERA_DEVICE := /dev/video2
+
+#Prebuilt Kernel
+TARGET_PREBUILT_KERNEL := device/samsung/galaxysmtd/kernel
 
 # FM Radio
 BOARD_HAVE_FM_RADIO := true
@@ -29,3 +32,6 @@ BOARD_FM_DEVICE := si4709
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/galaxysmtd/recovery/recovery_keys.c
 
 TARGET_OTA_ASSERT_DEVICE := galaxys,galaxysmtd,GT-I9000,GT-I9000M,GT-I9000T
+
+# Import the aries-common BoardConfigCommon.mk
+include device/samsung/aries-common/BoardConfigCommon.mk
