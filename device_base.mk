@@ -157,6 +157,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
+# Disable visual strict mode, even on eng builds
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.sys.strictmode.visual=0
+
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
