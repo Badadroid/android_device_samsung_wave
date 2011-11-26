@@ -20,6 +20,12 @@
 /dev/accelerometer        0660   system     system
 /sys/devices/virtual/input/input*   delay      0660  root   input
 
+# for geomagneticd
+/sys/devices/virtual/input/input3   threshold      0660  root   input
+/sys/devices/virtual/input/input3   distortion     0660  root   input
+/sys/devices/virtual/input/input3   shape          0660  root   input
+/sys/devices/virtual/input/input3   offsets        0660  root   input
+
 # for GPS
 /dev/s3c2410_serial1      0600   gps        gps
 
