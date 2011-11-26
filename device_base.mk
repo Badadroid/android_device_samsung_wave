@@ -89,7 +89,8 @@ PRODUCT_PACKAGES += \
 	lights.aries \
 	sensors.aries \
 	audio.primary.aries \
-	audio_policy.aries
+	audio_policy.aries \
+	libs3cjpeg
 
 # Libs
 PRODUCT_PACKAGES += \
