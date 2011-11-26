@@ -4,6 +4,10 @@ on init
     loglevel 9
     export PHONE_STORAGE /mnt/emmc
     export EXTERNAL_STORAGE /mnt/sdcard
+
+    # FIXME: Market checks this variable for space-checking, but downloads to /datadata
+    export DOWNLOAD_CACHE /data/download
+
     mkdir /mnt/emmc 0000 system system
     symlink /mnt/emmc /emmc
     mkdir /mnt/sdcard 0000 system system
@@ -96,6 +100,9 @@ on post-fs-data
     # wi-fi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
+
+    # download cache
+    mkdir /data/download 0770 system cache
 
 # 3D init
 service pvrsrvinit /system/vendor/bin/pvrsrvinit
