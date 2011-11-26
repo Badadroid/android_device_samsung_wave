@@ -18,6 +18,7 @@
 /dev/yamaha_compass       0660   system     system
 /dev/akm8973              0660   system     system
 /dev/accelerometer        0660   system     system
+/sys/devices/virtual/input/input*   delay      0660  root   input
 
 # for GPS
 /dev/s3c2410_serial1      0600   gps        gps

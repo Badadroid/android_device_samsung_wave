@@ -106,12 +106,24 @@ bool CompassSensor::hasPendingEvents() const {
 
 int CompassSensor::setDelay(int32_t handle, int64_t ns)
 {
-    LOGD("CompassSensor::~setDelay(%d, %d)", handle, ns);
-    /* FIXME needs changes to the kernel driver.
-       We need to add a IOCTL that can set the samplingrate
-       the driver in ther kernel supports this allready only need
-       to add a IOCTL on both sides for that*/
-    return 0;
+    LOGD("CompassSensor::~setDelay(%d, %lld)", handle, ns);
+
+    int fd;
+
+    if (ns < 10000000) {
+        ns = 10000000; // Minimum on stock
+    }
+
+    strcpy(&input_sysfs_path[input_sysfs_path_len], "delay");
+    fd = open(input_sysfs_path, O_RDWR);
+    if (fd >= 0) {
+        char buf[80];
+        sprintf(buf, "%lld", ns / 10000000 * 10); // Some flooring to match stock value
+        write(fd, buf, strlen(buf)+1);
+        close(fd);
+        return 0;
+    }
+    return -1;
 }
 
 
