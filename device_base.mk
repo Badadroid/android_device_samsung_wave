@@ -90,6 +90,7 @@ PRODUCT_PACKAGES += \
 	sensors.aries \
 	audio.primary.aries \
 	audio_policy.aries \
+	audio.a2dp.default \
 	libs3cjpeg
 
 # Libs
