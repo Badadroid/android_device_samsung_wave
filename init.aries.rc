@@ -14,6 +14,10 @@ on init
     symlink /mnt/sdcard /sdcard
     mkdir /datadata 0771 system system
 
+    # We will create our own ril-daemon service in class 'core' because the
+    # rild doesn't like being killed. (During device encryption.)
+    stop ril-daemon
+
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
@@ -67,21 +71,8 @@ on fs
     chown radio radio /sys/class/sec/uart_switch/UART_SEL/value
     chmod 660 /sys/class/sec/uart_switch/UART_SEL/value
 
-# create data/gps for GPS demon
-    mkdir /data/gps 700 gps system
-    chown gps system /data/gps
-    chown gps root /sys/class/sec/gps/GPS_PWR_EN/value
-    chmod 660 /sys/class/sec/gps/GPS_PWR_EN/value
-
-    symlink /datadata /data/data
 on post-fs
-
-    # remove /sbin/sh so that "adb install" can work properly
-    exec /sbin/setupenv.sh
-
-    # We chown/chmod /data and /datadata again so because mount is run as root + defaults
-    chown system system /data
-    chmod 0771 /data
+    # We chown/chmod /datadata again so because mount is run as root + defaults
     chown system system /datadata
     chmod 0771 /datadata
 
@@ -97,12 +88,30 @@ on post-fs
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
 on post-fs-data
+    # setup datadata
+    exec /sbin/setupdatadata.sh
+
+    # create data/gps for GPS demon
+    mkdir /data/gps 700 gps system
+    chown gps system /data/gps
+    chown gps root /sys/class/sec/gps/GPS_PWR_EN/value
+    chmod 660 /sys/class/sec/gps/GPS_PWR_EN/value
+
     # wi-fi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
 
     # download cache
     mkdir /data/download 0770 system cache
+
+    setprop vold.post_fs_data_done 1
+
+service aries-ril-daemon /system/bin/rild
+    class core
+    socket rild stream 660 root radio
+    socket rild-debug stream 660 radio system
+    user root
+    group radio cache inet misc audio sdcard_rw log
 
 # 3D init
 service pvrsrvinit /system/vendor/bin/pvrsrvinit
@@ -112,7 +121,7 @@ service pvrsrvinit /system/vendor/bin/pvrsrvinit
     oneshot
 
 service gpsd /system/vendor/bin/gpsd -c /vendor/etc/gps.xml
-    class main
+    class late_start
     socket gps seqpacket 0660 gps system
     user gps
     group system inet
@@ -158,16 +167,11 @@ service bugreport /system/bin/dumpstate -d -v -o /sdcard/bugreports/bugreport
     keycodes 114 115 116
 
 service orientationd /system/vendor/bin/orientationd
-    class main
+    class late_start
     user compass
     group system input
 
 service geomagneticd /system/vendor/bin/geomagneticd
-    class main
+    class late_start
     user compass
     group system input
-
-service tvout /system/bin/tvoutserver
-    class main
-    user system
-    group graphics
