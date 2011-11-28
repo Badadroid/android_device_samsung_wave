@@ -25,7 +25,7 @@ set -x
 export PATH=/:/sbin:/system/xbin:/system/bin:/tmp:$PATH
 
 # Check if we're in CDMA or GSM mode
-if test "$1" = cdma ; then
+if /tmp/busybox test "$1" = cdma ; then
     # CDMA mode
     IS_GSM='/tmp/busybox false'
     SD_PART='/dev/block/mmcblk1p1'
