@@ -44,7 +44,8 @@ DEVICE_PACKAGE_OVERLAYS := device/samsung/aries-common/overlay
 PRODUCT_COPY_FILES := \
 	device/samsung/aries-common/vold.fstab:system/etc/vold.fstab \
 	device/samsung/aries-common/egl.cfg:system/lib/egl/egl.cfg \
-	device/samsung/aries-common/mxt224_ts_input.idc:system/usr/idc/mxt224_ts_input.idc
+	device/samsung/aries-common/mxt224_ts_input.idc:system/usr/idc/mxt224_ts_input.idc \
+	device/samsung/aries-common/main.conf:system/etc/bluetooth/main.conf
 
 # Init files
 PRODUCT_COPY_FILES += \
