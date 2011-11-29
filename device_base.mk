@@ -140,7 +140,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
        ro.telephony.ril_class=samsung \
        ro.telephony.ril.v3=icccardstatus,datacall,signalstrength,facilitylock \
        mobiledata.interfaces=pdp0,eth0,gprs,ppp0 \
-       dalvik.vm.heapsize=32m
+       dalvik.vm.heapsize=48m
 
 # enable Google-specific location features,
 # like NetworkLocationProvider and LocationCollector
