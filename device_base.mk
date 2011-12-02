@@ -70,7 +70,8 @@ PRODUCT_PACKAGES := \
 # Filesystem management tools
 PRODUCT_PACKAGES += \
 	make_ext4fs \
-	setup_fs
+	setup_fs \
+	bml_over_mtd
 
 # These are the OpenMAX IL configuration files
 PRODUCT_COPY_FILES += \
