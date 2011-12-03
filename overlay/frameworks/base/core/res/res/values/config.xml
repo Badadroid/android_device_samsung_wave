@@ -142,6 +142,14 @@
         <item>"wifi_p2p,13,1,0,-1,true"</item>
     </string-array>
 
+    <!-- An Array of "[ConnectivityManager connectionType],
+         [# simultaneous connection types]"  -->
+    <string-array translatable="false" name="radioAttributes">
+        <item>"1,1"</item>
+        <item>"0,1"</item>
+        <item>"7,1"</item>
+    </string-array>
+
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          USB interfaces.  If the device doesn't want to support tething over USB this should
          be empty.  An example would be "usb.*" -->
