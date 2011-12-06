@@ -196,3 +196,13 @@ service geomagneticd /system/vendor/bin/geomagneticd
     class late_start
     user compass
     group system input
+
+service tvout /system/bin/tvoutserver
+    class late_start
+    user system
+    group graphics
+
+service tvouthack /system/bin/tvouthack
+    user system
+    group graphics
+    disabled

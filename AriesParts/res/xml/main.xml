@@ -33,4 +33,20 @@
             android:entryValues="@array/hspa_entries_values"
             android:defaultValue="23" />
 	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:title="@string/category_tvout_title">
+		<CheckBoxPreference
+			android:key="tvout_enable"
+			android:title="@string/tvout_enable_head"
+			android:summaryOn="@string/tvout_enable_summary_on"
+			android:persistent="false" />
+		<ListPreference
+			android:key="tvout_system"
+			android:title="@string/tvout_system_head"
+			android:summary="@string/tvout_system_summary"
+			android:entries="@array/tvout_system_entries"
+			android:entryValues="@array/tvout_system_entries_values"
+			android:defaultValue="2" />
+	</PreferenceCategory>
 </PreferenceScreen>

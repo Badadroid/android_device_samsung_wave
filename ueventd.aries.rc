@@ -14,6 +14,11 @@
 /dev/block/mtdblock5      0660   radio      radio
 /dev/mtd/mtd5ro           0660   radio      radio
 
+# TV Out
+/dev/video14              0660   system     graphics
+/dev/video21              0660   system     graphics
+/dev/video22              0660   system     graphics
+
 # for Sensor HAL
 /dev/yamaha_compass       0660   system     system
 /dev/akm8973              0660   system     system

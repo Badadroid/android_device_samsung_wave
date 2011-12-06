@@ -16,4 +16,12 @@
     <string name="category_radio_title">Radio</string>
     <string name="hspa_title_head">HSPA</string>
     <string name="hspa_summary_head">Enable HSDPA/HSUPA</string>
+
+    <string name="category_tvout_title">TV Out</string>
+    <string name="tvout_enable_head">TV Out</string>
+    <string name="tvout_enable_summary_nocable">TV Out cable not connected</string>
+    <string name="tvout_enable_summary">TV Out cable connected, check to enable</string>
+    <string name="tvout_enable_summary_on">TV Out enabled</string>
+    <string name="tvout_system_head">TV System</string>
+    <string name="tvout_system_summary">Set your TV system for TV Out</string>
 </resources>
