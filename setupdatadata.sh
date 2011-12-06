@@ -7,6 +7,37 @@
 
 PATH=/system/bin/:/system/xbin/
 
+function migrate_datadata {
+    # Migrate data from /datadata to /data/data
+    if test -h /data/data ; then
+        rm /data/data
+        mkdir /data/data
+        chown system.system /data/data
+        chmod 0771 /data/data
+        cp -a /datadata/* /data/data/
+        touch /data/data/.nodatadata
+        rm -r /data/data/lost+found
+        busybox umount /datadata
+        erase_image datadata
+        busybox mount /datadata
+    fi
+}
+
+function migrate_cache {
+    if test -e /data/data/$1 ; then
+        if ! test -h /data/data/$1/cache ; then
+            OWNER="`ls -ld /data/data/$1/ | awk '{print $3}'`"
+            rm -r /data/data/$1/cache # It's a cache, we don't care about its content
+            mkdir -p /data/data2/$1/cache
+            chmod 751 /data/data2/$1
+            chmod 771 /data/data2/$1/cache
+            ln -s /data/data2/$1/cache /data/data/$1/cache
+            chown $OWNER.$OWNER /data/data2/$1 /data/data2/$1/cache
+            busybox chown -h $OWNER.$OWNER /data/data/$1/cache
+        fi
+    fi
+}
+
 # There are 4 states which this script can be called from.
 # They can be detected using vold.decrypt and ro.crypto.state props
 
@@ -16,25 +47,21 @@ VOLD_DECRYPT="`getprop vold.decrypt`"
 if test "$CRYPTO_STATE" = "unencrypted" ; then
     if test "$VOLD_DECRYPT" = "" ; then
         # Normal unencrypted boot
-        rm -r /data/data
-        ln -s /datadata /data/data
+        if test -e /data/data/.nodatadata ; then
+            migrate_datadata
+        else
+            rmdir /data/data
+            ln -s /datadata /data/data
+
+            # Migrate download provider's cache out of /data/data because that's where market stores its downloads
+            migrate_cache com.android.providers.downloads
+        fi
     fi
     # else: Encrypting, do nothing
 else
     if test "$VOLD_DECRYPT" = "trigger_post_fs_data" ; then
         # Encrypted boot (after decryption)
-        # Migrate data from /datadata to /data/data
-        if test -h /data/data ; then
-            rm /data/data
-            mkdir /data/data
-            chown system.system /data/data
-            chmod 0771 /data/data
-            cp -a /datadata/* /data/data/
-            rm -r /data/data/lost+found
-            busybox umount /datadata
-            erase_image datadata
-            busybox mount /datadata
-        fi
+        migrate_datadata
     fi
     # else: Encrypted boot (before decryption), do nothing
 fi
