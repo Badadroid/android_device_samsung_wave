@@ -28,6 +28,7 @@ function migrate_cache {
         if ! test -h /data/data/$1/cache ; then
             OWNER="`ls -ld /data/data/$1/ | awk '{print $3}'`"
             rm -r /data/data/$1/cache # It's a cache, we don't care about its content
+            rm -r /data/data2/$1 # In case it exists
             mkdir -p /data/data2/$1/cache
             chmod 751 /data/data2/$1
             chmod 771 /data/data2/$1/cache
@@ -35,6 +36,9 @@ function migrate_cache {
             chown $OWNER.$OWNER /data/data2/$1 /data/data2/$1/cache
             busybox chown -h $OWNER.$OWNER /data/data/$1/cache
         fi
+    else
+        # App was removed?
+        rm -r /data/data2/$1
     fi
 }
 
