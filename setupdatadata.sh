@@ -27,11 +27,10 @@ function migrate_cache {
     if test -e /data/data/$1 ; then
         if ! test -h /data/data/$1/cache ; then
             OWNER="`ls -ld /data/data/$1/ | awk '{print $3}'`"
-            rm -r /data/data/$1/cache # It's a cache, we don't care about its content
             rm -r /data/data2/$1 # In case it exists
-            mkdir -p /data/data2/$1/cache
+            mkdir -p /data/data2/$1
             chmod 751 /data/data2/$1
-            chmod 771 /data/data2/$1/cache
+            busybox mv -f /data/data/$1/cache /data/data2/$1/
             ln -s /data/data2/$1/cache /data/data/$1/cache
             chown $OWNER.$OWNER /data/data2/$1 /data/data2/$1/cache
             busybox chown -h $OWNER.$OWNER /data/data/$1/cache
@@ -59,6 +58,8 @@ if test "$CRYPTO_STATE" = "unencrypted" ; then
 
             # Migrate download provider's cache out of /data/data because that's where market stores its downloads
             migrate_cache com.android.providers.downloads
+            # GMail stores attachments in here
+            migrate_cache com.google.android.gm
         fi
     fi
     # else: Encrypting, do nothing
