@@ -4,12 +4,22 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE_TAGS := optional
 
+ifeq ($(ARCH_ARM_HAVE_NEON),true)
 LOCAL_SRC_FILES := \
-	src/SsbSipMfcDecAPI.c
+	csc_yuv420_nv12t_y_neon.s \
+	csc_yuv420_nv12t_uv_neon.s \
+	csc_nv12t_yuv420_y_neon.s \
+	csc_nv12t_yuv420_uv_neon.s \
+	csc_interleave_memcpy.s \
+	csc_deinterleave_memcpy.s
 
-LOCAL_MODULE := libsecmfcdecapi.aries
+else
+LOCAL_SRC_FILES := \
+	color_space_convertor.c
 
+endif
 
+LOCAL_MODULE := libseccsc.aries
 
 LOCAL_CFLAGS :=
 
