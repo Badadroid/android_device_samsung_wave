@@ -94,6 +94,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	lights.aries \
 	sensors.aries \
+	hwcomposer.aries \
 	audio.primary.aries \
 	audio_policy.aries \
 	audio.a2dp.default \
