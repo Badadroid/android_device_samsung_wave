@@ -783,12 +783,10 @@ int SecCamera::startPreview(void)
         CHECK(ret);
         ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_METERING, m_params->metering);
         CHECK(ret);
-        // TODO
-        m_video_gamma = 0;
+        m_video_gamma = GAMMA_OFF;
         ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_SET_GAMMA, m_video_gamma);
         CHECK(ret);
-        // TODO
-        m_slow_ae = 0;
+        m_slow_ae = SLOW_AE_OFF;
         ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_SET_SLOW_AE, m_slow_ae);
         CHECK(ret);
         ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_EFFECT, m_params->effects);
@@ -903,6 +901,10 @@ int SecCamera::startRecord(void)
          __func__, m_recording_width, m_recording_height);
 
     if (m_camera_id == CAMERA_ID_BACK) {
+        // Some properties for back camera video recording
+        setSlowAE(SLOW_AE_ON);
+        setGamma(GAMMA_ON);
+
         ret = fimc_v4l2_s_fmt(m_cam_fd2, m_recording_width,
                               m_recording_height, V4L2_PIX_FMT_NV12T, 0);
     }
@@ -935,6 +937,12 @@ int SecCamera::startRecord(void)
     ret = fimc_poll(&m_events_c2);
     CHECK(ret);
 
+    // Continuous autofocus for main camera
+    if (m_camera_id == CAMERA_ID_BACK) {
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_CAF_START_STOP, 1);
+        CHECK(ret);
+    }
+
     m_flag_record_start = 1;
 
     return 0;
@@ -956,6 +964,12 @@ int SecCamera::stopRecord(void)
         return -1;
     }
 
+    // Continuous autofocus for main camera
+    if (m_camera_id == CAMERA_ID_BACK) {
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_CAF_START_STOP, 0);
+        CHECK(ret);
+    }
+
     m_flag_record_start = 0;
 
     ret = fimc_v4l2_streamoff(m_cam_fd2);
@@ -964,6 +978,12 @@ int SecCamera::stopRecord(void)
     ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_FRAME_RATE,
                             FRAME_RATE_AUTO);
     CHECK(ret);
+
+    // Properties for back camera non-video recording
+    if (m_camera_id == CAMERA_ID_BACK) {
+        setSlowAE(SLOW_AE_OFF);
+        setGamma(GAMMA_OFF);
+    }
 
     return 0;
 }
