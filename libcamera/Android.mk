@@ -18,5 +18,9 @@ LOCAL_MODULE := camera.aries
 
 LOCAL_MODULE_TAGS := optional
 
+ifdef BOARD_SECOND_CAMERA_DEVICE
+    LOCAL_CFLAGS += -DFFC_PRESENT
+endif
+
 include $(BUILD_SHARED_LIBRARY)
 

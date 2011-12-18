@@ -43,7 +43,8 @@
 
 namespace android {
 
-#define ENABLE_ESD_PREVIEW_CHECK
+// Not supported by CE147
+// #define ENABLE_ESD_PREVIEW_CHECK
 
 #if defined(LOG_NDEBUG) && LOG_NDEBUG == 0
 #define LOG_CAMERA LOGD

@@ -1,6 +1,7 @@
 /*
  * Copyright 2008, The Android Open Source Project
  * Copyright 2010, Samsung Electronics Co. LTD
+ * Copyright 2011, The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -764,8 +765,62 @@ int SecCamera::startPreview(void)
         CHECK(ret);
     }
 
+    if (m_camera_id == CAMERA_ID_BACK) {
+        // Init some parameters required for CE147
+        // Force antibanding for back camera - only value supported
+        m_anti_banding = ANTI_BANDING_50HZ;
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_ANTI_BANDING, m_anti_banding);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_ISO, m_params->iso);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_BRIGHTNESS, m_params->brightness);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_FRAME_RATE, m_params->capture.timeperframe.denominator);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_METERING, m_params->metering);
+        CHECK(ret);
+        // TODO
+        m_video_gamma = 0;
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_SET_GAMMA, m_video_gamma);
+        CHECK(ret);
+        // TODO
+        m_slow_ae = 0;
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_SET_SLOW_AE, m_slow_ae);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_EFFECT, m_params->effects);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_WHITE_BALANCE, m_params->white_balance);
+        CHECK(ret);
+    }
+
     ret = fimc_v4l2_streamon(m_cam_fd);
     CHECK(ret);
+
+    if (m_camera_id == CAMERA_ID_BACK) {
+        // More parameters for CE147
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_FOCUS_MODE, m_params->focus_mode);
+        CHECK(ret);
+        // TODO
+        m_face_detect = 0;
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_FACE_DETECTION, m_face_detect);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_SHARPNESS, m_params->sharpness);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_SATURATION, m_params->saturation);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_CONTRAST, m_params->contrast);
+        CHECK(ret);
+        // TODO
+        m_beauty_shot = 0;
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_BEAUTY_SHOT, m_beauty_shot);
+        CHECK(ret);
+        // TODO
+        m_zoom_level = 0;
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_ZOOM, m_zoom_level);
+        CHECK(ret);
+        ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_BATCH_REFLECTION, 1);
+        CHECK(ret);
+    }
 
     m_flag_camera_start = 1;
 
@@ -1114,6 +1169,41 @@ int SecCamera::setSnapshotCmd(void)
 
     ret = fimc_v4l2_streamon(m_cam_fd);
     CHECK(ret);
+
+    // Additional calls needed for CE147
+    // TODO: GPS
+
+    // Time
+    time_t rawtime;
+    time(&rawtime);
+    struct tm *timeinfo = localtime(&rawtime);
+    ret = fimc_v4l2_s_ext_ctrl(m_cam_fd, V4L2_CID_CAMERA_EXIF_TIME_INFO, timeinfo);
+    CHECK(ret);
+
+    // Orientation
+    int orientation;
+    switch (m_exif_orientation) {
+    case 0:
+        orientation = EXIF_ORIENTATION_UP;
+        break;
+    case 90:
+        orientation = EXIF_ORIENTATION_90;
+        break;
+    case 180:
+        orientation = EXIF_ORIENTATION_180;
+        break;
+    case 270:
+        orientation = EXIF_ORIENTATION_270;
+        break;
+    default:
+        orientation = EXIF_ORIENTATION_UP;
+        break;
+    }
+    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_EXIF_ORIENTATION, orientation);
+    CHECK(ret);
+    ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_CAPTURE, 0);
+    CHECK(ret);
+
     LOG_TIME_END(1)
 
     return 0;
@@ -2568,6 +2658,7 @@ int SecCamera::setExifOrientationInfo(int orientationInfo)
 }
 
 //======================================================================
+// Must call after parameter update on CE147 (so the changes are reflected in batch)
 int SecCamera::setBatchReflection()
 {
     if (m_flag_camera_start) {
