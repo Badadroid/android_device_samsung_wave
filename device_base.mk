@@ -150,7 +150,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
        ro.telephony.ril_class=samsung \
        ro.telephony.ril.v3=icccardstatus,datacall,signalstrength,facilitylock \
        mobiledata.interfaces=pdp0,eth0,gprs,ppp0 \
-       dalvik.vm.heapsize=48m
 
 # enable Google-specific location features,
 # like NetworkLocationProvider and LocationCollector
@@ -169,6 +168,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
+
+include frameworks/base/build/phone-hdpi-512-dalvik-heap.mk
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
