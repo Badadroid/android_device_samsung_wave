@@ -33,6 +33,8 @@ on boot
     setprop ro.product.device aries
     setprop ro.radio.noril yes
 
+    setprop ro.crypto.keyfile.userdata /efs/userdata_footer
+
 # fake some battery state
     setprop status.battery.state Slow
     setprop status.battery.level 5
