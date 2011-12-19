@@ -22,5 +22,9 @@ ifdef BOARD_SECOND_CAMERA_DEVICE
     LOCAL_CFLAGS += -DFFC_PRESENT
 endif
 
+ifeq ($(TARGET_DEVICE),fascinatemtd)
+    LOCAL_CFLAGS += -DHAVE_FLASH
+endif
+
 include $(BUILD_SHARED_LIBRARY)
 
