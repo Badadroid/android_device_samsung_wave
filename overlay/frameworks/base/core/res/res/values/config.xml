@@ -44,14 +44,11 @@
 
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
-        <item>10</item>
-        <item>160</item>
-        <item>225</item>
-        <item>320</item>
-        <item>640</item>
-        <item>1280</item>
-        <item>2600</item>
-        <item>10240</item>
+        <item>7</item>
+        <item>94</item>
+        <item>208</item>
+        <item>458</item>
+        <item>2223</item>
     </integer-array>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
@@ -59,15 +56,12 @@
          than the size of the config_autoBrightnessLevels array.
     -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>20</item>
-        <item>20</item>
-        <item>20</item>
-        <item>20</item>
+        <item>10</item>
         <item>35</item>
-        <item>50</item>
-        <item>50</item>
-        <item>100</item>
-        <item>255</item>
+        <item>55</item>
+        <item>70</item>
+        <item>70</item>
+        <item>250</item>
     </integer-array>
 
     <!-- Array of output values for button backlight corresponding to the LUX values
@@ -77,10 +71,7 @@
     <integer-array name="config_autoBrightnessButtonBacklightValues">
         <item>255</item>
         <item>255</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
+        <item>255</item>
         <item>0</item>
         <item>0</item>
         <item>0</item>
@@ -92,9 +83,6 @@
          Crespo has no keyboard so all values are zero.
     -->
     <integer-array name="config_autoBrightnessKeyboardBacklightValues">
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
         <item>0</item>
         <item>0</item>
         <item>0</item>
@@ -180,6 +168,9 @@
         <item>5</item>
         <item>7</item>
     </integer-array>
+
+    <!-- Minimum screen brightness allowed by the power manager. -->
+    <integer name="config_screenBrightnessDim">10</integer>
 
     <!-- Boolean indicating whether the wifi chipset has p2p support -->
     <bool translatable="false" name="config_wifi_p2p_support">true</bool>
