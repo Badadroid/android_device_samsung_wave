@@ -40,7 +40,9 @@
 			android:key="tvout_enable"
 			android:title="@string/tvout_enable_head"
 			android:summaryOn="@string/tvout_enable_summary_on"
-			android:persistent="false" />
+			android:summaryOff="@string/tvout_enable_summary_nocable"
+			android:persistent="false"
+			android:enabled="false" />
 		<ListPreference
 			android:key="tvout_system"
 			android:title="@string/tvout_system_head"
