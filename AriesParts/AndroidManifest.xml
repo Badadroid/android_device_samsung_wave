@@ -3,7 +3,8 @@
    package="com.cyanogenmod.AriesParts" android:sharedUserId="android.uid.system">
    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
-   <application android:label="@string/app_name">
+   <application android:label="@string/app_name"
+                android:icon="@drawable/icon">
       <activity android:name=".AriesParts"
                 android:label="@string/app_name">
          <intent-filter>
