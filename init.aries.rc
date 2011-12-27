@@ -196,6 +196,7 @@ service orientationd /system/vendor/bin/orientationd
     class late_start
     user compass
     group system input
+    disabled
 
 service geomagneticd /system/vendor/bin/geomagneticd
     class late_start
