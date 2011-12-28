@@ -1,4 +1,4 @@
-package com.cyanogenmod.AriesParts;
+package com.cyanogenmod.settings.device;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -92,7 +92,7 @@ public class TvOutService extends Service {
         if (intent != null) {
             String command = intent.getStringExtra("command");
             if (COMMAND_ENABLE.equals(command)) {
-                mSystem = Integer.parseInt(mPref.getString(AriesParts.KEY_TVOUT_SYSTEM, "2")); // Default = PAL
+                mSystem = Integer.parseInt(mPref.getString(DeviceSettings.KEY_TVOUT_SYSTEM, "2")); // Default = PAL
                 enable();
             }
             else if (COMMAND_DISABLE.equals(command)) {

@@ -1,4 +1,4 @@
-package com.cyanogenmod.AriesParts;
+package com.cyanogenmod.settings.device;
 
 import java.io.File;
 import java.io.FileNotFoundException;
