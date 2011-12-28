@@ -1,4 +1,4 @@
-package com.cyanogenmod.AriesParts;
+package com.cyanogenmod.settings.device;
 
 import android.content.Context;
 import android.content.Intent;

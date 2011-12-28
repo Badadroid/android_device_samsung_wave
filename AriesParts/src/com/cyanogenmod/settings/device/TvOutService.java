@@ -1,4 +1,4 @@
-package com.cyanogenmod.AriesParts;
+package com.cyanogenmod.settings.device;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
