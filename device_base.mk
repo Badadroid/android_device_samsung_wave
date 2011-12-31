@@ -165,6 +165,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.kernel.android.checkjni=0 \
     dalvik.vm.checkjni=false
 
+# Override /proc/sys/vm/dirty_ratio on UMS
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vold.umsdirtyratio=20
+
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mass_storage
