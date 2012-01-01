@@ -292,6 +292,12 @@ void CameraHardwareSec::initDefaultParameters(int cameraId)
         // touch focus
         p.set(CameraParameters::KEY_MAX_NUM_FOCUS_AREAS, "1");
         p.set(CameraParameters::KEY_FOCUS_AREAS, "(0,0,0,0,0)");
+
+        // zoom
+        p.set(CameraParameters::KEY_ZOOM, "0");
+        p.set(CameraParameters::KEY_MAX_ZOOM, "12");
+        p.set(CameraParameters::KEY_ZOOM_RATIOS, "100,125,150,175,200,225,250,275,300,325,350,375,400");
+        p.set(CameraParameters::KEY_ZOOM_SUPPORTED, CameraParameters::TRUE);
     } else {
         p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(7500,30000)");
         p.set(CameraParameters::KEY_PREVIEW_FPS_RANGE, "7500,30000");
@@ -1819,6 +1825,20 @@ status_t CameraHardwareSec::setParameters(const CameraParameters& params)
             if (mSecCamera->setTouchAFStartStop(val) < 0) {
                 LOGE("ERR(%s):Fail on mSecCamera->setTouchAFStartStop(%d)", __func__, val);
                 ret = UNKNOWN_ERROR;
+            }
+        }
+
+        // zoom
+        int new_zoom = params.getInt(CameraParameters::KEY_ZOOM);
+        int max_zoom = params.getInt(CameraParameters::KEY_MAX_ZOOM);
+        LOGV("%s : new_zoom %d", __func__, new_zoom);
+        if (0 <= new_zoom && new_zoom <= max_zoom) {
+            LOGV("%s : set zoom:%d\n", __func__, new_zoom);
+            if (mSecCamera->setZoom(new_zoom) < 0) {
+                LOGE("ERR(%s):Fail on mSecCamera->setZoom(%d)", __func__, new_zoom);
+                ret = UNKNOWN_ERROR;
+            } else {
+                mParameters.set(CameraParameters::KEY_ZOOM, new_zoom);
             }
         }
     } else {
