@@ -773,6 +773,13 @@ int SecCamera::startPreview(void)
         // Init some parameters required for CE147
         // Force antibanding for back camera - only value supported
         m_anti_banding = ANTI_BANDING_50HZ;
+
+        // It doesn't hurt to keep these on as the kernel camera driver only
+        // enables it when recording HD video. Turning it on before recording
+        // doesn't work because it needs to be set before the preview is started.
+        m_video_gamma = GAMMA_ON;
+        m_slow_ae = SLOW_AE_ON;
+
         ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_ANTI_BANDING, m_anti_banding);
         CHECK(ret);
         ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_ISO, m_params->iso);
@@ -783,10 +790,8 @@ int SecCamera::startPreview(void)
         CHECK(ret);
         ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_METERING, m_params->metering);
         CHECK(ret);
-        m_video_gamma = GAMMA_OFF;
         ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_SET_GAMMA, m_video_gamma);
         CHECK(ret);
-        m_slow_ae = SLOW_AE_OFF;
         ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_SET_SLOW_AE, m_slow_ae);
         CHECK(ret);
         ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_EFFECT, m_params->effects);
@@ -902,8 +907,6 @@ int SecCamera::startRecord(void)
 
     if (m_camera_id == CAMERA_ID_BACK) {
         // Some properties for back camera video recording
-        setSlowAE(SLOW_AE_ON);
-        setGamma(GAMMA_ON);
         setISO(ISO_MOVIE);
         setMetering(METERING_MATRIX);
 
@@ -983,8 +986,6 @@ int SecCamera::stopRecord(void)
 
     // Properties for back camera non-video recording
     if (m_camera_id == CAMERA_ID_BACK) {
-        setSlowAE(SLOW_AE_OFF);
-        setGamma(GAMMA_OFF);
         setISO(ISO_AUTO);
         setMetering(METERING_CENTER);
     }
