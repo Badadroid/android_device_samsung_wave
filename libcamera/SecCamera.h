@@ -147,7 +147,7 @@ namespace android {
 
 #define BPP             2
 #define MIN(x, y)       (((x) < (y)) ? (x) : (y))
-#define MAX_BUFFERS     4
+#define MAX_BUFFERS     8
 
 #define FIRST_AF_SEARCH_COUNT 600
 #define AF_PROGRESS 0x05

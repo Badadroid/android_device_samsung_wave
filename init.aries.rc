@@ -21,11 +21,6 @@ on init
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
-    # Tweak background writeout
-    write /proc/sys/vm/dirty_writeback_centisecs 2000
-    write /proc/sys/vm/dirty_expire_centisecs 1000
-    write /proc/sys/vm/dirty_ratio 90
-
 # Include extra init file
     import /device.rc
 
