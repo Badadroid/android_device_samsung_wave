@@ -46,14 +46,14 @@ public class TvOutService extends Service {
             }
             else if (Intent.ACTION_SCREEN_ON.equals(action)) {
                 if (mWasOn) {
-                    enable();
+                    SystemProperties.set("ctl.start", "tvouthack");
                     mWasOn = false;
                 }
             }
             else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
                 if (mTvOut._isEnabled()) {
                     mWasOn = true;
-                    disable();
+                    SystemProperties.set("ctl.stop", "tvouthack");
                 }
             }
         }
