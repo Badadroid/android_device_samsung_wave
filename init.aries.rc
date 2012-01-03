@@ -21,9 +21,6 @@ on init
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
-# Include extra init file
-    import /device.rc
-
     setprop ro.build.product aries
     setprop ro.product.device aries
     setprop ro.radio.noril yes
