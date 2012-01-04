@@ -385,10 +385,8 @@ status_t AudioHardware::setMode(int mode)
     status = AudioHardwareBase::setMode(mode);
     LOGV("setMode() : new %d, old %d", mMode, prevMode);
     if (status == NO_ERROR) {
-        bool modeNeedsCPActive = mMode == AudioSystem::MODE_IN_CALL ||
-                                    mMode == AudioSystem::MODE_RINGTONE;
         // activate call clock in radio when entering in call or ringtone mode
-        if (modeNeedsCPActive)
+        if (prevMode == AudioSystem::MODE_NORMAL)
         {
             if ((!mActivatedCP) && (mSecRilLibHandle) && (connectRILDIfRequired() == OK)) {
                 setCallClockSync(mRilClient, SOUND_CLOCK_START);
@@ -413,7 +411,7 @@ status_t AudioHardware::setMode(int mode)
             setVoiceVolume_l(mVoiceVol);
             mInCallAudioMode = true;
         }
-        if (mMode != AudioSystem::MODE_IN_CALL && mInCallAudioMode) {
+        if (mMode == AudioSystem::MODE_NORMAL && mInCallAudioMode) {
             setInputSource_l(mInputSource);
             if (mMixer != NULL) {
                 TRACE_DRIVER_IN(DRV_MIXER_GET)
@@ -442,7 +440,7 @@ status_t AudioHardware::setMode(int mode)
             mInCallAudioMode = false;
         }
 
-        if (!modeNeedsCPActive) {
+        if (mMode == AudioSystem::MODE_NORMAL) {
             if(mActivatedCP)
                 mActivatedCP = false;
         }
