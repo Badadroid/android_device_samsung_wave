@@ -1,3 +1,5 @@
+ifneq ($(TARGET_PROVIDES_LIBAUDIO),true)
+
 LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -43,3 +45,5 @@ ifeq ($(BOARD_HAVE_FM_RADIO),true)
 endif
 
 include $(BUILD_SHARED_LIBRARY)
+
+endif
