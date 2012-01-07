@@ -128,6 +128,20 @@
 
         </EncoderProfile>
 
+        <EncoderProfile quality="timelapse720p" fileFormat="mp4" duration="60">
+            <Video codec="h264"
+                   bitRate="10000000"
+                   width="1280"
+                   height="720"
+                   frameRate="30" />
+
+            <!-- Audio settings are not used for timealpse video recording -->
+            <Audio codec="aac"
+                   bitRate="96000"
+                   sampleRate="16000"
+                   channels="1" />
+        </EncoderProfile>
+
         <EncoderProfile quality="timelapse480p" fileFormat="mp4" duration="60">
             <Video codec="h264"
                    bitRate="3000000"
