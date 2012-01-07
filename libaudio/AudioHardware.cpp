@@ -16,7 +16,7 @@
 
 #include <math.h>
 
-//#define LOG_NDEBUG 0
+#define LOG_NDEBUG 0
 #define LOG_TAG "AudioHardware"
 
 #include <utils/Log.h>
@@ -1325,7 +1325,7 @@ int AudioHardware::AudioStreamOutALSA::getPlaybackDelay(size_t frames,
 
 ssize_t AudioHardware::AudioStreamOutALSA::write(const void* buffer, size_t bytes)
 {
-    LOGV("-----AudioStreamInALSA::write(%p, %d) START", buffer, (int)bytes);
+    //LOGV("-----AudioStreamInALSA::write(%p, %d) START", buffer, (int)bytes);
     status_t status = NO_INIT;
     const uint8_t* p = static_cast<const uint8_t*>(buffer);
     int ret;
@@ -1396,7 +1396,7 @@ ssize_t AudioHardware::AudioStreamOutALSA::write(const void* buffer, size_t byte
         TRACE_DRIVER_OUT
 
         if (ret == 0) {
-            LOGV("-----AudioStreamInALSA::write(%p, %d) END", buffer, (int)bytes);
+            //LOGV("-----AudioStreamInALSA::write(%p, %d) END", buffer, (int)bytes);
             return bytes;
         }
         LOGW("write error: %d", errno);
@@ -1950,7 +1950,7 @@ void AudioHardware::AudioStreamInALSA::getCaptureDelay(size_t frames,
 
 ssize_t AudioHardware::AudioStreamInALSA::read(void* buffer, ssize_t bytes)
 {
-    LOGV("-----AudioStreamInALSA::read(%p, %d) START", buffer, (int)bytes);
+    //LOGV("-----AudioStreamInALSA::read(%p, %d) START", buffer, (int)bytes);
     status_t status = NO_INIT;
 
     if (mHardware == NULL) return NO_INIT;
@@ -2022,7 +2022,7 @@ ssize_t AudioHardware::AudioStreamInALSA::read(void* buffer, ssize_t bytes)
         }
 
         if (framesRd >= 0) {
-            LOGV("-----AudioStreamInALSA::read(%p, %d) END", buffer, (int)bytes);
+            //LOGV("-----AudioStreamInALSA::read(%p, %d) END", buffer, (int)bytes);
             return framesRd * mChannelCount * sizeof(int16_t);
         }
 
