@@ -62,11 +62,9 @@ if /tmp/busybox test -e /dev/block/bml7 ; then
     fi
 
     # write the package path to sdcard cyanogenmod.cfg
-    # note: we'll have to swap sdcard and emmc because internal sd will be
-    # mounted at emmc instead in ICS
     if /tmp/busybox test -n "$UPDATE_PACKAGE" ; then
-        PACKAGE_LOCATION=${UPDATE_PACKAGE#/mnt/sdcard/}
-        /tmp/busybox echo "/emmc/$PACKAGE_LOCATION" > /mnt/sdcard/cyanogenmod.cfg
+        PACKAGE_LOCATION=${UPDATE_PACKAGE#/mnt}
+        /tmp/busybox echo "$PACKAGE_LOCATION" > /mnt/sdcard/cyanogenmod.cfg
     fi
 
     # Scorch any ROM Manager settings to require the user to reflash recovery
@@ -92,11 +90,8 @@ elif /tmp/busybox test `/tmp/busybox cat /sys/class/mtd/mtd2/size` != 262144000 
     set_log /sdcard/cyanogenmod_mtd_old.log
 
     # write the package path to sdcard cyanogenmod.cfg
-    # note: we'll have to swap sdcard and emmc because internal sd will be
-    # mounted at emmc instead in ICS
     if /tmp/busybox test -n "$UPDATE_PACKAGE" ; then
-        PACKAGE_LOCATION=${UPDATE_PACKAGE#/sdcard/}
-        /tmp/busybox echo "/emmc/$PACKAGE_LOCATION" > /sdcard/cyanogenmod.cfg
+        /tmp/busybox echo "$UPDATE_PACKAGE" > /sdcard/cyanogenmod.cfg
     fi
 
     # inform the script that this is a CM7 upgrade
@@ -118,11 +113,11 @@ elif /tmp/busybox test `/tmp/busybox cat /sys/class/mtd/mtd2/size` != 262144000 
 elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
     # we're running on a mtd (current) device
 
-    # make sure sdcard is mounted (at /emmc)
-    check_mount /emmc $SD_PART vfat
+    # make sure sdcard is mounted
+    check_mount /sdcard $SD_PART vfat
 
-    # everything is logged into /emmc/cyanogenmod.log
-    set_log /emmc/cyanogenmod_mtd.log
+    # everything is logged into /sdcard/cyanogenmod.log
+    set_log /sdcard/cyanogenmod_mtd.log
 
     if $IS_GSM ; then
         # create mountpoint for radio partition
@@ -153,7 +148,7 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
         /tmp/busybox umount -l /dev/block/mtdblock5
     fi
 
-    if ! /tmp/busybox test -e /emmc/cyanogenmod.cfg ; then
+    if ! /tmp/busybox test -e /sdcard/cyanogenmod.cfg ; then
         # update install - flash boot image then skip back to updater-script
         # (boot image is already flashed for first time install or cm7 upgrade)
 
@@ -174,7 +169,7 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
     # let's format the volumes and restore radio and efs
 
     # remove the cyanogenmod.cfg to prevent this from looping
-    /tmp/busybox rm -f /emmc/cyanogenmod.cfg
+    /tmp/busybox rm -f /sdcard/cyanogenmod.cfg
 
     # unmount and format system (recovery seems to expect system to be unmounted)
     /tmp/busybox umount -l /system
@@ -184,11 +179,11 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
     /tmp/busybox umount -l /cache
     /tmp/erase_image cache
 
-    if /tmp/busybox test -e /emmc/cyanogenmod.cm7upd ; then
+    if /tmp/busybox test -e /sdcard/cyanogenmod.cm7upd ; then
         # this is an upgrade from CM7 with changed MTD mapping for /system and /cache
         # so return to updater-script after formatting these two
 
-        /tmp/busybox rm -f /emmc/cyanogenmod.cm7upd
+        /tmp/busybox rm -f /sdcard/cyanogenmod.cm7upd
 
         exit 0
     fi
@@ -203,7 +198,7 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
 
     if $IS_GSM ; then
         # restore efs backup
-        if /tmp/busybox test -e /emmc/backup/efs/nv_data.bin ; then
+        if /tmp/busybox test -e /sdcard/backup/efs/nv_data.bin ; then
             /tmp/busybox umount -l /efs
             /tmp/erase_image efs
             /tmp/busybox mkdir -p /efs
@@ -215,7 +210,7 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
                 fi
             fi
 
-            /tmp/busybox cp -R /emmc/backup/efs /
+            /tmp/busybox cp -R /sdcard/backup/efs /
             /tmp/busybox umount -l /efs
         else
             /tmp/busybox echo "Cannot restore efs."
