@@ -8,6 +8,11 @@
     <string name="color_red_title">Red</string>
     <string name="color_green_title">Green</string>
     <string name="color_blue_title">Blue</string>
+    <string name="color_red_v0_title">Red (v0 Gamma)</string>
+    <string name="color_green_v0_title">Green (v0 Gamma)</string>
+    <string name="color_blue_v0_title">Blue (v0 Gamma)</string>
+    <string name="mdnie_title_head">mDNIe Mode</string>
+    <string name="mdnie_summary_head">Adjust mDNIe display post-processing</string>
 
     <string name="category_touchkey_title">Touch Keys</string>
     <string name="backlight_timeout_title_head">Backlight Timeout</string>

@@ -14,12 +14,14 @@ import android.preference.PreferenceActivity;
 public class DeviceSettings extends PreferenceActivity  {
 
     public static final String KEY_COLOR_TUNING = "color_tuning";
+    public static final String KEY_MDNIE = "mdnie";
     public static final String KEY_BACKLIGHT_TIMEOUT = "backlight_timeout";
     public static final String KEY_HSPA = "hspa";
     public static final String KEY_TVOUT_ENABLE = "tvout_enable";
     public static final String KEY_TVOUT_SYSTEM = "tvout_system";
 
     private ColorTuningPreference mColorTuning;
+    private ListPreference mMdnie;
     private ListPreference mBacklightTimeout;
     private ListPreference mHspa;
     private CheckBoxPreference mTvOutEnable;
@@ -43,6 +45,10 @@ public class DeviceSettings extends PreferenceActivity  {
 
         mColorTuning = (ColorTuningPreference) findPreference(KEY_COLOR_TUNING);
         mColorTuning.setEnabled(ColorTuningPreference.isSupported());
+
+        mMdnie = (ListPreference) findPreference(KEY_MDNIE);
+        mMdnie.setEnabled(Mdnie.isSupported());
+        mMdnie.setOnPreferenceChangeListener(new Mdnie());
 
         mBacklightTimeout = (ListPreference) findPreference(KEY_BACKLIGHT_TIMEOUT);
         mBacklightTimeout.setEnabled(TouchKeyBacklightTimeout.isSupported());

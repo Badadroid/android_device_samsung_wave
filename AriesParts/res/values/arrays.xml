@@ -1,4 +1,22 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string-array name="mdnie_entries">
+        <item>Disabled</item>
+        <item>UI Mode</item>
+        <item>Video Mode</item>
+        <item>Video Warm Mode</item>
+        <item>Video Cold Mode</item>
+        <item>Camera Mode</item>
+    </string-array>
+
+    <string-array name="mdnie_entries_values" translatable="false">
+        <item>6</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
     <string-array name="backlight_timeout_entries">
         <item>Default (1.6 seconds)</item>
         <item>0.5 seconds</item>

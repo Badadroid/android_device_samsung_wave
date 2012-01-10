@@ -8,6 +8,14 @@
 	        android:key="color_tuning"
 	        android:title="@string/color_tuning_title_head"
 	        android:summary="@string/color_tuning_summary_head" />
+	    <!-- mDNIe Options -->
+	    <ListPreference
+	        android:key="mdnie"
+	        android:title="@string/mdnie_title_head"
+	        android:summary="@string/mdnie_summary_head"
+	        android:entries="@array/mdnie_entries"
+	        android:entryValues="@array/mdnie_entries_values"
+	        android:defaultValue="6" />
 	</PreferenceCategory>
 
 	<PreferenceCategory
