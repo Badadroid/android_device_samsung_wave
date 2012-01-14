@@ -909,6 +909,7 @@ int SecCamera::startRecord(void)
         // Some properties for back camera video recording
         setISO(ISO_MOVIE);
         setMetering(METERING_MATRIX);
+        setBatchReflection();
 
         ret = fimc_v4l2_s_fmt(m_cam_fd2, m_recording_width,
                               m_recording_height, V4L2_PIX_FMT_NV12T, 0);
@@ -988,6 +989,7 @@ int SecCamera::stopRecord(void)
     if (m_camera_id == CAMERA_ID_BACK) {
         setISO(ISO_AUTO);
         setMetering(METERING_CENTER);
+        setBatchReflection();
     }
 
     return 0;
