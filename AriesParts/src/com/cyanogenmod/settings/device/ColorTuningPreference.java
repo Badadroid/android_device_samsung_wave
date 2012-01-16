@@ -228,7 +228,7 @@ public class ColorTuningPreference extends DialogPreference {
 
         @Override
         protected void updateValue(int progress) {
-            mValueDisplay.setText(String.valueOf(progress));
+            mValueDisplay.setText("-" + progress);
         }
 
     }
