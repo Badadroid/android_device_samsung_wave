@@ -2,8 +2,8 @@ import init.aries.usb.rc
 
 on init
     loglevel 9
-    export PHONE_STORAGE /mnt/emmc
     export EXTERNAL_STORAGE /mnt/sdcard
+    export SECONDARY_STORAGE /mnt/emmc
 
     # FIXME: Market checks this variable for space-checking, but downloads to /datadata
     export DOWNLOAD_CACHE /data/download
