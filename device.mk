@@ -42,6 +42,10 @@ PRODUCT_COPY_FILES := \
 PRODUCT_COPY_FILES += \
 	device/samsung/galaxysmtd/aries-keypad.kl:system/usr/keylayout/aries-keypad.kl
 
+# We have FFC
+PRODUCT_COPY_FILES += \
+	frameworks/base/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml
+
 # kernel modules
 PRODUCT_COPY_FILES += $(foreach module,\
 	$(wildcard device/samsung/galaxysmtd/*.ko),\
