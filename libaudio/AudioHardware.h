@@ -86,6 +86,7 @@ public:
     static const char *inputPathNameDefault;
     static const char *inputPathNameCamcorder;
     static const char *inputPathNameVoiceRecognition;
+    static const char *inputPathNameVoiceCommunication;
 
     AudioHardware();
     virtual ~AudioHardware();

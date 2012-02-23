@@ -34,6 +34,7 @@
 #include "AudioHardware.h"
 #include <media/AudioRecord.h>
 #include <audio_effects/effect_aec.h>
+#include <hardware_legacy/power.h>
 
 extern "C" {
 #include <tinyalsa/asoundlib.h>
@@ -84,6 +85,7 @@ enum {
 const char *AudioHardware::inputPathNameDefault = "Default";
 const char *AudioHardware::inputPathNameCamcorder = "Camcorder";
 const char *AudioHardware::inputPathNameVoiceRecognition = "Voice Recognition";
+const char *AudioHardware::inputPathNameVoiceCommunication = "Voice Communication";
 
 AudioHardware::AudioHardware() :
     mInit(false),
@@ -1171,12 +1173,12 @@ status_t AudioHardware::setInputSource_l(audio_source source)
                  const char* sourceName;
                  switch (source) {
                      case AUDIO_SOURCE_DEFAULT: // intended fall-through
-                     case AUDIO_SOURCE_MIC:     // intended fall-through
-                     case AUDIO_SOURCE_VOICE_COMMUNICATION:
-                         sourceName = inputPathNameDefault;
-                         break;
+                     case AUDIO_SOURCE_MIC:
                      case AUDIO_SOURCE_CAMCORDER:
                          sourceName = inputPathNameCamcorder;
+                         break;
+                     case AUDIO_SOURCE_VOICE_COMMUNICATION:
+                         sourceName = inputPathNameVoiceCommunication;
                          break;
                      case AUDIO_SOURCE_VOICE_RECOGNITION:
                          sourceName = inputPathNameVoiceRecognition;
@@ -1344,6 +1346,8 @@ ssize_t AudioHardware::AudioStreamOutALSA::write(const void* buffer, size_t byte
             AutoMutex hwLock(mHardware->lock());
 
             LOGD("AudioHardware pcm playback is exiting standby.");
+            acquire_wake_lock(PARTIAL_WAKE_LOCK, "AudioOutLock");
+
             sp<AudioStreamInALSA> spIn = mHardware->getActiveInput_l();
             while (spIn != 0) {
                 int cnt = spIn->prepareLock();
@@ -1375,6 +1379,7 @@ ssize_t AudioHardware::AudioStreamOutALSA::write(const void* buffer, size_t byte
                 spIn->unlock();
             }
             if (mPcm == NULL) {
+                release_wake_lock("AudioOutLock");
                 goto Error;
             }
             mStandby = false;
@@ -1438,6 +1443,7 @@ void AudioHardware::AudioStreamOutALSA::doStandby_l()
         if (mEchoReference != NULL) {
             mEchoReference->write(mEchoReference, NULL);
         }
+        release_wake_lock("AudioOutLock");
         mStandby = true;
     }
 
