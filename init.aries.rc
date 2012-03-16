@@ -1,4 +1,5 @@
 import init.aries.usb.rc
+import init.aries.gps.rc
 
 on init
     loglevel 9
@@ -88,12 +89,6 @@ on post-fs-data
     # setup datadata
     exec /sbin/setupdatadata.sh
 
-    # create data/gps for GPS demon
-    mkdir /data/gps 700 gps system
-    chown gps system /data/gps
-    chown gps root /sys/class/sec/gps/GPS_PWR_EN/value
-    chmod 660 /sys/class/sec/gps/GPS_PWR_EN/value
-
     # wi-fi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
@@ -116,12 +111,6 @@ service pvrsrvinit /system/vendor/bin/pvrsrvinit
     user root
     group root
     oneshot
-
-service gpsd /system/vendor/bin/gpsd -c /vendor/etc/gps.xml
-    class late_start
-    socket gps seqpacket 0660 gps system
-    user gps
-    group system inet
 
 service wpa_supplicant /system/bin/wpa_supplicant \
 		-Dnl80211 -iwlan0 -puse_p2p_group_interface=1 -e/data/misc/wifi/entropy.bin
