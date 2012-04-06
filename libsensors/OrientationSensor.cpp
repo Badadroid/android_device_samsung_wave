@@ -21,6 +21,7 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <sys/select.h>
+#include <cutils/properties.h>
 #include <cutils/log.h>
 
 
@@ -85,6 +86,12 @@ int OrientationSensor::enable(int32_t, int en) {
             close(fd);
             mEnabled = flags;
             //setInitialState();
+
+            /* Since the migration to 3.0 kernel, orientationd doesn't poll
+             * the enabled state properly, so start it when it's enabled and
+             * stop it when we're done using it.
+             */
+            property_set(mEnabled ? "ctl.start" : "ctl.stop", "orientationd");
             return 0;
         }
         return -1;        
