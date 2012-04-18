@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Galaxy S Settings</string>
+
+    <string name="category_screen_title">Schermo</string>
+    <string name="color_tuning_title_head">Gestione colori</string>
+    <string name="color_tuning_summary_head">Calibra i colori dello schermo</string>
+    <string name="color_red_title">Rosso</string>
+    <string name="color_green_title">Verde</string>
+    <string name="color_blue_title">Blu</string>
+    <string name="color_red_gamma_title">Gamma Rosso</string>
+    <string name="color_green_gamma_title">Gamma Verde</string>
+    <string name="color_blue_gamma_title">Gamma Blu</string>
+    <string name="mdnie_title_head">Modalità mDNIe</string>
+    <string name="mdnie_summary_head">Regola le impostazioni per la tecnologia mDNIe</string>
+
+    <string name="category_touchkey_title">Tasti a sfioramento</string>
+    <string name="backlight_timeout_title_head">Timeout retroilluminazione</string>
+    <string name="backlight_timeout_summary_head">Regola il ritardo per lo spegnimento dei tasti a sfioramento</string>
+
+    <string name="category_radio_title">Radio</string>
+    <string name="hspa_title_head">HSPA</string>
+    <string name="hspa_summary_head">Abilita HSDPA/HSUPA</string>
+
+    <string name="category_tvout_title">Uscita TV</string>
+    <string name="tvout_enable_head">Uscita TV</string>
+    <string name="tvout_enable_summary_nocable">Nessun cavo connesso all\' uscita TV</string>
+    <string name="tvout_enable_summary">Cavo connesso all\' uscita TV, seleziona per abilitare</string>
+    <string name="tvout_enable_summary_on">Uscita TV abilitata</string>
+    <string name="tvout_system_head">Sistema TV</string>
+    <string name="tvout_system_summary">Imposta il sistema TV per l\' uscita TV</string>
+</resources>
