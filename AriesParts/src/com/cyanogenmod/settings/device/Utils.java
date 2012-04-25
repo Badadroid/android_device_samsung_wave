@@ -36,6 +36,15 @@ public class Utils {
     }
 
     /**
+     * Write the "gamma value" to the specified file.
+     * @param filename      The filename
+     * @param value         The value
+     */
+    public static void writeGamma(String filename, int value) {
+        writeValue(filename, String.valueOf(value));
+    }
+
+    /**
      * Check if the specified file exists.
      * @param filename      The filename
      * @return              Whether the file exists or not

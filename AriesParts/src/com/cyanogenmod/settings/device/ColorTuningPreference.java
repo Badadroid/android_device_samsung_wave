@@ -62,7 +62,7 @@ public class ColorTuningPreference extends DialogPreference {
 
     private static final int MAX_VALUE = Integer.MAX_VALUE;
 
-    private static final int GAMMA_MAX_VALUE = 20;
+    private static final int GAMMA_MAX_VALUE = 40;
     private static final int GAMMA_DEFAULT_VALUE = 0;
 
     // Track instances to know when to restore original color
@@ -224,6 +224,13 @@ public class ColorTuningPreference extends DialogPreference {
             seekBar.setMax(GAMMA_MAX_VALUE);
             reset();
             seekBar.setOnSeekBarChangeListener(this);
+        }
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress,
+                boolean fromUser) {
+            Utils.writeGamma(mFilePath, progress);
+            updateValue(progress);
         }
 
         @Override
