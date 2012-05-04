@@ -76,6 +76,9 @@ static const int EFFECT_SKIP_FRAME = 1;
 
 gralloc_module_t const* CameraHardwareSec::mGrallocHal;
 
+// Samsung-specific focus mode
+const char FOCUS_MODE_FACEDETECT[] = "facedetect";
+
 CameraHardwareSec::CameraHardwareSec(int cameraId, camera_device_t *dev)
         :
           mCaptureInProgress(false),
@@ -202,6 +205,8 @@ void CameraHardwareSec::initDefaultParameters(int cameraId)
         parameterString.append(CameraParameters::FOCUS_MODE_INFINITY);
         parameterString.append(",");
         parameterString.append(CameraParameters::FOCUS_MODE_MACRO);
+        parameterString.append(",");
+        parameterString.append(FOCUS_MODE_FACEDETECT);
         p.set(CameraParameters::KEY_SUPPORTED_FOCUS_MODES,
               parameterString.string());
         p.set(CameraParameters::KEY_FOCUS_MODE,
@@ -1748,12 +1753,28 @@ status_t CameraHardwareSec::setParameters(const CameraParameters& params)
                 mParameters.set(CameraParameters::KEY_FOCUS_DISTANCES,
                                 BACK_CAMERA_INFINITY_FOCUS_DISTANCES_STR);
             }
+            else if (!strcmp(new_focus_mode_str, FOCUS_MODE_FACEDETECT)) {
+                // Enable face detect here, SecCamera will take care of the rest
+                if (mSecCamera->setFaceDetect(FACE_DETECTION_ON) < 0) {
+                    LOGE("%s::mSecCamera->setFaceDetect(%d) fail", __func__, FACE_DETECTION_ON);
+                    ret = UNKNOWN_ERROR;
+                }
+                mParameters.set(CameraParameters::KEY_FOCUS_MODE, new_focus_mode_str);
+                mParameters.set(CameraParameters::KEY_FOCUS_DISTANCES,
+                                BACK_CAMERA_AUTO_FOCUS_DISTANCES_STR);
+            }
             else {
                 LOGE("%s::unmatched focus_mode(%s)", __func__, new_focus_mode_str);
                 ret = UNKNOWN_ERROR;
             }
 
             if (0 <= new_focus_mode) {
+                // Disable face-detect
+                if (mSecCamera->setFaceDetect(FACE_DETECTION_OFF) < 0) {
+                    LOGE("%s::mSecCamera->setFaceDetect(%d) fail", __func__, FACE_DETECTION_OFF);
+                    ret = UNKNOWN_ERROR;
+                }
+
                 if (mSecCamera->setFocusMode(new_focus_mode) < 0) {
                     LOGE("%s::mSecCamera->setFocusMode(%d) fail", __func__, new_focus_mode);
                     ret = UNKNOWN_ERROR;
