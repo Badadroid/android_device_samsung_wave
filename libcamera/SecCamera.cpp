@@ -807,7 +807,6 @@ int SecCamera::startPreview(void)
         // More parameters for CE147
         ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_FOCUS_MODE, m_params->focus_mode);
         CHECK(ret);
-        // TODO
         m_face_detect = 0;
         ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_FACE_DETECTION, m_face_detect);
         CHECK(ret);
@@ -821,7 +820,6 @@ int SecCamera::startPreview(void)
         m_beauty_shot = 0;
         ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_BEAUTY_SHOT, m_beauty_shot);
         CHECK(ret);
-        // TODO
         m_zoom_level = 0;
         ret = fimc_v4l2_s_ctrl(m_cam_fd, V4L2_CID_CAMERA_ZOOM, m_zoom_level);
         CHECK(ret);
