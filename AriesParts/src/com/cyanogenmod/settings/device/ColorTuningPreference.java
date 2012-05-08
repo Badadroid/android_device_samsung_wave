@@ -127,7 +127,7 @@ public class ColorTuningPreference extends DialogPreference {
         }
         for (String filePath : GAMMA_FILE_PATH) {
             int value = sharedPrefs.getInt(filePath, GAMMA_DEFAULT_VALUE);
-            Utils.writeColor(filePath, value);
+            Utils.writeGamma(filePath, value);
         }
     }
 
