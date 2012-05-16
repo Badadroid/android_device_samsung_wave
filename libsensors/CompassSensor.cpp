@@ -106,19 +106,29 @@ bool CompassSensor::hasPendingEvents() const {
 
 int CompassSensor::setDelay(int32_t handle, int64_t ns)
 {
-    LOGD("CompassSensor::~setDelay(%d, %lld)", handle, ns);
-
     int fd;
+    int val;
 
-    if (ns < 10000000) {
-        ns = 10000000; // Minimum on stock
+    // Kernel driver only support specific values
+    if (ns < 20000000L) {
+        val = 1;
+    } else if (ns < 60000000L) {
+        val = 20;
+    } else if (ns < 200000000L) {
+        val = 60;
+    } else if (ns < 1000000000L) {
+        val = 200;
+    } else {
+        val = 1000;
     }
+
+    LOGD("CompassSensor::~setDelay(%d, %lld) val = %d", handle, ns, val);
 
     strcpy(&input_sysfs_path[input_sysfs_path_len], "delay");
     fd = open(input_sysfs_path, O_RDWR);
     if (fd >= 0) {
         char buf[80];
-        sprintf(buf, "%lld", ns / 10000000 * 10); // Some flooring to match stock value
+        sprintf(buf, "%d", val);
         write(fd, buf, strlen(buf)+1);
         close(fd);
         return 0;
