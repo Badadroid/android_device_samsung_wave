@@ -96,6 +96,10 @@ on post-fs-data
     # download cache
     mkdir /data/download 0770 system cache
 
+    # logs
+    mkdir /data/log 0775 root root
+    chmod 0775 /data/log
+
     setprop vold.post_fs_data_done 1
 
 service aries-ril-daemon /system/bin/rild
