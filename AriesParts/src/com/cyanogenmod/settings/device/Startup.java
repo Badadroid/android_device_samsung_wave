@@ -12,6 +12,7 @@ public class Startup extends BroadcastReceiver {
         Mdnie.restore(context);
         TouchKeyBacklightTimeout.restore(context);
         Hspa.restore(context);
+        VolumeBoostPreference.restore(context);
     }
 
 }

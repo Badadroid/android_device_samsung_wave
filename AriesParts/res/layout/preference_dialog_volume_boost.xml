@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:paddingBottom="20dip">
+
+        <!-- Volume Boost RCV -->
+        <TextView android:id="@+id/boost_rcv_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/boost_rcv_title"
+                android:paddingTop="10dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+        <TextView android:id="@+id/boost_rcv_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:paddingTop="10dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+        <SeekBar android:id="@+id/boost_rcv_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/boost_rcv_text"
+                android:paddingTop="2dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+
+        <!-- Volume Boost BT -->
+        <TextView android:id="@+id/boost_bt_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/boost_rcv_seekbar"
+                android:text="@string/boost_bt_title"
+                android:paddingTop="10dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+        <TextView android:id="@+id/boost_bt_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/boost_rcv_seekbar"
+                android:layout_alignParentRight="true"
+                android:paddingTop="10dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+        <SeekBar android:id="@+id/boost_bt_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/boost_bt_text"
+                android:paddingTop="2dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+
+        <!-- Volume Boost SPK -->
+        <TextView android:id="@+id/boost_spk_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/boost_bt_seekbar"
+                android:text="@string/boost_spk_title"
+                android:paddingTop="10dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+        <TextView android:id="@+id/boost_spk_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/boost_bt_seekbar"
+                android:layout_alignParentRight="true"
+                android:paddingTop="10dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+        <SeekBar android:id="@+id/boost_spk_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/boost_spk_text"
+                android:paddingTop="2dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+
+        <!-- Volume Boost HP -->
+        <TextView android:id="@+id/boost_hp_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/boost_spk_seekbar"
+                android:text="@string/boost_hp_title"
+                android:paddingTop="10dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+        <TextView android:id="@+id/boost_hp_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/boost_spk_seekbar"
+                android:layout_alignParentRight="true"
+                android:paddingTop="10dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+        <SeekBar android:id="@+id/boost_hp_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/boost_hp_text"
+                android:paddingTop="2dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+
+        <!-- Mic Gain RCV -->
+        <TextView android:id="@+id/mic_rcv_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/boost_hp_seekbar"
+                android:text="@string/mic_rcv_title"
+                android:paddingTop="30dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+        <TextView android:id="@+id/mic_rcv_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/boost_hp_seekbar"
+                android:layout_alignParentRight="true"
+                android:paddingTop="30dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+        <SeekBar android:id="@+id/mic_rcv_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mic_rcv_text"
+                android:paddingTop="2dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+
+        <!-- Mic Gain SPK -->
+        <TextView android:id="@+id/mic_spk_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mic_rcv_seekbar"
+                android:text="@string/mic_spk_title"
+                android:paddingTop="10dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+        <TextView android:id="@+id/mic_spk_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mic_rcv_seekbar"
+                android:layout_alignParentRight="true"
+                android:paddingTop="10dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+        <SeekBar android:id="@+id/mic_spk_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mic_spk_text"
+                android:paddingTop="2dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+
+        <!-- Mic Gain HP -->
+        <TextView android:id="@+id/mic_hp_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mic_spk_seekbar"
+                android:text="@string/mic_hp_title"
+                android:paddingTop="10dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+        <TextView android:id="@+id/mic_hp_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mic_spk_seekbar"
+                android:layout_alignParentRight="true"
+                android:paddingTop="10dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+        <SeekBar android:id="@+id/mic_hp_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mic_hp_text"
+                android:paddingTop="2dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+
+        <!-- Mic Gain HP no Mic -->
+        <TextView android:id="@+id/mic_hp_no_mic_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mic_hp_seekbar"
+                android:text="@string/mic_hp_no_mic_title"
+                android:paddingTop="10dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+        <TextView android:id="@+id/mic_hp_no_mic_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mic_hp_seekbar"
+                android:layout_alignParentRight="true"
+                android:paddingTop="10dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+        <SeekBar android:id="@+id/mic_hp_no_mic_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mic_hp_no_mic_text"
+                android:paddingTop="2dip"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip" />
+
+    </RelativeLayout>
+</ScrollView>

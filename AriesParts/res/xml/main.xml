@@ -59,4 +59,15 @@
 			android:entryValues="@array/tvout_system_entries_values"
 			android:defaultValue="2" />
 	</PreferenceCategory>
+
+        <PreferenceCategory
+            android:title="@string/category_volume_boost_title"
+            android:key="category_volume_boost">
+                <!-- Volume Boost -->
+                <com.cyanogenmod.settings.device.VolumeBoostPreference
+                android:key="volume_boost"
+                android:title="@string/volume_boost_title_head"
+                android:summary="@string/volume_boost_summary_head" />
+	</PreferenceCategory>
+
 </PreferenceScreen>
