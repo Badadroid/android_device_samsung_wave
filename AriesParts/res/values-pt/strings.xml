@@ -24,4 +24,20 @@
     <string name="tvout_enable_summary_on">Saída de TV ativada</string>
     <string name="tvout_system_head">Sistema de TV</string>
     <string name="tvout_system_summary">Ajuste seu sistema de TV para a Saída de TV</string>
+    <string name="color_red_gamma_title">Gama Vermelha</string>
+    <string name="color_green_gamma_title">Gama Verde</string>
+    <string name="color_blue_gamma_title">Gama Azul</string>
+    <string name="mdnie_title_head">Modo mDNIe</string>
+    <string name="mdnie_summary_head">Ajustar pós-processamento do display mDNIe</string>
+    <string name="category_volume_boost_title">Controles de Volume</string>
+    <string name="volume_boost_title_head">Controles de Volume em Ligação</string>
+    <string name="volume_boost_summary_head">Aumentar configurações de volume em ligações</string>
+    <string name="boost_rcv_title">Volume do Alto Falante</string>
+    <string name="boost_bt_title">Volume Bluetooth</string>
+    <string name="boost_spk_title">Volume do Viva Voz</string>
+    <string name="boost_hp_title">Volume do Fone de Ouvido</string>
+    <string name="mic_rcv_title">Microfone</string>
+    <string name="mic_spk_title">Microfone do Viva Voz</string>
+    <string name="mic_hp_title">Microfone do Fone de Ouvido</string>
+    <string name="mic_hp_no_mic_title">Microfone do Fone de Ouvido (que não tem microfone)</string>
 </resources>
