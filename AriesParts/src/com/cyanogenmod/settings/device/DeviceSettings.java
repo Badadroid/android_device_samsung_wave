@@ -18,6 +18,7 @@ public class DeviceSettings extends PreferenceActivity  {
     public static final String KEY_MDNIE = "mdnie";
     public static final String KEY_BACKLIGHT_TIMEOUT = "backlight_timeout";
     public static final String KEY_HSPA = "hspa";
+    public static final String KEY_HSPA_CATEGORY = "category_radio";
     public static final String KEY_TVOUT_ENABLE = "tvout_enable";
     public static final String KEY_TVOUT_SYSTEM = "tvout_system";
     public static final String KEY_VOLUME_BOOST = "volume_boost";
@@ -59,8 +60,13 @@ public class DeviceSettings extends PreferenceActivity  {
         mBacklightTimeout.setOnPreferenceChangeListener(new TouchKeyBacklightTimeout());
 
         mHspa = (ListPreference) findPreference(KEY_HSPA);
-        mHspa.setEnabled(Hspa.isSupported());
-        mHspa.setOnPreferenceChangeListener(new Hspa(this));
+        if (Hspa.isSupported()) {
+           mHspa.setOnPreferenceChangeListener(new Hspa(this));
+        } else {
+           PreferenceCategory category = (PreferenceCategory) getPreferenceScreen().findPreference(KEY_HSPA_CATEGORY);
+           category.removePreference(mHspa);
+           getPreferenceScreen().removePreference(category);
+        }
 
         mVolumeBoost = (VolumeBoostPreference) findPreference(KEY_VOLUME_BOOST);
         if (!VolumeBoostPreference.isSupported()) {

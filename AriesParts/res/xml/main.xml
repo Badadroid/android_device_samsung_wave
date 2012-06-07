@@ -31,7 +31,8 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory
-        android:title="@string/category_radio_title">
+        android:title="@string/category_radio_title"
+        android:key="category_radio">
 	    <!-- UMTS/HSDPA/HSUPA settings -->
 	    <ListPreference
 	        android:key="hspa"
