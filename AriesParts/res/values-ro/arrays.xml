@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mdnie_entries">
+        <item>Dezactivat</item>
+        <item>Mod UI</item>
+        <item>Mod Video</item>
+        <item>Mod Video Warm</item>
+        <item>Mod Video Cold</item>
+        <item>Mod Cameră</item>
+    </string-array>
+    <string-array name="backlight_timeout_entries">
+        <item>Implicit (1.6 s)</item>
+        <item>0.5 s</item>
+        <item>2 s</item>
+        <item>5 s</item>
+        <item>10 s</item>
+        <item>15 s</item>
+        <item>30 s</item>
+        <item>Niciodată</item>
+    </string-array>
+    <string-array name="hspa_entries">
+        <item>Doar UMTS</item>
+        <item>Doar HSDPA</item>
+        <item>HSDPA + HSUPA</item>
+    </string-array>
+    <string-array name="tvout_system_entries">
+        <item>NTSC</item>
+        <item>PAL</item>
+    </string-array>
+</resources>
