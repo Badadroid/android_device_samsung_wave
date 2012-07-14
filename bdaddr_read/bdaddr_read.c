@@ -22,19 +22,19 @@ int main() {
     fd = open(SAMSUNG_BDADDR_PATH, O_RDONLY);
     if(fd < 0) {
         fprintf(stderr, "open(%s) failed\n", SAMSUNG_BDADDR_PATH);
-        LOGE("Can't open %s\n", SAMSUNG_BDADDR_PATH);
+        ALOGE("Can't open %s\n", SAMSUNG_BDADDR_PATH);
         return -1;
     }
 
     count = read(fd, tmpbdaddr, sizeof(tmpbdaddr));
     if (count < 0) {
         fprintf(stderr, "read(%s) failed\n", SAMSUNG_BDADDR_PATH);
-        LOGE("Can't read %s\n", SAMSUNG_BDADDR_PATH);
+        ALOGE("Can't read %s\n", SAMSUNG_BDADDR_PATH);
         return -1;
     }
     else if (count != sizeof(tmpbdaddr)) {
         fprintf(stderr, "read(%s) unexpected size %d\n", SAMSUNG_BDADDR_PATH, count);
-        LOGE("Error reading %s (unexpected size %d)\n", SAMSUNG_BDADDR_PATH, count);
+        ALOGE("Error reading %s (unexpected size %d)\n", SAMSUNG_BDADDR_PATH, count);
         return -1;
     }
 
@@ -44,7 +44,7 @@ int main() {
     fd = open(BDADDR_PATH, O_WRONLY|O_CREAT|O_TRUNC, 00600|00060|00006);
     if (fd < 0) {
         fprintf(stderr, "open(%s) failed\n", BDADDR_PATH);
-        LOGE("Can't open %s\n", BDADDR_PATH);
+        ALOGE("Can't open %s\n", BDADDR_PATH);
         return -2;
     }
     write(fd, bdaddr, 18);

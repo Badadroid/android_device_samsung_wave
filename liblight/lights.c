@@ -39,7 +39,7 @@ static int write_int(char const *path, int value)
 
 	already_warned = 0;
 
-	LOGV("write_int: path %s, value %d", path, value);
+	ALOGV("write_int: path %s, value %d", path, value);
 	fd = open(path, O_RDWR);
 
 	if (fd >= 0) {
@@ -50,7 +50,7 @@ static int write_int(char const *path, int value)
 		return amt == -1 ? -errno : 0;
 	} else {
 		if (already_warned == 0) {
-			LOGE("write_int failed to open %s\n", path);
+			ALOGE("write_int failed to open %s\n", path);
 			already_warned = 1;
 		}
 		return -errno;
@@ -79,7 +79,7 @@ static int set_light_notifications(struct light_device_t* dev,
 	} else
 		v = 0;
 
-	LOGI("color %u fm %u status %u is lit %u brightness", state->color, state->flashMode, v, (state->color & 0x00ffffff), brightness);
+	ALOGI("color %u fm %u status %u is lit %u brightness", state->color, state->flashMode, v, (state->color & 0x00ffffff), brightness);
 	ret = write_int(LED_FILE, v);
 	pthread_mutex_unlock(&g_lock);
 	return ret;
@@ -100,7 +100,7 @@ static int set_light_backlight(struct light_device_t *dev,
 
 static int close_lights(struct light_device_t *dev)
 {
-	LOGV("close_light is called");
+	ALOGV("close_light is called");
 	if (dev)
 		free(dev);
 
@@ -113,7 +113,7 @@ static int open_lights(const struct hw_module_t *module, char const *name,
 	int (*set_light)(struct light_device_t *dev,
 		struct light_state_t const *state);
 
-	LOGV("open_lights: open with %s", name);
+	ALOGV("open_lights: open with %s", name);
 
 	if (0 == strcmp(LIGHT_ID_BACKLIGHT, name))
 		set_light = set_light_backlight;
@@ -142,7 +142,7 @@ static struct hw_module_methods_t lights_module_methods = {
 	.open =  open_lights,
 };
 
-const struct hw_module_t HAL_MODULE_INFO_SYM = {
+struct hw_module_t HAL_MODULE_INFO_SYM = {
 	.tag = HARDWARE_MODULE_TAG,
 	.version_major = 1,
 	.version_minor = 0,

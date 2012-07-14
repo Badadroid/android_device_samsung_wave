@@ -160,7 +160,7 @@ again:
                 numEventReceived++;
             }
         } else {
-            LOGE("GyroSensor: unknown event (type=%d, code=%d)",
+            ALOGE("GyroSensor: unknown event (type=%d, code=%d)",
                     type, event->code);
         }
         mInputReader.next();

@@ -100,11 +100,11 @@
     <!-- Default blink frequency for notification LED is 9 seconds. -->
     <integer name="config_defaultNotificationLedOff">9000</integer>
 
-    <!-- Component name of the service providing network location support. -->
-    <string name="config_networkLocationProvider">com.google.android.location.NetworkLocationProvider</string>
+    <!-- Package name providing network location support. -->
+    <string name="config_networkLocationProviderPackageName" translatable="false">com.google.android.location</string>
 
-    <!-- Component name of the service providing geocoder API support. -->
-    <string name="config_geocodeProvider">com.google.android.location.GeocodeProvider</string>
+    <!-- Package name providing geocoder API support. -->
+    <string name="config_geocodeProviderPackageName" translatable="false">com.google.android.location</string>
 
 
     <!-- XXXXX NOTE THE FOLLOWING RESOURCES USE THE WRONG NAMING CONVENTION.
@@ -204,10 +204,14 @@
 
     <bool name="config_ui_enableFadingMarquee">false</bool>
 
+    <!-- The attenuation in dB applied to the sound effects played
+         through AudioManager.playSoundEffect() when no volume is specified. -->
+    <integer name="config_soundEffectVolumeDb">-12</integer>
+
     <!-- Timeout in MS for how long you have to long-press the back key to
          kill the foreground app. -->
-    <integer name="config_backKillTimeout">1500</integer>
+    <!-- <integer name="config_backKillTimeout">1500</integer> -->
 
     <!--Boolean to enable stk functionality on Samsung phones-->
-    <bool name="config_samsung_stk">true</bool>
+    <!-- <bool name="config_samsung_stk">true</bool> -->
 </resources>

@@ -34,7 +34,7 @@ CompassSensor::CompassSensor()
       mInputReader(4),
       mHasPendingEvent(false)
 {
-    LOGD("CompassSensor::CompassSensor()");
+    ALOGD("CompassSensor::CompassSensor()");
     mPendingEvent.version = sizeof(sensors_event_t);
     mPendingEvent.sensor = ID_M;
     mPendingEvent.type = SENSOR_TYPE_MAGNETIC_FIELD;
@@ -43,7 +43,7 @@ CompassSensor::CompassSensor()
     
     memset(mPendingEvent.data, 0, sizeof(mPendingEvent.data));
     
-    LOGD("CompassSensor::CompassSensor() open data_fd");
+    ALOGD("CompassSensor::CompassSensor() open data_fd");
 	
     if (data_fd) {
         strcpy(input_sysfs_path, "/sys/class/input/");
@@ -57,7 +57,7 @@ CompassSensor::CompassSensor()
 
 CompassSensor::~CompassSensor() {
 
-    LOGD("CompassSensor::~CompassSensor()");
+    ALOGD("CompassSensor::~CompassSensor()");
     if (mEnabled) {
         enable(0, 0);
     }
@@ -68,15 +68,15 @@ CompassSensor::~CompassSensor() {
 int CompassSensor::enable(int32_t, int en) {
 
 	   
-    LOGD("CompassSensor::~enable(0, %d)", en);
+    ALOGD("CompassSensor::~enable(0, %d)", en);
     int flags = en ? 1 : 0;
     if (flags != mEnabled) {
         int fd;
         strcpy(&input_sysfs_path[input_sysfs_path_len], "enable");
-        LOGD("CompassSensor::~enable(0, %d) open %s",en,  input_sysfs_path);
+        ALOGD("CompassSensor::~enable(0, %d) open %s",en,  input_sysfs_path);
         fd = open(input_sysfs_path, O_RDWR);
         if (fd >= 0) {
-             LOGD("CompassSensor::~enable(0, %d) opened %s",en,  input_sysfs_path);
+             ALOGD("CompassSensor::~enable(0, %d) opened %s",en,  input_sysfs_path);
             char buf[2];
             int err;
             buf[1] = 0;
@@ -99,7 +99,7 @@ int CompassSensor::enable(int32_t, int en) {
 bool CompassSensor::hasPendingEvents() const {
     /* FIXME probably here should be returning mEnabled but instead
 	mHasPendingEvents. It does not work, so we cheat.*/
-    //LOGD("CompassSensor::~hasPendingEvents %d", mHasPendingEvent ? 1 : 0 );
+    //ALOGD("CompassSensor::~hasPendingEvents %d", mHasPendingEvent ? 1 : 0 );
     return mHasPendingEvent;
 }
 
@@ -122,7 +122,7 @@ int CompassSensor::setDelay(int32_t handle, int64_t ns)
         val = 1000;
     }
 
-    LOGD("CompassSensor::~setDelay(%d, %lld) val = %d", handle, ns, val);
+    ALOGD("CompassSensor::~setDelay(%d, %lld) val = %d", handle, ns, val);
 
     strcpy(&input_sysfs_path[input_sysfs_path_len], "delay");
     fd = open(input_sysfs_path, O_RDWR);
@@ -139,7 +139,7 @@ int CompassSensor::setDelay(int32_t handle, int64_t ns)
 
 int CompassSensor::readEvents(sensors_event_t* data, int count)
 {
-    //LOGD("CompassSensor::~readEvents() %d", count);
+    //ALOGD("CompassSensor::~readEvents() %d", count);
     if (count < 1)
         return -EINVAL;
         
@@ -176,13 +176,13 @@ int CompassSensor::readEvents(sensors_event_t* data, int count)
                 numEventReceived++;
             }
         } else {
-            LOGE("CompassSensor: unknown event (type=%d, code=%d)",
+            ALOGE("CompassSensor: unknown event (type=%d, code=%d)",
                     type, event->code);
         }
         mInputReader.next();
     }
  
-	//LOGD("CompassSensor::~readEvents() numEventReceived = %d", numEventReceived);
+	//ALOGD("CompassSensor::~readEvents() numEventReceived = %d", numEventReceived);
 	return numEventReceived++;
 		
 }

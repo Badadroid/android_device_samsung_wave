@@ -139,15 +139,15 @@ int BoschYamaha::enable(int32_t handle, int en)
 	if(what == MagneticField){
 		what = Accelerometer; //Enable also Accel
 		//Compass
-		 LOGD("BoschYamaha::~enable Compass(0, %d)", en);
+		 ALOGD("BoschYamaha::~enable Compass(0, %d)", en);
 		int flags = en ? 1 : 0;
 		if (flags != compassEnabled) {
 			int fd;
 			strcpy(&input_sysfs_path[input_sysfs_path_len], "enable");
-			LOGD("BoschYamaha::~enable Compass(0, %d) open %s",en,  input_sysfs_path);
+			ALOGD("BoschYamaha::~enable Compass(0, %d) open %s",en,  input_sysfs_path);
 			fd = open(input_sysfs_path, O_RDWR);
 			if (fd >= 0) {
-				 LOGD("CompassSensor::~enable(0, %d) opened %s",en,  input_sysfs_path);
+				 ALOGD("CompassSensor::~enable(0, %d) opened %s",en,  input_sysfs_path);
 				char buf[2];
 				int err;
 				buf[1] = 0;
@@ -168,15 +168,15 @@ int BoschYamaha::enable(int32_t handle, int en)
 	
 	if(what == Accelerometer){
 		//Accelerometer
-		 LOGD("BoschYamaha::~enable Accel(0, %d)", en);
+		 ALOGD("BoschYamaha::~enable Accel(0, %d)", en);
 		int flags = en ? 1 : 0;
 		if (flags != accelEnabled) {
 			int fd;
 			strcpy(&input_accel_sysfs_path[input_accel_sysfs_path_len], "enable");
-			LOGD("BoschYamaha::~enable Accel(0, %d) open %s",en,  input_accel_sysfs_path);
+			ALOGD("BoschYamaha::~enable Accel(0, %d) open %s",en,  input_accel_sysfs_path);
 			fd = open(input_accel_sysfs_path, O_RDWR);
 			if (fd >= 0) {
-				 LOGD("CompassSensor::~enable(0, %d) opened %s",en,  input_accel_sysfs_path);
+				 ALOGD("CompassSensor::~enable(0, %d) opened %s",en,  input_accel_sysfs_path);
 				char buf[2];
 				int err;
 				buf[1] = 0;
@@ -229,13 +229,13 @@ int BoschYamaha::update_delay()
 
 bool BoschYamaha::hasPendingEvents() {
 
-    //LOGD("hasPendingEvents was called");
+    //ALOGD("hasPendingEvents was called");
 	if(accelEnabled || compassEnabled){
-	    //LOGD("hasPendingEvents will return true");
+	    //ALOGD("hasPendingEvents will return true");
 		return true;
 	}
 	else {
-		//LOGD("hasPendingEvents will return false");
+		//ALOGD("hasPendingEvents will return false");
 		return false;
 	}
 }
@@ -250,11 +250,11 @@ int BoschYamaha::readEvents(sensors_event_t* data, int count)
 
 	int numEventReceived = 0;
 	
-	//LOGD("Sensor: Read events was called with count: %d", count);
+	//ALOGD("Sensor: Read events was called with count: %d", count);
 	
 	if(compassEnabled)
 	{
-		//LOGD("Sensor: Compass is enabled, going to take care of it, count: %d", count);
+		//ALOGD("Sensor: Compass is enabled, going to take care of it, count: %d", count);
 		ssize_t n = mInputReaderMagnetic.fill(data_compass_fd);
 		if (n < 0)
 			return n;
@@ -277,7 +277,7 @@ int BoschYamaha::readEvents(sensors_event_t* data, int count)
 			else if (type == EV_SYN) {
 				mPendingEvents[MagneticField].timestamp = timevalToNano(event->time);
 				if (compassEnabled) {
-					//LOGD("Sensor: Compass was enabled, made a read and received a Sync");
+					//ALOGD("Sensor: Compass was enabled, made a read and received a Sync");
 					compassDataReady = 1;
 					compassLastRead[0] = mPendingEvents[MagneticField].magnetic.x;
 					compassLastRead[1] = mPendingEvents[MagneticField].magnetic.y;
@@ -288,22 +288,22 @@ int BoschYamaha::readEvents(sensors_event_t* data, int count)
 					numEventReceived++;
 				}
 			} else {
-				LOGE("BoschYamaha: unknown event (type=%d, code=%d)", type, event->code);
+				ALOGE("BoschYamaha: unknown event (type=%d, code=%d)", type, event->code);
 				
 			}
 			mInputReaderMagnetic.next();
 		}
 	}
 	
-	//LOGD("Sensor: Compass read quited, count: %d", count);
+	//ALOGD("Sensor: Compass read quited, count: %d", count);
     
 	
 	if(accelEnabled)
 	{
-		//LOGD("Sensor: Accel is enabled, going to take care of it, count: %d", count);
+		//ALOGD("Sensor: Accel is enabled, going to take care of it, count: %d", count);
 		
 		ssize_t n = mInputReaderAccel.fill(data_fd);
-		//LOGD("Sensor: Accel Input Reader was filled up: %d", count);
+		//ALOGD("Sensor: Accel Input Reader was filled up: %d", count);
 		if (n < 0)
 			return n;
 			
@@ -312,7 +312,7 @@ int BoschYamaha::readEvents(sensors_event_t* data, int count)
 		while (count && mInputReaderAccel.readEvent(&event)) {
 			int type = event->type;
 			if (type == EV_ABS) {
-				//LOGD("Sensor: Received one EV_ABS Event");
+				//ALOGD("Sensor: Received one EV_ABS Event");
 				float value = event->value;
 				if (event->code == EVENT_TYPE_ACCEL_X) {
 					mPendingEvents[Accelerometer].acceleration.x = value * CONVERT_A_X;
@@ -324,7 +324,7 @@ int BoschYamaha::readEvents(sensors_event_t* data, int count)
 			} else if (type == EV_SYN) {
 				mPendingEvents[Accelerometer].timestamp = timevalToNano(event->time);
 				if (accelEnabled) {
-					//LOGD("Sensor: Accel was enabled, made a read and received a Sync");
+					//ALOGD("Sensor: Accel was enabled, made a read and received a Sync");
 					accelDataReady = 1;
 					accelLastRead[0] = mPendingEvents[Accelerometer].acceleration.x;
 					accelLastRead[1] = mPendingEvents[Accelerometer].acceleration.y;
@@ -335,17 +335,17 @@ int BoschYamaha::readEvents(sensors_event_t* data, int count)
 				}
 			}
 			 else {
-				LOGE("BoschYamaha: unknown event (type=%d, code=%d)", type, event->code);
+				ALOGE("BoschYamaha: unknown event (type=%d, code=%d)", type, event->code);
 				
 			}
 			mInputReaderAccel.next();
 		}
 	}
 	
-	//LOGD("Sensor: Accel read quited, count: %d, acceldata Ready: %d, compassData Ready = %d", count, accelDataReady, compassDataReady);
+	//ALOGD("Sensor: Accel read quited, count: %d, acceldata Ready: %d, compassData Ready = %d", count, accelDataReady, compassDataReady);
 		
 	if( (accelDataReady == 1) && (compassDataReady == 1)){
-		//LOGD("BoschYamaha: Going to Process Orientation Data");
+		//ALOGD("BoschYamaha: Going to Process Orientation Data");
 		accelDataReady = 0;
 		compassDataReady = 0;
 		processOrientation();
@@ -376,9 +376,9 @@ int BoschYamaha::processOrientation(){
 	    get_euler(matrix, euler);
 	}
 	
-	//LOGD("BoschYamaha: azimuth is %d", (int)(euler[0]));
-	//LOGD("BoschYamaha: pitch is %d", (int)(euler[1]));
-	//LOGD("BoschYamaha: roll is %d", (int)(euler[2]));
+	//ALOGD("BoschYamaha: azimuth is %d", (int)(euler[0]));
+	//ALOGD("BoschYamaha: pitch is %d", (int)(euler[1]));
+	//ALOGD("BoschYamaha: roll is %d", (int)(euler[2]));
 
 	//Use CONVERT_O_A
     mPendingEvents[Orientation].orientation.azimuth = (int)(euler[0]);

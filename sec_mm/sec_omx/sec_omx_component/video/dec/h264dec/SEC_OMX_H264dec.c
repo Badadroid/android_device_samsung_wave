@@ -1043,7 +1043,7 @@ OMX_ERRORTYPE SEC_MFC_H264_Decode(OMX_COMPONENTTYPE *pOMXComponent, SEC_OMX_DATA
         if ((SsbSipMfcDecGetConfig(pH264Dec->hMFCH264Handle.hMFCHandle, MFC_DEC_GETCONF_FRAME_TAG, &indexTimestamp) != MFC_RET_OK) ||
             (((indexTimestamp < 0) || (indexTimestamp >= MAX_TIMESTAMP)))) {
             pOutputData->timeStamp = pInputData->timeStamp;
-            pOutputData->nFlags = pInputData->nFlags;
+            pOutputData->nFlags = (pInputData->nFlags & (~OMX_BUFFERFLAG_EOS));
         } else {
             pOutputData->timeStamp = pSECComponent->timeStamp[indexTimestamp];
             pOutputData->nFlags = pSECComponent->nFlags[indexTimestamp];
@@ -1063,7 +1063,7 @@ OMX_ERRORTYPE SEC_MFC_H264_Decode(OMX_COMPONENTTYPE *pOMXComponent, SEC_OMX_DATA
 
         if(status == MFC_GETOUTBUF_DECODING_ONLY) {
             if (((pInputData->nFlags & OMX_BUFFERFLAG_EOS) != OMX_BUFFERFLAG_EOS) &&
-                (pSECComponent->bSaveFlagEOS == OMX_TRUE)) {
+                ((pSECComponent->bSaveFlagEOS == OMX_TRUE) || (pSECComponent->getAllDelayBuffer == OMX_TRUE))) {
                 pInputData->nFlags |= OMX_BUFFERFLAG_EOS;
                 pSECComponent->getAllDelayBuffer = OMX_TRUE;
                 ret = OMX_ErrorInputDataDecodeYet;
@@ -1082,6 +1082,8 @@ OMX_ERRORTYPE SEC_MFC_H264_Decode(OMX_COMPONENTTYPE *pOMXComponent, SEC_OMX_DATA
         } else
 #endif
         if ((pInputData->nFlags & OMX_BUFFERFLAG_EOS) == OMX_BUFFERFLAG_EOS) {
+            //setConfVal = 1;
+            //SsbSipMfcDecSetConfig(pH264Dec->hMFCH264Handle.hMFCHandle, MFC_DEC_SETCONF_IS_LAST_FRAME, &setConfVal);
             pInputData->nFlags = (pOutputData->nFlags & (~OMX_BUFFERFLAG_EOS));
             pSECComponent->getAllDelayBuffer = OMX_TRUE;
             ret = OMX_ErrorInputDataDecodeYet;
@@ -1101,6 +1103,7 @@ OMX_ERRORTYPE SEC_MFC_H264_Decode(OMX_COMPONENTTYPE *pOMXComponent, SEC_OMX_DATA
         }
         if ((pH264Dec->bFirstFrame == OMX_TRUE) &&
             ((pOutputData->nFlags & OMX_BUFFERFLAG_EOS) == OMX_BUFFERFLAG_EOS)) {
+            pInputData->nFlags = (pInputData->nFlags | OMX_BUFFERFLAG_EOS);
             pOutputData->nFlags = (pOutputData->nFlags & (~OMX_BUFFERFLAG_EOS));
         }
 
