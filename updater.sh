@@ -37,7 +37,7 @@ else
     DATA_PART='/dev/block/mmcblk0p2'
 fi
 
-# check if we're running on a bml, mtd (cm7) or mtd (current) device
+# check if we're running on a bml, mtd (old) or mtd (current) device
 if /tmp/busybox test -e /dev/block/bml7 ; then
     # we're running on a bml device
 
@@ -80,8 +80,8 @@ if /tmp/busybox test -e /dev/block/bml7 ; then
     /sbin/reboot now
     exit 0
 
-elif /tmp/busybox test `/tmp/busybox cat /sys/class/mtd/mtd2/size` != 262144000 ; then
-    # we're running on a mtd (cm7) device
+elif /tmp/busybox test `/tmp/busybox cat /sys/class/mtd/mtd2/size` != 397934592 ; then
+    # we're running on a mtd (old) device
 
     # make sure sdcard is mounted
     check_mount /sdcard $SD_PART vfat
@@ -94,8 +94,27 @@ elif /tmp/busybox test `/tmp/busybox cat /sys/class/mtd/mtd2/size` != 262144000 
         /tmp/busybox echo "$UPDATE_PACKAGE" > /sdcard/cyanogenmod.cfg
     fi
 
-    # inform the script that this is a CM7 upgrade
-    /tmp/busybox echo 1 > /sdcard/cyanogenmod.cm7upd
+    # inform the script that this is an old mtd upgrade
+    /tmp/busybox echo 1 > /sdcard/cyanogenmod.mtdupd
+
+    # we also removed /datadata, so migrate data
+    /tmp/busybox mount /data
+
+    if /tmp/busybox test -h /data/data ; then
+      /tmp/busybox mkdir /datadata
+      /tmp/busybox mount /datadata
+      /tmp/busybox rm /data/data
+      /tmp/busybox mkdir /data/data
+      /tmp/busybox chown system.system /data/data
+      /tmp/busybox chmod 0771 /data/data
+      /tmp/busybox cp -a /datadata/* /data/data/
+      /tmp/busybox rm -r /data/data/lost+found
+    fi
+    /tmp/busybox umount /data
+
+    # clear datadata
+    /tmp/busybox umount -l /datadata
+    /tmp/erase_image datadata
 
     # write new kernel to boot partition
     /tmp/bml_over_mtd.sh boot 72 reservoir 2004 /tmp/boot.img
@@ -150,7 +169,7 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
 
     if ! /tmp/busybox test -e /sdcard/cyanogenmod.cfg ; then
         # update install - flash boot image then skip back to updater-script
-        # (boot image is already flashed for first time install or cm7 upgrade)
+        # (boot image is already flashed for first time install or old mtd upgrade)
 
         # flash boot image
         /tmp/bml_over_mtd.sh boot 72 reservoir 2004 /tmp/boot.img
@@ -175,15 +194,14 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
     /tmp/busybox umount -l /system
     /tmp/erase_image system
 
-    # unmount and format cache
-    /tmp/busybox umount -l /cache
-    /tmp/erase_image cache
+    # restart into recovery so the user can install further packages before booting
+    /tmp/busybox touch /cache/.startrecovery
 
-    if /tmp/busybox test -e /sdcard/cyanogenmod.cm7upd ; then
-        # this is an upgrade from CM7 with changed MTD mapping for /system and /cache
+    if /tmp/busybox test -e /sdcard/cyanogenmod.mtdupd ; then
+        # this is an upgrade with changed MTD mapping for /system, /cache
         # so return to updater-script after formatting these two
 
-        /tmp/busybox rm -f /sdcard/cyanogenmod.cm7upd
+        /tmp/busybox rm -f /sdcard/cyanogenmod.mtdupd
 
         exit 0
     fi
@@ -191,10 +209,6 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
     # unmount and format data
     /tmp/busybox umount /data
     /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data $DATA_PART
-
-    # unmount and format datadata
-    /tmp/busybox umount -l /datadata
-    /tmp/erase_image datadata
 
     if $IS_GSM ; then
         # restore efs backup

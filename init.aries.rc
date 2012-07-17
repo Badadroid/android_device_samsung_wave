@@ -17,7 +17,6 @@ on init
     symlink /storage/sdcard1 /emmc
     symlink /storage/sdcard1 /mnt/emmc
     # FIXME: Remove emmc?
-    mkdir /datadata 0771 system system
 
     # We will create our own ril-daemon service in class 'core' because the
     # rild doesn't like being killed. (During device encryption.)
@@ -43,7 +42,6 @@ on fs
     mkdir /radio 0775 radio radio
     mount yaffs2 mtd@radio /radio
     mount_all fstab.aries
-    mount yaffs2 mtd@datadata /datadata
 
     chown radio radio /radio/modem.bin
 
@@ -69,10 +67,6 @@ on fs
     chmod 660 /sys/class/sec/uart_switch/UART_SEL/value
 
 on post-fs
-    # We chown/chmod /datadata again so because mount is run as root + defaults
-    chown system system /datadata
-    chmod 0771 /datadata
-
     #symlinks for samsung RIL
     symlink /radio/modem.bin /dev/block/bml12
 
@@ -85,12 +79,6 @@ on post-fs
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
 on post-fs-data
-    # for migrating download provider's cache out of the small /data/data
-    mkdir /data/data2 0771 system system
-
-    # setup datadata
-    exec /sbin/setupdatadata.sh
-
     # wi-fi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
