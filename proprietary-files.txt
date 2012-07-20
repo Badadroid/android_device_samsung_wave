@@ -8,7 +8,6 @@ vendor/lib/egl/libEGL_POWERVR_SGX540_120.so
 vendor/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so
 vendor/lib/egl/libGLESv2_POWERVR_SGX540_120.so
 vendor/lib/hw/gralloc.aries.so
-vendor/lib/libakm.so
 vendor/lib/libglslcompiler.so
 vendor/lib/libIMGegl.so
 vendor/lib/libpvr2d.so
