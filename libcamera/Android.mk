@@ -1,3 +1,5 @@
+ifneq ($(TARGET_PROVIDES_LIBCAMERA),true)
+
 LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
@@ -31,3 +33,4 @@ endif
 
 include $(BUILD_SHARED_LIBRARY)
 
+endif
