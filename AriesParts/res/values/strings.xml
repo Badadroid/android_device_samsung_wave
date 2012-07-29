@@ -41,4 +41,13 @@
     <string name="mic_spk_title">Speakerphone Mic</string>
     <string name="mic_hp_title">Headphone Mic</string>
     <string name="mic_hp_no_mic_title">Headphone (with no mic) Mic</string>
+
+    <string name="category_dock_audio_title">Dock Audio</string>
+    <string name="cardock_audio_title_head">Car Dock</string>
+    <string name="cardock_audio_summary_on">Car dock audio enabled</string>
+    <string name="cardock_audio_summary_off">Car dock audio disabled</string>
+    <string name="deskdock_audio_title_head">Desk Dock</string>
+    <string name="deskdock_audio_summary_on">Desk dock audio enabled</string>
+    <string name="deskdock_audio_summary_off">Desk dock audio disabled</string>
+
 </resources>

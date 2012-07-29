@@ -71,4 +71,22 @@
                 android:summary="@string/volume_boost_summary_head" />
 	</PreferenceCategory>
 
+        <PreferenceCategory
+            android:title="@string/category_dock_audio_title"
+            android:key="category_dock_audio">
+            <!-- Dock Audio -->
+            <CheckBoxPreference
+                android:key="cardock_audio"
+                android:title="@string/cardock_audio_title_head"
+                android:summaryOn="@string/cardock_audio_summary_on"
+                android:summaryOff="@string/cardock_audio_summary_off"
+                android:persistent="true" />
+            <CheckBoxPreference
+                android:key="deskdock_audio"
+                android:title="@string/deskdock_audio_title_head"
+                android:summaryOn="@string/deskdock_audio_summary_on"
+                android:summaryOff="@string/deskdock_audio_summary_off"
+                android:persistent="true" />
+        </PreferenceCategory>
+
 </PreferenceScreen>
