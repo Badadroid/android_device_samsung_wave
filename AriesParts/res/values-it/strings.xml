@@ -36,4 +36,11 @@
     <string name="mic_spk_title">Microfono vivavoce</string>
     <string name="mic_hp_title">Microfono cuffie</string>
     <string name="mic_hp_no_mic_title">Microfono cuffie (senza mic.)</string>
+    <string name="category_dock_audio_title">Dock Audio</string>
+    <string name="cardock_audio_title_head">Dock da auto</string>
+    <string name="cardock_audio_summary_on">Audio dock da auto attivato</string>
+    <string name="cardock_audio_summary_off">Audio dock da auto disattivato</string>
+    <string name="deskdock_audio_title_head">Dock da tavolo</string>
+    <string name="deskdock_audio_summary_on">Audio dock da tavolo attivato</string>
+    <string name="deskdock_audio_summary_off">Audio dock da tavolo disattivato</string>
 </resources>

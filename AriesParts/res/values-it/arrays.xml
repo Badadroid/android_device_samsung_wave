@@ -4,12 +4,12 @@
         <item>Disabilitato</item>
         <item>Modalità UI</item>
         <item>Modalità video</item>
-        <item>Video - Toni caldi</item>
-        <item>Video - Toni freddi</item>
-        <item>Modalità Camera</item>
+        <item>Toni caldi</item>
+        <item>Toni freddi</item>
+        <item>Modalità camera</item>
     </string-array>
     <string-array name="backlight_timeout_entries">
-        <item>Default (1.6 secondi)</item>
+        <item>Predefinito (1.6 secondi)</item>
         <item>0.5 secondi</item>
         <item>2 secondi</item>
         <item>5 secondi</item>
