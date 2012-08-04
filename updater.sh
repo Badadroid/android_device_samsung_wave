@@ -175,7 +175,7 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
         /tmp/bml_over_mtd.sh boot 72 reservoir 2004 /tmp/boot.img
 
         if ! $IS_GSM ; then
-            /tmp/bml_over_mtd.sh recovery 102 reservoir 2004 /tmp/boot.img
+            /tmp/bml_over_mtd.sh recovery 102 reservoir 2004 /tmp/recovery_kernel
         fi
 
 	# unmount system (recovery seems to expect system to be unmounted)
