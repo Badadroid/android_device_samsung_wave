@@ -21,6 +21,7 @@ public class DeviceSettings extends PreferenceActivity  {
     public static final String KEY_HSPA_CATEGORY = "category_radio";
     public static final String KEY_TVOUT_ENABLE = "tvout_enable";
     public static final String KEY_TVOUT_SYSTEM = "tvout_system";
+    public static final String KEY_TVOUT_CATEGORY = "category_tvout";
     public static final String KEY_VOLUME_BOOST = "volume_boost";
     public static final String KEY_VOLUME_CATEGORY = "category_volume_boost";
     public static final String KEY_CARDOCK_AUDIO = "cardock_audio";
@@ -94,37 +95,45 @@ public class DeviceSettings extends PreferenceActivity  {
 
         mTvOut = new TvOut();
         mTvOutEnable = (CheckBoxPreference) findPreference(KEY_TVOUT_ENABLE);
-        mTvOutEnable.setChecked(mTvOut._isEnabled());
-
-        mTvOutEnable.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                boolean enable = (Boolean) newValue;
-                Intent i = new Intent(DeviceSettings.this, TvOutService.class);
-                i.putExtra(TvOutService.EXTRA_COMMAND, enable ? TvOutService.COMMAND_ENABLE : TvOutService.COMMAND_DISABLE);
-                startService(i);
-                return true;
-            }
-
-        });
-
         mTvOutSystem = (ListPreference) findPreference(KEY_TVOUT_SYSTEM);
-        mTvOutSystem.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if (mTvOut._isEnabled()) {
-                    int newSystem = Integer.valueOf((String) newValue);
+        if (mTvOut.isSupported()) {
+
+            mTvOutEnable.setChecked(mTvOut._isEnabled());
+            mTvOutEnable.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    boolean enable = (Boolean) newValue;
                     Intent i = new Intent(DeviceSettings.this, TvOutService.class);
-                    i.putExtra(TvOutService.EXTRA_COMMAND, TvOutService.COMMAND_CHANGE_SYSTEM);
-                    i.putExtra(TvOutService.EXTRA_SYSTEM, newSystem);
+                    i.putExtra(TvOutService.EXTRA_COMMAND, enable ? TvOutService.COMMAND_ENABLE : TvOutService.COMMAND_DISABLE);
                     startService(i);
+                    return true;
                 }
-                return true;
-            }
 
-        });
+            });
+
+            mTvOutSystem.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    if (mTvOut._isEnabled()) {
+                        int newSystem = Integer.valueOf((String) newValue);
+                        Intent i = new Intent(DeviceSettings.this, TvOutService.class);
+                        i.putExtra(TvOutService.EXTRA_COMMAND, TvOutService.COMMAND_CHANGE_SYSTEM);
+                        i.putExtra(TvOutService.EXTRA_SYSTEM, newSystem);
+                        startService(i);
+                    }
+                    return true;
+                }
+
+            });
+        } else {
+            PreferenceCategory category = (PreferenceCategory) getPreferenceScreen().findPreference(KEY_TVOUT_CATEGORY);
+            category.removePreference(mTvOutEnable);
+            category.removePreference(mTvOutSystem);
+            getPreferenceScreen().removePreference(category);
+        }
     }
 
     @Override

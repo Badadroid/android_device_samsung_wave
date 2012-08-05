@@ -1,5 +1,6 @@
 package android.hardware;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 
 import android.graphics.Bitmap;
@@ -48,6 +49,12 @@ public class TvOut {
     private final native void _release();
 
     public native void _setTvoutCableConnected(int paramInt);
+
+    private static final String FILE = "/system/bin/tvouthack";
+
+    public static boolean isSupported() {
+        return new File(FILE).exists();
+    }
 
     static {
         System.loadLibrary("tvout_jni");
