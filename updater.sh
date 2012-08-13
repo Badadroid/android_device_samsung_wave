@@ -212,7 +212,8 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
 
     if $IS_GSM ; then
         # restore efs backup
-        if /tmp/busybox test -e /sdcard/backup/efs/nv_data.bin ; then
+        if /tmp/busybox test -e /sdcard/backup/efs/nv_data.bin || \
+                /tmp/busybox test -e /sdcard/backup/efs/root/afs/settings/nv_data.bin ; then
             /tmp/busybox umount -l /efs
             /tmp/erase_image efs
             /tmp/busybox mkdir -p /efs
