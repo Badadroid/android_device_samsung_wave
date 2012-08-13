@@ -4,12 +4,12 @@
         <item>Dezactivat</item>
         <item>Mod UI</item>
         <item>Mod Video</item>
-        <item>Mod Video Warm</item>
-        <item>Mod Video Cold</item>
+        <item>Mod Video Cald</item>
+        <item>Mod Video Rece</item>
         <item>Mod Cameră</item>
     </string-array>
     <string-array name="backlight_timeout_entries">
-        <item>Implicit (1.6 s)</item>
+        <item>Prestabilit (1.6 s)</item>
         <item>0.5 s</item>
         <item>2 s</item>
         <item>5 s</item>
