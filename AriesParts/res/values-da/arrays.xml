@@ -1,0 +1,33 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="mdnie_entries">
+    <item>Slået fra</item>
+    <item>UI-tilstand</item>
+    <item>Video-tilstand</item>
+    <item>Varm video-tilstand</item>
+    <item>Kold video-tilstand</item>
+    <item>Kamera-tilstand</item>
+  </string-array>
+
+  <string-array name="backlight_timeout_entries">
+     <item>Standard (1.6 sekunder)</item>
+     <item>0.5 sekunder</item>
+     <item>2 sekunder</item>
+     <item>5 sekunder</item>
+     <item>10 sekunder</item>
+     <item>15 sekunder</item>
+     <item>30 sekunder</item>
+     <item>Aldrig</item>
+  </string-array>
+
+  <string-array name="hspa_entries">
+     <item>Kun UMTS</item>
+     <item>Kun HSDPA</item>
+     <item>HSDPA + HSUPA</item>
+  </string-array>
+
+  <string-array name="tvout_system_entries">
+     <item>NTSC</item>
+     <item>PAL</item>
+   </string-array>
+</resources>
+
