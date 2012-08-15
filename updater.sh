@@ -30,11 +30,13 @@ if /tmp/busybox test "$1" = cdma ; then
     IS_GSM='/tmp/busybox false'
     SD_PART='/dev/block/mmcblk1p1'
     DATA_PART='/dev/block/mmcblk0p1'
+    DATA_SIZE='490733568'
 else
     # GSM mode
     IS_GSM='/tmp/busybox true'
     SD_PART='/dev/block/mmcblk0p1'
     DATA_PART='/dev/block/mmcblk0p2'
+    DATA_SIZE='442499072'
 fi
 
 # check if we're running on a bml, mtd (old) or mtd (current) device
@@ -80,7 +82,7 @@ if /tmp/busybox test -e /dev/block/bml7 ; then
     /sbin/reboot now
     exit 0
 
-elif /tmp/busybox test `/tmp/busybox cat /sys/class/mtd/mtd2/size` != 367001600 ; then
+elif /tmp/busybox test `/tmp/busybox cat /sys/class/mtd/mtd2/size` != "$DATA_SIZE" ; then
     # we're running on a mtd (old) device
 
     # make sure sdcard is mounted
@@ -96,21 +98,6 @@ elif /tmp/busybox test `/tmp/busybox cat /sys/class/mtd/mtd2/size` != 367001600 
 
     # inform the script that this is an old mtd upgrade
     /tmp/busybox echo 1 > /sdcard/cyanogenmod.mtdupd
-
-    # we also removed /datadata, so migrate data
-    /tmp/busybox mount /data
-
-    if /tmp/busybox test -h /data/data ; then
-      /tmp/busybox mkdir /datadata
-      /tmp/busybox mount /datadata
-      /tmp/busybox rm /data/data
-      /tmp/busybox mkdir /data/data
-      /tmp/busybox chown system.system /data/data
-      /tmp/busybox chmod 0771 /data/data
-      /tmp/busybox cp -a /datadata/* /data/data/
-      /tmp/busybox rm -r /data/data/lost+found
-    fi
-    /tmp/busybox umount /data
 
     # clear datadata
     /tmp/busybox umount -l /datadata
@@ -192,23 +179,23 @@ elif /tmp/busybox test -e /dev/block/mtdblock0 ; then
 
     # unmount and format system (recovery seems to expect system to be unmounted)
     /tmp/busybox umount -l /system
-    /tmp/erase_image system
+    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /system $DATA_PART
+
+    # unmount and format data
+    /tmp/busybox umount -l /data
+    /tmp/erase_image userdata
 
     # restart into recovery so the user can install further packages before booting
     /tmp/busybox touch /cache/.startrecovery
 
     if /tmp/busybox test -e /sdcard/cyanogenmod.mtdupd ; then
-        # this is an upgrade with changed MTD mapping for /system, /cache
-        # so return to updater-script after formatting these two
+        # this is an upgrade with changed MTD mapping for /data, /cache, /system
+        # so return to updater-script after formatting them
 
         /tmp/busybox rm -f /sdcard/cyanogenmod.mtdupd
 
         exit 0
     fi
-
-    # unmount and format data
-    /tmp/busybox umount /data
-    /tmp/make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data $DATA_PART
 
     if $IS_GSM ; then
         # restore efs backup
