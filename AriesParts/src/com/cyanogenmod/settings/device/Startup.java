@@ -14,6 +14,7 @@ public class Startup extends BroadcastReceiver {
         Hspa.restore(context);
         VolumeBoostPreference.restore(context);
         DockAudio.restore(context);
+        Sanity.check(context);
     }
 
 }

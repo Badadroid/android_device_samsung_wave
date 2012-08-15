@@ -50,4 +50,13 @@
     <string name="deskdock_audio_summary_on">Desk dock audio enabled</string>
     <string name="deskdock_audio_summary_off">Desk dock audio disabled</string>
 
+    <!-- Used for activity title. Usually not visible, except on the
+         multi-task screen -->
+    <string name="generic_warning_title">Warning</string>
+
+    <!-- Invalid IMEI -->
+    <string name="imei_not_sane_title">Warning!</string>
+    <string name="imei_not_sane_message">A problem was detected with your device. Your device IMEI number is invalid. An invalid IMEI number could cause network issues including the inability to call emergency numbers.</string>
+    <string name="imei_not_sane_ok">OK</string>
+
 </resources>
