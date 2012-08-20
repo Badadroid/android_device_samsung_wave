@@ -1,0 +1,21 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string-array name="backlight_timeout_entries">
+        <item>Standaard (1,6 seconden)</item>
+        <item>0,5 seconden</item>
+        <item>2 seconden</item>
+        <item>5 seconden</item>
+        <item>10 seconden</item>
+        <item>15 seconden</item>
+        <item>30 seconden</item>
+        <item>Nooit</item>
+    </string-array>
+    <string-array name="hspa_entries">
+        <item>Alleen UMTS</item>
+        <item>Alleen HSDPA</item>
+        <item>HSDPA + HSUPA</item>
+    </string-array>
+    <string-array name="tvout_system_entries">
+        <item>NTSC</item>
+        <item>PAL</item>
+    </string-array>
+</resources>
