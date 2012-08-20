@@ -38,30 +38,27 @@
 # These is the hardware-specific overlay, which points to the location
 # of hardware-specific resource overrides, typically the frameworks and
 # application settings that are stored in resourced.
-DEVICE_PACKAGE_OVERLAYS := device/samsung/aries-common/overlay
+DEVICE_PACKAGE_OVERLAYS := device/samsung/wave-common/overlay
 
 # These are the hardware-specific configuration files
 PRODUCT_COPY_FILES := \
-	device/samsung/aries-common/vold.fstab:system/etc/vold.fstab \
-	device/samsung/aries-common/egl.cfg:system/lib/egl/egl.cfg \
-	device/samsung/aries-common/mxt224_ts_input.idc:system/usr/idc/mxt224_ts_input.idc \
-	device/samsung/aries-common/main.conf:system/etc/bluetooth/main.conf
+	device/samsung/wave-common/vold.fstab:system/etc/vold.fstab \
+	device/samsung/wave-common/egl.cfg:system/lib/egl/egl.cfg \
+	device/samsung/wave-common/mxt224_ts_input.idc:system/usr/idc/mxt224_ts_input.idc \
+	device/samsung/wave-common/main.conf:system/etc/bluetooth/main.conf
 
 # Init files
 PRODUCT_COPY_FILES += \
-	device/samsung/aries-common/init.aries.rc:root/init.aries.rc \
-	device/samsung/aries-common/init.aries.gps.rc:root/init.aries.gps.rc \
-	device/samsung/aries-common/init.aries.usb.rc:root/init.aries.usb.rc \
-	device/samsung/aries-common/init.aries.usb.rc:recovery/root/usb.rc \
-	device/samsung/aries-common/fstab.aries:root/fstab.aries \
-	device/samsung/aries-common/lpm.rc:root/lpm.rc \
-	device/samsung/aries-common/ueventd.aries.rc:root/ueventd.aries.rc \
+	device/samsung/wave-common/init.wave.rc:root/init.wave.rc \
+	device/samsung/wave-common/init.wave.usb.rc:root/init.wave.usb.rc \
+	device/samsung/wave-common/init.wave.usb.rc:recovery/root/usb.rc \
+	device/samsung/wave-common/fstab.wave:root/fstab.wave \
+	device/samsung/wave-common/ueventd.wave.rc:root/ueventd.wave.rc \
 
 # Prebuilt kl keymaps
 PRODUCT_COPY_FILES += \
-	device/samsung/aries-common/cypress-touchkey.kl:system/usr/keylayout/cypress-touchkey.kl \
-	device/samsung/aries-common/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
-	device/samsung/aries-common/s3c-keypad.kl:system/usr/keylayout/s3c-keypad.kl
+	device/samsung/wave-common/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
+	device/samsung/wave-common/s3c-keypad.kl:system/usr/keylayout/s3c-keypad.kl
 
 # Generated kcm keymaps
 PRODUCT_PACKAGES := \
@@ -81,8 +78,8 @@ PRODUCT_PACKAGES += \
 # These are the OpenMAX IL configuration files
 PRODUCT_COPY_FILES += \
 	hardware/samsung/exynos3/s5pc110/sec_mm/sec_omx/sec_omx_core/secomxregistry:system/etc/secomxregistry \
-	device/samsung/aries-common/media_profiles.xml:system/etc/media_profiles.xml \
-	device/samsung/aries-common/media_codecs.xml:system/etc/media_codecs.xml
+	device/samsung/wave-common/media_profiles.xml:system/etc/media_profiles.xml \
+	device/samsung/wave-common/media_codecs.xml:system/etc/media_codecs.xml
 
 # These are the OpenMAX IL modules
 PRODUCT_PACKAGES += \
@@ -94,18 +91,18 @@ PRODUCT_PACKAGES += \
 
 # Misc other modules
 PRODUCT_PACKAGES += \
-	lights.aries \
-	sensors.aries \
+	lights.wave \
+	sensors.wave \
 	hwcomposer.s5pc110 \
-	camera.aries \
-	audio.primary.aries \
-	audio_policy.aries \
+	camera.wave \
+	audio.primary.wave \
+	audio_policy.wave \
 	audio.a2dp.default \
 	audio.usb.default \
 	libs3cjpeg
 
 PRODUCT_COPY_FILES += \
-	device/samsung/aries-common/libaudio/audio_policy.conf:system/etc/audio_policy.conf
+	device/samsung/wave-common/libaudio/audio_policy.conf:system/etc/audio_policy.conf
 
 # Libs
 PRODUCT_PACKAGES += \
@@ -184,7 +181,5 @@ include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
-PRODUCT_COPY_FILES += \
-	device/samsung/aries-common/updater.sh:updater.sh
 
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)

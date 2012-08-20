@@ -1,3 +1,3 @@
-ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),aries)
+ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),wave)
     include $(all-subdir-makefiles)
 endif

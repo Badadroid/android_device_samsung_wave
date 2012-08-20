@@ -1,5 +1,4 @@
-import init.aries.usb.rc
-import init.aries.gps.rc
+import init.wave.usb.rc
 
 on init
     loglevel 9

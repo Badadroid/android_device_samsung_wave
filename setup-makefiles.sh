@@ -1,9 +1,9 @@
 #!/bin/sh
 
 VENDOR=samsung
-DEVICE=aries-common
+DEVICE=wave-common
 OUTDIR=vendor/$VENDOR/$DEVICE
-MAKEFILE=../../../$OUTDIR/aries-vendor-blobs.mk
+MAKEFILE=../../../$OUTDIR/wave-vendor-blobs.mk
 
 (cat << EOF) > $MAKEFILE
 # Copyright (C) 2011 The CyanogenMod Project

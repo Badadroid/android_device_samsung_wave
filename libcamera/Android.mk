@@ -19,7 +19,7 @@ LOCAL_SRC_FILES:= \
 LOCAL_SHARED_LIBRARIES:= libutils libcutils libbinder liblog libcamera_client libhardware
 LOCAL_SHARED_LIBRARIES+= libs3cjpeg
 
-LOCAL_MODULE := camera.aries
+LOCAL_MODULE := camera.wave
 
 LOCAL_MODULE_TAGS := optional
 
