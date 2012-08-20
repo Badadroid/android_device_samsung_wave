@@ -25,4 +25,15 @@
     <string name="tvout_enable_summary_on">ТВ выход включен</string>
     <string name="tvout_system_head">Система ТВ</string>
     <string name="tvout_system_summary">Установите систему вещания</string>
+    <string name="category_volume_boost_title">Регулировка громкости</string>
+    <string name="volume_boost_title_head">Регулировка громкости разговора</string>
+    <string name="volume_boost_summary_head">Увеличение громкости в телефонных разговорах</string>
+    <string name="boost_rcv_title">Громкость динамика</string>
+    <string name="boost_bt_title">Громоксть Bluetooth</string>
+    <string name="boost_spk_title">Громкость спикера</string>
+    <string name="boost_hp_title">Громкость гарнитуры</string>
+    <string name="mic_rcv_title">Микрофон</string>
+    <string name="mic_spk_title">Микрофон спикера</string>
+    <string name="mic_hp_title">Микрофон гарнитуры</string>
+    <string name="mic_hp_no_mic_title">Микрофон гарнитуры (без микрофона)</string>
 </resources>
