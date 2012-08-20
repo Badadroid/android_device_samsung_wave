@@ -1,8 +1,8 @@
 #!/bin/sh
 
 VENDOR=samsung
-DEVICE=galaxysmtd
-COMMON=aries-common
+DEVICE=wave
+COMMON=wave-common
 OUTDIR=vendor/$VENDOR/$DEVICE
 OUTCOMMON=vendor/$VENDOR/$COMMON
 

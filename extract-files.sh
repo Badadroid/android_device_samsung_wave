@@ -1,8 +1,8 @@
 #!/bin/sh
 
 VENDOR=samsung
-DEVICE=galaxysmtd
-COMMON=aries-common
+DEVICE=wave
+COMMON=wave-common
 
 BASE=../../../vendor/$VENDOR/$DEVICE/proprietary
 
@@ -19,7 +19,7 @@ for FILE in `cat proprietary-files.txt | grep -v ^# | grep -v ^$`; do
 done
 
 # Modem
-echo "Pulling modem..."
-adb pull /radio/modem.bin $BASE/modem.bin
+# echo "Pulling modem..."
+# adb pull /radio/modem.bin $BASE/modem.bin
 
 ./setup-makefiles.sh

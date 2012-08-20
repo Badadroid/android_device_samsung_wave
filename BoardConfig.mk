@@ -21,7 +21,7 @@
 BOARD_SECOND_CAMERA_DEVICE := /dev/video2
 
 # Kernel Config
-TARGET_KERNEL_CONFIG := cyanogenmod_galaxysmtd_defconfig
+TARGET_KERNEL_CONFIG := cyanogenmod_wave_defconfig
 
 # FM Radio
 BOARD_HAVE_FM_RADIO := true
@@ -29,9 +29,9 @@ BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
 BOARD_FM_DEVICE := si4709
 
 # Recovery
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/galaxysmtd/recovery/recovery_keys.c
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/wave/recovery/recovery_keys.c
 
-TARGET_OTA_ASSERT_DEVICE := galaxys,galaxysmtd,GT-I9000,GT-I9000M,GT-I9000T
+TARGET_OTA_ASSERT_DEVICE := wave,GT-S8500,S8500
 
 # Import the aries-common BoardConfigCommon.mk
-include device/samsung/aries-common/BoardConfigCommon.mk
+include device/samsung/wave-common/BoardConfigCommon.mk
