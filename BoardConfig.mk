@@ -33,5 +33,5 @@ BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/wave/recovery/recovery_
 
 TARGET_OTA_ASSERT_DEVICE := wave,GT-S8500,S8500
 
-# Import the aries-common BoardConfigCommon.mk
+# Import the wave-common BoardConfigCommon.mk
 include device/samsung/wave-common/BoardConfigCommon.mk
