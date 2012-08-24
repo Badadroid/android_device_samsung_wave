@@ -27,8 +27,8 @@ on init
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
-    setprop ro.build.product aries
-    setprop ro.product.device aries
+    setprop ro.build.product wave
+    setprop ro.product.device wave
     setprop ro.radio.noril yes
 
 # fake some battery state
@@ -43,7 +43,7 @@ on boot
 on fs
     mkdir /radio 0775 radio radio
     mount yaffs2 mtd@radio /radio
-    mount_all fstab.aries
+    mount_all fstab.wave
 
     chown radio radio /radio/modem.bin
 
@@ -101,12 +101,12 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
 
-service aries-ril-daemon /system/bin/rild
-    class core
-    socket rild stream 660 root radio
-    socket rild-debug stream 660 radio system
-    user root
-    group radio cache inet misc audio sdcard_rw log
+# service aries-ril-daemon /system/bin/rild
+#    class core
+#    socket rild stream 660 root radio
+#    socket rild-debug stream 660 radio system
+#    user root
+#    group radio cache inet misc audio sdcard_rw log
 
 # 3D init
 service pvrsrvinit /system/vendor/bin/pvrsrvinit

@@ -43,8 +43,8 @@ TARGET_KERNEL_SOURCE := kernel/samsung/wave/kernel
 TARGET_KERNEL_CONFIG := wave_s8500_defconfig
 
 # Releasetools
-TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/wave-common/releasetools/aries_ota_from_target_files
-TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/wave-common/releasetools/aries_img_from_target_files
+TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/wave-common/releasetools/wave_ota_from_target_files
+TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/wave-common/releasetools/wave_img_from_target_files
 
 # Camera
 USE_CAMERA_STUB := false
