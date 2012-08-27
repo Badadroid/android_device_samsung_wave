@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Impostazioni Galaxy S</string>
     <string name="category_screen_title">Display</string>
-    <string name="color_tuning_title_head">Calibrazione Colori</string>
+    <string name="color_tuning_title_head">Calibrazione colori</string>
     <string name="color_tuning_summary_head">Calibra colori display</string>
     <string name="color_red_title">Rosso</string>
     <string name="color_green_title">Verde</string>
@@ -43,4 +43,8 @@
     <string name="deskdock_audio_title_head">Dock da tavolo</string>
     <string name="deskdock_audio_summary_on">Audio dock da tavolo attivato</string>
     <string name="deskdock_audio_summary_off">Audio dock da tavolo disattivato</string>
+    <string name="generic_warning_title">Attenzione</string>
+    <string name="imei_not_sane_title">Attenzione!</string>
+    <string name="imei_not_sane_message">È stato rilevato un problema con il dispositivo. Il numero IMEI del dispositivo non è valido. Un numero IMEI non valido potrebbe causare problemi di rete tra cui l\'impossibilità di chiamare numeri di emergenza.</string>
+    <string name="imei_not_sane_ok">OO</string>
 </resources>
