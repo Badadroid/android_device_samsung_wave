@@ -48,6 +48,6 @@
     <string name="cardock_audio_summary_off">Bil-dock-lyd slået fra</string>
     <string name="deskdock_audio_title_head">Skrivebords-dock</string>
     <string name="deskdock_audio_summary_on">Skrivebords-dock-lyd slået til</string>
-    <string name="deskdock_audio_summary_off">Skrivebords-dock-lyd slået til</string>
+    <string name="deskdock_audio_summary_off">Skrivebords-dock-lyd slået fra</string>
 </resources>
 
