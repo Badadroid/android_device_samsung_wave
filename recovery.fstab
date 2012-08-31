@@ -6,7 +6,7 @@
 
 # /data		yaffs2		userdata
 # /cache		yaffs2		cache
-/system ext3 system
+/system ext4 system
 
 /cache ext3 cache
 /data ext3 userdata
