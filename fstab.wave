@@ -5,7 +5,7 @@
 
 # System as RW because we want to put dalvik-cache there
 /dev/block/mmcblk0p1         /bada_usr    vfat      noatime,nodev,nomblk_io_submit,errors=panic    wait
-loop@/bada_usr/system.img    /system      ext4      noatime,nodev,nomblk_io_submit,errors=panic    wait
-loop@/bada_usr/data.img      /data        ext4      noatime,nodev,nomblk_io_submit    wait
-loop@/bada_usr/cache.img     /cache       ext4      noatime,nodev,nomblk_io_submit    wait
+/bada_usr/system.img    /system      ext4      loop,noatime,nodev,nomblk_io_submit,errors=panic    wait
+/bada_usr/data.img      /data        ext4      loop,noatime,nodev,nomblk_io_submit    wait
+/bada_usr/cache.img     /cache       ext4      loop,noatime,nodev,nomblk_io_submit    wait
 
