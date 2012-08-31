@@ -40,7 +40,7 @@
 # application settings that are stored in resourced.
 DEVICE_PACKAGE_OVERLAYS := device/samsung/wave-common/overlay
 
-TARGET_RECOVERY_FSTAB := device/samsung/wave-common/reovery.fstab
+TARGET_RECOVERY_FSTAB := device/samsung/wave-common/recovery.fstab
 
 # These are the hardware-specific configuration files
 PRODUCT_COPY_FILES := \
