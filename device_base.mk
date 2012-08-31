@@ -54,7 +54,6 @@ PRODUCT_COPY_FILES += \
 	device/samsung/wave-common/init.wave.rc:root/init.wave.rc \
 	device/samsung/wave-common/init.wave.usb.rc:root/init.wave.usb.rc \
 	device/samsung/wave-common/init.wave.usb.rc:recovery/root/usb.rc \
-	device/samsung/wave-common/fstab.wave:root/fstab.wave \
 	device/samsung/wave-common/ueventd.wave.rc:root/ueventd.wave.rc \
 
 # Prebuilt kl keymaps
