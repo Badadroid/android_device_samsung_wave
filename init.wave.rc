@@ -41,18 +41,9 @@ on boot
     setprop ro.telephony.call_ring.multiple 0
 
 on fs
-    mkdir /radio 0775 radio radio
-    mount yaffs2 mtd@radio /radio
+    mkdir /bada_usr
+    chmod 0777 /bada_usr
     mount_all fstab.wave
-
-    chown radio radio /radio/modem.bin
-
-# We chown/chmod /efs because mount is run as root + defaults
-    mkdir /efs 0775 radio radio
-    mount yaffs2 /dev/block/mtdblock4 /efs
-    chown radio radio /efs
-    chmod 770 /efs/bluetooth
-    chmod 770 /efs/imei
 
 # permissions for bluetooth.
     chown bluetooth bluetooth /dev/s3c2410_serial0
@@ -70,7 +61,6 @@ on fs
 
 on post-fs
     #symlinks for samsung RIL
-    symlink /radio/modem.bin /dev/block/bml12
 
 # allow system to modify cpufreq control files
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
