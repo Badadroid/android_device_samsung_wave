@@ -6,12 +6,12 @@
 
 # /data		yaffs2		userdata
 # /cache		yaffs2		cache
-/system ext4 system
 
-/cache ext3 cache
-/data ext3 userdata
+/system ext4 /bada_usr/system.img loop
 
-/sdcard		vfat		/dev/block/mmcblk0p1
-# /system		ext4		/dev/block/mmcblk0p2
+/cache ext4 /bada_usr/cache.img loop
+/data ext4 /bada_usr/data.img loop
 
-# /emmc		vfat		/dev/block/mmcblk1p1
+/sdcard			vfat		/dev/block/mmcblk1p1
+/bada_private	vfat		/dev/block/mmcblk0p1
+/bada_user		vfat		/dev/block/mmcblk0p2

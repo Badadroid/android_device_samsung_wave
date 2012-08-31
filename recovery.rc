@@ -98,6 +98,9 @@ loglevel 9
     write /dev/cpuctl/bg_non_interactive/cpu.shares 52
 
 on fs
+    mkdir /bada_usr
+    chmod 0777 /bada_usr
+    mount vfat /dev/block/platform/s3c-sdhci.0/by-num/p2 /bada_usr noatime
 # mount mtd partitions
     # Mount /system rw first to give the filesystem a chance to save a checkpoint
     #mount yaffs2 mtd@system /system
@@ -248,7 +251,7 @@ on boot
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
 
     write /dev/graphics/fb3 1
-    umount /system
+#    umount /system
 
     class_start default
 
