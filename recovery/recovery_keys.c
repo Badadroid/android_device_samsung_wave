@@ -24,24 +24,25 @@ int device_handle_key(int key_code, int visible) {
             case KEY_DOWN:
             case KEY_VOLUMEDOWN:
                 return HIGHLIGHT_DOWN;
+				break;
 
             case KEY_LEFTSHIFT:
             case KEY_UP:
             case KEY_VOLUMEUP:
                 return HIGHLIGHT_UP;
+				break;
 
             case KEY_MENU:
                 return SELECT_ITEM;
+				break;
 
             case KEY_BACK:
-                if (ui_get_showing_back_button())
-                    return SELECT_ITEM;                
-				if (!get_allow_toggle_display())
-                    return GO_BACK;
+                return GO_BACK;
                 break;
             case KEY_SLEEP:
             default:
                 return NO_ACTION;
+				break;
         }
     }
 
