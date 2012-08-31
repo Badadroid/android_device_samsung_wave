@@ -49,11 +49,5 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml
 
-# Inherit Aries common device configuration.
+# Inherit Wave common device configuration.
 $(call inherit-product, device/samsung/wave-common/device_base.mk)
-
-# See comment at the top of this file. This is where the other
-# half of the device-specific product definition file takes care
-# of the aspects that require proprietary drivers that aren't
-# commonly available
-$(call inherit-product-if-exists, vendor/samsung/wave/wave-vendor.mk)
