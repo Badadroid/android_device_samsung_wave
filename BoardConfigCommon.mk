@@ -45,8 +45,7 @@ BOARD_MOBILEDATA_INTERFACE_NAME = "pdp0"
 BOARD_UMS_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun/file
 
 # Kernel Source
-TARGET_KERNEL_SOURCE := kernel/samsung/wave/kernel
-TARGET_KERNEL_CONFIG := wave_s8500_defconfig
+TARGET_KERNEL_SOURCE := kernel/samsung/wave
 
 # Releasetools
 # Default for now
