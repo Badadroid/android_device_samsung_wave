@@ -12,9 +12,6 @@
 ## <sysfs_path> - List of sysfs paths to source devices
 ######################
 
-#FIXME: Swap again?
-# internal sdcard
-dev_mount emmc /storage/sdcard1 auto /devices/platform/s3c-sdhci.2/mmc_host/mmc2
+dev_mount sdcard /storage/sdcard0 auto /devices/platform/s3c-sdhci.2/mmc_host/mmc2
 
-# external sdcard
-dev_mount sdcard /storage/sdcard0 1 /devices/platform/s3c-sdhci.0/mmc_host/mmc0
+dev_mount emmc /storage/sdcard1 2 /devices/platform/s3c-sdhci.0/mmc_host/mmc0
