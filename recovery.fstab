@@ -1,16 +1,12 @@
 # mount point	fstype		device				options (length for cryptfs encryption footer)
 
-# /recovery	mtd		recovery
 /boot		mtd		boot
-# /radio		mtd		radio
 
-# /data		yaffs2		userdata
-# /cache		yaffs2		cache
+/system 	ext4 	/bada_usr/system.img fs_options=loop
+/cache 		ext4 	/bada_usr/cache.img fs_options=loop
+/data 		ext4 	/bada_usr/data.img fs_options=loop
 
-/system ext4 /bada_usr/system.img fs_options=loop
-/cache ext4 /bada_usr/cache.img fs_options=loop
-/data ext4 /bada_usr/data.img fs_options=loop
-
-/sdcard			vfat		/dev/block/mmcblk1p1
+/sdcard		vfat		/dev/block/mmcblk1p1
 /bada_private	vfat		/dev/block/mmcblk0p1
-/bada_user		vfat		/dev/block/mmcblk0p2
+/bada_user	vfat		/dev/block/mmcblk0p2
+/bada_apps	vfat		/dev/block/mmcblk0p3
