@@ -40,4 +40,14 @@
     <string name="mic_spk_title">Microfone do Viva Voz</string>
     <string name="mic_hp_title">Microfone do Fone de Ouvido</string>
     <string name="mic_hp_no_mic_title">Microfone do Fone de Ouvido (que não tem microfone)</string>
+    <string name="category_dock_audio_title">Dock de Áudio</string>
+    <string name="cardock_audio_title_head">Dock de Carro</string>
+    <string name="cardock_audio_summary_on">Aúdio do dock de carro ativado</string>
+    <string name="cardock_audio_summary_off">Aúdio do dock de carro desativado</string>
+    <string name="deskdock_audio_title_head">Dock de Mesa</string>
+    <string name="deskdock_audio_summary_on">Aúdio do dock de mesa ativado</string>
+    <string name="deskdock_audio_summary_off">Aúdio do dock de mesa desativado</string>
+    <string name="generic_warning_title">Aviso</string>
+    <string name="imei_not_sane_title">Aviso!</string>
+    <string name="imei_not_sane_message">Um problema foi detectado no seu dispositivo. O número IMEI do seu dispositivo é inválido. Um número de IMEI inválido pode causar problemas de rede incluindo a impossibilidade de realizar chamadas a números de emergências.</string>
 </resources>
