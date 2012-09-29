@@ -116,6 +116,10 @@ on post-fs
     chown system system /data
     chmod 0771 /data
 
+    # Fix recovery error when staring shell console
+    chmod 0755 /sbin
+    chmod 0755 /sbin/sh
+
     # Create dump dir and collect dumps.
     # Do this before we mount cache so eventually we can use cache for
     # storing dumps on platforms which do not have a dedicated dump partition.
