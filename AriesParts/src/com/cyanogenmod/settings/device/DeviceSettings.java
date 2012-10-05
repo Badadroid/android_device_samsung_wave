@@ -27,6 +27,7 @@ public class DeviceSettings extends PreferenceActivity  {
     public static final String KEY_CARDOCK_AUDIO = "cardock_audio";
     public static final String KEY_DESKDOCK_AUDIO = "deskdock_audio";
     public static final String KEY_DOCK_AUDIO_CATEGORY = "category_dock_audio";
+    public static final String KEY_VIBRATION = "vibration";
 
     private ColorTuningPreference mColorTuning;
     private ListPreference mMdnie;
@@ -38,6 +39,7 @@ public class DeviceSettings extends PreferenceActivity  {
     private VolumeBoostPreference mVolumeBoost;
     private CheckBoxPreference mCarDockAudio;
     private CheckBoxPreference mDeskDockAudio;
+    private VibrationPreference mVibration;
 
     private BroadcastReceiver mHeadsetReceiver = new BroadcastReceiver() {
 
@@ -92,6 +94,9 @@ public class DeviceSettings extends PreferenceActivity  {
             category.removePreference(mDeskDockAudio);
             getPreferenceScreen().removePreference(category);
         }
+
+        mVibration = (VibrationPreference) findPreference(KEY_VIBRATION);
+        mVibration.setEnabled(VibrationPreference.isSupported());
 
         mTvOut = new TvOut();
         mTvOutEnable = (CheckBoxPreference) findPreference(KEY_TVOUT_ENABLE);
