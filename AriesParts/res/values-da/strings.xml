@@ -30,24 +30,36 @@
     <string name="tvout_system_head">TV-system</string>
     <string name="tvout_system_summary">Indstil dit TV-system til TV-OUT</string>
 	
-    <string name="category_volume_boost_title">Lydstyrke-kontroller</string>
-    <string name="volume_boost_title_head">In-call lydstyrke-kontroller</string>
-    <string name="volume_boost_summary_head">Forøg in-call lydstyrke-indstillinger</string>
-    <string name="boost_rcv_title">Øresnegls-lydstyrke</string>
-    <string name="boost_bt_title">Bluetooth-lydstyrke</string>
-    <string name="boost_spk_title">Højttalertelefon-lydstyrke</string>
-    <string name="boost_hp_title">Hovedtelefon-lydstyrke</string>
-    <string name="mic_rcv_title">Øresnegls-mikrofon</string>
-    <string name="mic_spk_title">Højttalertelefon-mikrofon</string>
-    <string name="mic_hp_title">Hovedtelefon-mikrofon</string>
-    <string name="mic_hp_no_mic_title">Hovedtelefon-mikrofon (uden mikrofon)</string>
+    <string name="category_volume_boost_title">Kontrol af lydstyrke</string>
+    <string name="volume_boost_title_head">Kontrol af opkaldslydstyrke</string>
+    <string name="volume_boost_summary_head">Indstillinger til at øge opkaldslydstyrke</string>
+    <string name="boost_rcv_title">Lydstyrke for øresnegl</string>
+    <string name="boost_bt_title">Lydstyrke for Bluetooth</string>
+    <string name="boost_spk_title">Lydstyrke for højttalertelefon-</string>
+    <string name="boost_hp_title">Lydstyrke for hovedtelefon</string>
+    <string name="mic_rcv_title">Mikrofon til øresnegl</string>
+    <string name="mic_spk_title">Mikrofon til højttalertelefon</string>
+    <string name="mic_hp_title">Mikrofon-headset</string>
+    <string name="mic_hp_no_mic_title">Mikrofon-headset (u. mikrofon)</string>
 
-    <string name="category_dock_audio_title">Dock-lyd</string>
-    <string name="cardock_audio_title_head">Bil-dock</string>
-    <string name="cardock_audio_summary_on">Bil-dock-lyd slået til</string>
-    <string name="cardock_audio_summary_off">Bil-dock-lyd slået fra</string>
-    <string name="deskdock_audio_title_head">Skrivebords-dock</string>
-    <string name="deskdock_audio_summary_on">Skrivebords-dock-lyd slået til</string>
-    <string name="deskdock_audio_summary_off">Skrivebords-dock-lyd slået fra</string>
+    <string name="category_dock_audio_title">Lyd til dock</string>
+    <string name="cardock_audio_title_head">Bildock</string>
+    <string name="cardock_audio_summary_on">Lyd til bildock slået til</string>
+    <string name="cardock_audio_summary_off">Lyd til bildock slået fra</string>
+    <string name="deskdock_audio_title_head">Skrivebordsdock</string>
+    <string name="deskdock_audio_summary_on">Lyd til skrivebordsdock slået til</string>
+    <string name="deskdock_audio_summary_off">Lyd til skrivebordsdock slået fra</string>
+
+    <string name="category_vibration_title">Vibration</string>
+    <string name="vibration_title_head">Vibration</string>
+    <string name="vibration_summary_head">Kontrollér vibrationsintensitet</string>
+    <string name="vibration_title">Vibrationsintensitet</string>
+
+    <string name="generic_warning_title">Advarsel</string>
+
+    <string name="imei_not_sane_title">Advarsel!</string>
+    <string name="imei_not_sane_message">Der blev fundet et problem med din enhed. Din enheds IMEI-nummer er ugyldigt. Et ugyldigt IMEI-nummer kan forårsage netværksproblemer, bl.a. manglende evne til at foretage nødopkald.</string>
+    <string name="imei_not_sane_ok">OK</string>
+
 </resources>
 
