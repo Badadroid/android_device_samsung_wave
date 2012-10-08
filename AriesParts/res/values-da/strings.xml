@@ -35,7 +35,7 @@
     <string name="volume_boost_summary_head">Indstillinger til at øge opkaldslydstyrke</string>
     <string name="boost_rcv_title">Lydstyrke for øresnegl</string>
     <string name="boost_bt_title">Lydstyrke for Bluetooth</string>
-    <string name="boost_spk_title">Lydstyrke for højttalertelefon-</string>
+    <string name="boost_spk_title">Lydstyrke for højttalertelefon</string>
     <string name="boost_hp_title">Lydstyrke for hovedtelefon</string>
     <string name="mic_rcv_title">Mikrofon til øresnegl</string>
     <string name="mic_spk_title">Mikrofon til højttalertelefon</string>
