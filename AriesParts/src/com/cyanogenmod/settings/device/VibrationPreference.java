@@ -3,14 +3,17 @@ package com.cyanogenmod.settings.device;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Vibrator;
 import android.preference.DialogPreference;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class VibrationPreference extends DialogPreference {
+public class VibrationPreference extends DialogPreference implements OnClickListener {
 
     private static final int SEEKBAR_ID = R.id.vibration_seekbar;
 
@@ -41,6 +44,13 @@ public class VibrationPreference extends DialogPreference {
         SeekBar seekBar = (SeekBar) view.findViewById(SEEKBAR_ID);
         TextView valueDisplay = (TextView) view.findViewById(VALUE_DISPLAY_ID);
         mSeekBar = new VibrationSeekBar(seekBar, valueDisplay, FILE_PATH);
+
+        SetupButtonClickListener(view);
+    }
+
+    private void SetupButtonClickListener(View view) {
+        Button mTestButton = (Button)view.findViewById(R.id.vibration_test);
+        mTestButton.setOnClickListener(this);
     }
 
     @Override
@@ -132,6 +142,19 @@ public class VibrationPreference extends DialogPreference {
             mValueDisplay.setText(String.valueOf(progress) + "%");
         }
 
+    }
+
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.vibration_test:
+                testVibration();
+                break;
+        }
+    }
+
+    public void testVibration() {
+        Vibrator vib = (Vibrator) this.getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        vib.vibrate(1000);
     }
 
 }

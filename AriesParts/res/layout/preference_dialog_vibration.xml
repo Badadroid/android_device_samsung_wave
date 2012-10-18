@@ -32,5 +32,21 @@
                 android:paddingLeft="20dip"
                 android:paddingRight="20dip" />
 
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_below="@+id/vibration_seekbar"
+                android:paddingTop="5dip" >
+
+            <Button android:id="@+id/vibration_test"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dip"
+                    android:paddingRight="20dip"
+                    android:text="@string/vibration_test_title" />
+
+        </RelativeLayout>
+
     </RelativeLayout>
 </ScrollView>
