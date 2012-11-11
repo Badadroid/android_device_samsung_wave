@@ -7,6 +7,8 @@ import android.preference.DialogPreference;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -14,7 +16,7 @@ import android.widget.TextView;
  * Special preference type that allows configuration of both the in call volume and
  * in call mic gain.
  */
-public class VolumeBoostPreference extends DialogPreference {
+public class VolumeBoostPreference extends DialogPreference implements OnClickListener {
 
     private static final int[] SEEKBAR_ID = new int[] {
         R.id.boost_rcv_seekbar,
@@ -93,6 +95,13 @@ public class VolumeBoostPreference extends DialogPreference {
             TextView valueDisplay = (TextView) view.findViewById(MIC_VALUE_DISPLAY_ID[i]);
             mSeekBars[SEEKBAR_ID.length + i] = new MicSeekBar(seekBar, valueDisplay, MIC_FILE_PATH[i]);
         }
+
+        SetupButtonClickListener(view);
+    }
+
+    private void SetupButtonClickListener(View view) {
+        Button mResetButton = (Button)view.findViewById(R.id.volume_reset);
+        mResetButton.setOnClickListener(this);
     }
 
     @Override
@@ -211,6 +220,12 @@ public class VolumeBoostPreference extends DialogPreference {
             mValueDisplay.setText(String.valueOf(progress));
         }
 
+        public void resetDefault(String path, int value) {
+            mSeekBar.setProgress(value);
+            updateValue(value);
+            Utils.writeValue(path, String.valueOf(value));
+        }
+
     }
 
     class MicSeekBar extends VolumeSeekBar {
@@ -242,4 +257,18 @@ public class VolumeBoostPreference extends DialogPreference {
         }
 
     }
+
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.volume_reset:
+                for (int i = 0; i < BOOST_FILE_PATH.length; i++) {
+                    mSeekBars[i].resetDefault(BOOST_FILE_PATH[i], BOOST_DEFAULT_VALUE);
+                }
+                for (int i = 0; i < MIC_FILE_PATH.length; i++) {
+                    mSeekBars[BOOST_FILE_PATH.length + i].resetDefault(MIC_FILE_PATH[i], MIC_DEFAULT_VALUE);
+                }
+                break;
+        }
+    }
+
 }

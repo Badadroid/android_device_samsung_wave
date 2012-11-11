@@ -208,5 +208,21 @@
                 android:paddingLeft="20dip"
                 android:paddingRight="20dip" />
 
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_below="@+id/mic_hp_no_mic_seekbar"
+                android:paddingTop="5dip" >
+
+            <Button android:id="@+id/volume_reset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dip"
+                    android:paddingRight="20dip"
+                    android:text="@string/button_reset_title" />
+
+        </LinearLayout>
+
     </RelativeLayout>
 </ScrollView>

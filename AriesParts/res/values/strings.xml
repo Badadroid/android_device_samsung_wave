@@ -56,6 +56,8 @@
     <string name="vibration_title">Vibration intensity</string>
     <string name="vibration_test_title">Test</string>
 
+    <string name="button_reset_title">Reset</string>
+
     <!-- Used for activity title. Usually not visible, except on the
          multi-task screen -->
     <string name="generic_warning_title">Warning</string>

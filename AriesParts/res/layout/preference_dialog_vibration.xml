@@ -32,7 +32,7 @@
                 android:paddingLeft="20dip"
                 android:paddingRight="20dip" />
 
-        <RelativeLayout
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -42,11 +42,16 @@
             <Button android:id="@+id/vibration_test"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="20dip"
-                    android:paddingRight="20dip"
-                    android:text="@string/vibration_test_title" />
+                    android:text="@string/vibration_test_title"
+                    android:width="100dp" />
 
-        </RelativeLayout>
+            <Button android:id="@+id/vibration_reset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_reset_title"
+                    android:width="100dp" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 </ScrollView>
