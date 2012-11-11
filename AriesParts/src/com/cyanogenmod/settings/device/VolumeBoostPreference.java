@@ -63,7 +63,7 @@ public class VolumeBoostPreference extends DialogPreference {
     private static final int BOOST_DEFAULT_VALUE = 2;
     private static final int BOOST_MAX_VALUE = 3;
 
-    private static final int[] MIC_DEFAULT_VALUE = new int[] { 19, 31, 29, 18 };
+    private static final int MIC_DEFAULT_VALUE = 18;
     private static final int MIC_MAX_VALUE = 31;
 
     // Track instances to know when to restore original value
@@ -91,7 +91,7 @@ public class VolumeBoostPreference extends DialogPreference {
         for (int i = 0; i < MIC_SEEKBAR_ID.length; i++) {
             SeekBar seekBar = (SeekBar) view.findViewById(MIC_SEEKBAR_ID[i]);
             TextView valueDisplay = (TextView) view.findViewById(MIC_VALUE_DISPLAY_ID[i]);
-            mSeekBars[SEEKBAR_ID.length + i] = new MicSeekBar(seekBar, valueDisplay, MIC_FILE_PATH[i], i);
+            mSeekBars[SEEKBAR_ID.length + i] = new MicSeekBar(seekBar, valueDisplay, MIC_FILE_PATH[i]);
         }
     }
 
@@ -128,7 +128,7 @@ public class VolumeBoostPreference extends DialogPreference {
         }
 
         for (int i = 0; i < MIC_FILE_PATH.length; i++) {
-            int value = sharedPrefs.getInt(MIC_FILE_PATH[i], MIC_DEFAULT_VALUE[i]);
+            int value = sharedPrefs.getInt(MIC_FILE_PATH[i], MIC_DEFAULT_VALUE);
             Utils.writeValue(MIC_FILE_PATH[i], String.valueOf(value));
         }
     }
@@ -215,14 +215,14 @@ public class VolumeBoostPreference extends DialogPreference {
 
     class MicSeekBar extends VolumeSeekBar {
 
-        public MicSeekBar(SeekBar seekBar, TextView valueDisplay, String filePath, int defaultValue) {
+        public MicSeekBar(SeekBar seekBar, TextView valueDisplay, String filePath) {
             mSeekBar = seekBar;
             mValueDisplay = valueDisplay;
             mFilePath = filePath;
 
             // Read original value
             SharedPreferences sharedPreferences = getSharedPreferences();
-            mOriginal = sharedPreferences.getInt(mFilePath, MIC_DEFAULT_VALUE[defaultValue]);
+            mOriginal = sharedPreferences.getInt(mFilePath, MIC_DEFAULT_VALUE);
 
             seekBar.setMax(MIC_MAX_VALUE);
             reset();
