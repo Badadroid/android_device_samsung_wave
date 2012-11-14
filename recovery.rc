@@ -119,6 +119,7 @@ on post-fs
     # Fix recovery error when staring shell console
     chmod 0755 /sbin
     chmod 0755 /sbin/sh
+    chmod 0755 /sbin/recovery
 
     # Create dump dir and collect dumps.
     # Do this before we mount cache so eventually we can use cache for
