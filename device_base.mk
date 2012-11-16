@@ -66,6 +66,12 @@ PRODUCT_PACKAGES := \
        cypress-touchkey.kcm \
        s3c-keypad.kcm
 
+# SHP Modem interfaces
+PRODUCT_PACKAGES := \
+	libsamsung-ipc \
+	ipc-modemctrl \
+	libsamsung-ril
+
 # Filesystem management tools
 PRODUCT_PACKAGES += \
 	make_ext4fs \
