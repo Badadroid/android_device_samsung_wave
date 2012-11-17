@@ -55,6 +55,7 @@ USE_CAMERA_STUB := false
 ifeq ($(USE_CAMERA_STUB),false)
 BOARD_CAMERA_LIBRARIES := libcamera
 endif
+BOARD_CAMERA_HAVE_FLASH := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
