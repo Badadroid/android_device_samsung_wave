@@ -123,7 +123,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	SamsungServiceMode \
 	AriesParts \
-	tvouthack
+	tvouthack \
+	Torch
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
