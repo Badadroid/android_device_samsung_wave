@@ -28,9 +28,6 @@ BOARD_HAVE_FM_RADIO := true
 BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
 BOARD_FM_DEVICE := si4709
 
-# Recovery
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/wave/recovery/recovery_keys.c
-
 TARGET_OTA_ASSERT_DEVICE := wave,GT-S8500,S8500
 
 # Import the wave-common BoardConfigCommon.mk
