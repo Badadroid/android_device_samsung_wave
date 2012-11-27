@@ -38,12 +38,18 @@ on boot
     setprop ro.telephony.call_ring.multiple 0
 
 on fs
-    mkdir /bada_usr
-    chmod 0777 /bada_usr
-    mount vfat /dev/block/platform/s3c-sdhci.0/by-num/p2 /bada_usr noatime
-    mount ext4 loop@/bada_usr/system.img /system noatime
-    mount ext4 loop@/bada_usr/data.img /data noatime
-    mount ext4 loop@/bada_usr/cache.img /cache noatime
+	mkdir /mnt/bada_system
+    chmod 0777 /mnt/bada_system
+    mount vfat /dev/block/mmcblk0p1 /mnt/bada_system noatime
+    mkdir /mnt/bada_user
+    chmod 0777 /mnt/bada_user
+    mount vfat /dev/block/mmcblk0p2 /mnt/bada_user noatime
+    mkdir /mnt/bada_app
+    chmod 0777 /mnt/bada_app
+    mount vfat /dev/block/mmcblk0p3 /mnt/bada_app noatime
+    mount ext4 loop@/mnt/bada_system/system.img /system noatime
+    mount ext4 loop@/mnt/bada_system/cache.img /cache noatime
+    mount ext4 loop@/mnt/bada_app/data.img /data noatime
 
 # permissions for bluetooth.
     chown bluetooth bluetooth /dev/s3c2410_serial0

@@ -2,11 +2,14 @@
 
 /boot		mtd		boot
 
-/system 	ext4 	/bada_usr/system.img fs_options=loop
-/cache 		ext4 	/bada_usr/cache.img fs_options=loop
-/data 		ext4 	/bada_usr/data.img fs_options=loop
+/system 	ext4 	/bada_system/system.img fs_options=loop
+/cache 		ext4 	/bada_system/cache.img fs_options=loop
+/data 		ext4 	/bada_app/data.img fs_options=loop
 
-/sdcard		vfat		/dev/block/mmcblk1p1
-/bada_private	vfat		/dev/block/mmcblk0p1
+/bada_system	vfat		/dev/block/mmcblk0p1
 /bada_user	vfat		/dev/block/mmcblk0p2
-/bada_apps	vfat		/dev/block/mmcblk0p3
+/bada_app	vfat		/dev/block/mmcblk0p3
+
+/emmc		vfat		/dev/block/mmcblk0p2
+
+/external_sd		vfat		/dev/block/mmcblk1p1

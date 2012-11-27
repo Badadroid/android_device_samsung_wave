@@ -39,9 +39,6 @@ loglevel 9
     mkdir /sdcard 0000 system system
     mkdir /emmc 0000 system system
 
-# for emergencyboot
-    symlink /sdcard /mnt/sdcard
-
 # Create cgroup mount point for cpu accounting
     mkdir /acct
     mount cgroup none /acct cpuacct
@@ -98,9 +95,9 @@ loglevel 9
     write /dev/cpuctl/bg_non_interactive/cpu.shares 52
 
 on fs
-    mkdir /bada_usr
-    chmod 0777 /bada_usr
-    mount vfat /dev/block/platform/s3c-sdhci.0/by-num/p2 /bada_usr noatime
+    mkdir /bada_system
+    chmod 0777 /bada_system
+    mount vfat /dev/block/mmcblk0p1 /bada_system noatime
 # mount mtd partitions
     # Mount /system rw first to give the filesystem a chance to save a checkpoint
     #mount yaffs2 mtd@system /system
