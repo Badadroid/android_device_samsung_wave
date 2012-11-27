@@ -94,7 +94,6 @@ WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 
 # adb has root
 ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
-ADDITIONAL_DEFAULT_PROPERTIES += ro.allow.mock.location=1
 
 # Vold
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
