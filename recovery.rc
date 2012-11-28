@@ -197,10 +197,6 @@ on boot
 
 # set RLIMIT_NICE to allow priorities from 19 to -20
     setrlimit 13 40 40
-	
-# for update packages asserts
-	setprop ro.build.product wave
-    setprop ro.product.device wave
 
     # Set init its forked children's oom_adj.
     write /proc/1/oom_adj -16
