@@ -48,7 +48,9 @@ BOARD_UMS_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun/file
 TARGET_KERNEL_SOURCE := kernel/samsung/wave
 
 # Releasetools
-# Default for now
+TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/wave-common/releasetools/wave_ota_from_target_files
+TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/wave-common/releasetools/wave_img_from_target_files
+
 
 # Camera
 USE_CAMERA_STUB := false
@@ -75,8 +77,10 @@ BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_CMDLINE := console=ttyFIQ0,115200 init=/init no_console_suspend
 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 7864320
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 252144000
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 213265920
+#250MB
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 262144000
+#400MB
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 419430400
 BOARD_FLASH_BLOCK_SIZE := 4096
 
 # Connectivity - Wi-Fi

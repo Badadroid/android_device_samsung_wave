@@ -95,9 +95,19 @@ loglevel 9
     write /dev/cpuctl/bg_non_interactive/cpu.shares 52
 
 on fs
+# this is for auto cache & system mounting
     mkdir /bada_system
     chmod 0777 /bada_system
-    mount vfat /dev/block/mmcblk0p1 /bada_system noatime
+    mount vfat /dev/block/mmcblk0p1 /bada_system noatime   
+# this is in case of zImage patches
+	mkdir /bada_user
+    chmod 0777 /bada_user
+    mount vfat /dev/block/mmcblk0p2 /bada_user noatime
+# this is for mounting data
+	mkdir /bada_app
+    chmod 0777 /bada_app
+    mount vfat /dev/block/mmcblk0p3 /bada_app noatime
+	
 # mount mtd partitions
     # Mount /system rw first to give the filesystem a chance to save a checkpoint
     #mount yaffs2 mtd@system /system
