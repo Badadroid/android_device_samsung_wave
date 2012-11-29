@@ -399,7 +399,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
 
   if OPTIONS.backuptool:
     script.Mount("/system")
-	script.ShowProgress(0.1, 10)
+    script.ShowProgress(0.1, 10)
     script.RunBackup("backup")
     script.Unmount("/system")
 
