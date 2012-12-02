@@ -76,6 +76,9 @@ on post-fs
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
+# trigger governor change uevent
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
+
 on post-fs-data
     # wi-fi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
