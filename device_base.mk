@@ -100,6 +100,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	lights.wave \
 	sensors.wave \
+	power.s5pc110 \
 	hwcomposer.s5pc110 \
 	camera.wave \
 	audio.primary.wave \
