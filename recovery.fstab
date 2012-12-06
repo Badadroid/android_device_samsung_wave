@@ -2,7 +2,7 @@
 
 /boot		mtd		boot
 
-/system 	ext4 	/bada_system/system.img fs_options=loop,length=262144000
+/system 	ext4 	/bada_system/system.img fs_options=loop,length=393216000
 /cache 		ext4 	/bada_system/cache.img fs_options=loop,length=18874368
 /data 		ext4 	/bada_app/data.img fs_options=loop,length=419430400
 
