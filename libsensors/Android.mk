@@ -37,10 +37,9 @@ endif
 LOCAL_SRC_FILES := 						\
 				sensors.cpp 			\
 				SensorBase.cpp			\
-				LightSensor.cpp			\
+				AkmSensor.cpp			\
 				ProximitySensor.cpp		\
 				Smb380Sensor.cpp         \
-				CompassSensor.cpp	\
 				OrientationSensor.cpp	\
 	            InputEventReader.cpp
 

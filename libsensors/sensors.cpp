@@ -33,11 +33,9 @@
 
 #include "sensors.h"
 
-#include "LightSensor.h"
+#include "AkmSensor.h"
 #include "ProximitySensor.h"
-//#include "BoschYamaha.h"
 #include "Smb380Sensor.h"
-#include "CompassSensor.h"
 #include "OrientationSensor.h"
 
 /*****************************************************************************/
@@ -70,22 +68,18 @@
 /* The SENSORS Module */
 static const struct sensor_t sSensorList[] = {
 
-        { "SMB380 3-axis Accelerometer",
+        { "BMA023 3-axis Accelerometer",
           "Bosch Sensortec",
           1, SENSORS_ACCELERATION_HANDLE,
           SENSOR_TYPE_ACCELEROMETER, RANGE_A, RESOLUTION_A, 0.20f, 10000, { } },
-        { "MS3C 3-axis Magnetic field sensor",
-          "Yamaha ",
+        { "AK8973 3-axis Magnetic field sensor",
+          "Asahi Kasei Microdevices",
           1, SENSORS_MAGNETIC_FIELD_HANDLE,
-          SENSOR_TYPE_MAGNETIC_FIELD, 2000.0f, CONVERT_M, 6.8f, 10000, { } },
-	{ "CM Hacked Orientation Sensor",
+          SENSOR_TYPE_MAGNETIC_FIELD, 2000.0f, CONVERT_M, 6.8f, 16667, { } },
+		{ "CM Hacked Orientation Sensor",
           "CM Team",
           1, SENSORS_ORIENTATION_HANDLE,
           SENSOR_TYPE_ORIENTATION,  360.0f, CONVERT_O, 7.8f, 10000, { } },
-        { "GP2A Light sensor",
-          "Sharp",
-          1, SENSORS_LIGHT_HANDLE,
-          SENSOR_TYPE_LIGHT, 10240.0f, 1.0f, 0.75f, 0, { } },
         { "GP2A Proximity sensor",
           "Sharp",
           1, SENSORS_PROXIMITY_HANDLE,
@@ -132,12 +126,11 @@ struct sensors_poll_context_t {
 
 private:
     enum {
-        light           = 0,
-        proximity       = 1,
-        bosch           = 2,
-        yamaha          = 3,
-	orientation 	= 4,        
-	numSensorDrivers,
+        proximity       = 0,
+        akm           	= 1,
+		orientation 	= 2, 
+		bosch 			= 3,        
+		numSensorDrivers,
         numFds,
     };
 
@@ -157,16 +150,14 @@ private:
     int handleToDriver(int handle) const {
         switch (handle) {
            
-            case ID_A:
-            	return bosch;
+        case ID_A:
+            return bosch;
 	    case ID_M:
-            	return yamaha;
+            return akm;
 	    case ID_O:
-		return orientation;
+			return orientation;
 	    case ID_P:
-                return proximity;
-            case ID_L:
-                return light;
+			return proximity;
                  
         }
         return -EINVAL;
@@ -177,10 +168,6 @@ private:
 
 sensors_poll_context_t::sensors_poll_context_t()
 {
-    mSensors[light] = new LightSensor();
-    mPollFds[light].fd = mSensors[light]->getFd();
-    mPollFds[light].events = POLLIN;
-    mPollFds[light].revents = 0;
 
     mSensors[proximity] = new ProximitySensor();
     mPollFds[proximity].fd = mSensors[proximity]->getFd();
@@ -192,10 +179,10 @@ sensors_poll_context_t::sensors_poll_context_t()
     mPollFds[bosch].events = POLLIN;
     mPollFds[bosch].revents = 0;
 
-    mSensors[yamaha] = new CompassSensor();
-    mPollFds[yamaha].fd = mSensors[yamaha]->getFd();
-    mPollFds[yamaha].events = POLLIN;
-    mPollFds[yamaha].revents = 0;
+    mSensors[akm] = new AkmSensor();
+    mPollFds[akm].fd = mSensors[akm]->getFd();
+    mPollFds[akm].events = POLLIN;
+    mPollFds[akm].revents = 0;
 
     mSensors[orientation] = new OrientationSensor();
     mPollFds[orientation].fd = mSensors[orientation]->getFd();
