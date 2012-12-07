@@ -56,15 +56,14 @@ PRODUCT_COPY_FILES += \
 	device/samsung/wave-common/init.wave.usb.rc:recovery/root/usb.rc \
 	device/samsung/wave-common/ueventd.wave.rc:root/ueventd.wave.rc \
 
-# Prebuilt kl keymaps
+# Keylayout and Keychars
 PRODUCT_COPY_FILES += \
-	device/samsung/wave-common/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
-	device/samsung/wave-common/s3c-keypad.kl:system/usr/keylayout/s3c-keypad.kl
-
-# Generated kcm keymaps
-PRODUCT_PACKAGES := \
-       cypress-touchkey.kcm \
-       s3c-keypad.kcm
+	device/samsung/wave-common/prebuilt/usr/keylayout/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
+	device/samsung/wave-common/prebuilt/usr/keylayout/s5pv210-keypad.kl:system/usr/keylayout/s5pv210-keypad.kl \
+	device/samsung/wave-common/prebuilt/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+	device/samsung/wave-common/prebuilt/usr/keychars/s5pv210-keypad.kcm:system/usr/keychars/s5pv210-keypad.kcm \
+	device/samsung/wave-common/prebuilt/usr/keychars/sec_jack.kcm:system/usr/keychars/sec_jack.kcm \
+	device/samsung/wave-common/prebuilt/usr/keychars/gpio-keys.kcm:system/usr/keychars/gpio-keys.kcm
 
 # SHP Modem interfaces
 PRODUCT_PACKAGES := \
