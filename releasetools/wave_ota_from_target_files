@@ -451,7 +451,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
   # script.ShowProgress(0.2, 10)
   # script.WriteRawImage("/boot", "boot.img")
 
-  script.ShowProgress(1, 0)
+  script.ShowProgress(1, 3)
   device_specific.FullOTA_InstallEnd()
 
   if OPTIONS.extra_script is not None:
