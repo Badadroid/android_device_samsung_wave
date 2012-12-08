@@ -21,7 +21,7 @@
 BOARD_SECOND_CAMERA_DEVICE := /dev/video2
 
 # Kernel Config
-TARGET_KERNEL_CONFIG := wave_s8500_defconfig
+TARGET_KERNEL_CONFIG := wave_defconfig
 
 # FM Radio
 BOARD_HAVE_FM_RADIO := true
