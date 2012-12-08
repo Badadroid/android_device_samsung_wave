@@ -93,8 +93,8 @@ PRODUCT_PACKAGES += \
 # These are the OpenMAX IL configuration files
 PRODUCT_COPY_FILES += \
 	hardware/samsung/exynos3/s5pc110/sec_mm/sec_omx/sec_omx_core/secomxregistry:system/etc/secomxregistry \
-	device/samsung/wave/media_profiles.xml:system/etc/media_profiles.xml \
-	device/samsung/wave/media_codecs.xml:system/etc/media_codecs.xml
+	device/samsung/wave/prebuilt/media_profiles.xml:system/etc/media_profiles.xml \
+	device/samsung/wave/prebuilt/media_codecs.xml:system/etc/media_codecs.xml
 
 # These are the OpenMAX IL modules
 PRODUCT_PACKAGES += \
