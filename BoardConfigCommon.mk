@@ -37,7 +37,7 @@ TARGET_NO_RADIOIMAGE := true
 TARGET_PROVIDES_INIT := true
 TARGET_BOARD_PLATFORM := s5pc110
 TARGET_BOOTLOADER_BOARD_NAME := wave
-TARGET_RECOVERY_INITRC := device/samsung/wave-common/recovery.rc
+TARGET_RECOVERY_INITRC := device/samsung/wave/recovery.rc
 
 BOARD_MOBILEDATA_INTERFACE_NAME = "pdp0"
 BOARD_UMS_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun/file
@@ -46,8 +46,8 @@ BOARD_UMS_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun/file
 TARGET_KERNEL_SOURCE := kernel/samsung/wave
 
 # Releasetools
-TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/wave-common/releasetools/wave_ota_from_target_files
-TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/wave-common/releasetools/wave_img_from_target_files
+TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/wave/releasetools/wave_ota_from_target_files
+TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/wave/releasetools/wave_img_from_target_files
 
 
 # Camera
@@ -105,10 +105,10 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/s3c-usbgadget/gadget/l
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_HAS_NO_SELECT_BUTTON := true
-BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/wave-common/recovery/graphics.c
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/wave-common/recovery/recovery_keys.c
+BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/wave/recovery/graphics.c
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/wave/recovery/recovery_keys.c
 BOARD_USES_BML_OVER_MTD := true
-BOARD_CUSTOM_BOOTIMG_MK := device/samsung/wave-common/shbootimg.mk
+BOARD_CUSTOM_BOOTIMG_MK := device/samsung/wave/shbootimg.mk
 
 # Boot Animation
 TARGET_BOOTANIMATION_PRELOAD := true
@@ -131,4 +131,4 @@ TARGET_DISABLE_TRIPLE_BUFFERING := false
 BOARD_ALLOW_EGL_HIBERNATION := true
 
 # Include wave specific stuff
--include device/samsung/wave-common/Android.mk
+-include device/samsung/wave/Android.mk

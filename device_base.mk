@@ -38,35 +38,35 @@
 # These is the hardware-specific overlay, which points to the location
 # of hardware-specific resource overrides, typically the frameworks and
 # application settings that are stored in resourced.
-DEVICE_PACKAGE_OVERLAYS := device/samsung/wave-common/overlay
+DEVICE_PACKAGE_OVERLAYS := device/samsung/wave/overlay
 
-TARGET_RECOVERY_FSTAB := device/samsung/wave-common/recovery.fstab
+TARGET_RECOVERY_FSTAB := device/samsung/wave/recovery.fstab
 
 # These are the hardware-specific configuration files
 PRODUCT_COPY_FILES := \
-	device/samsung/wave-common/vold.fstab:system/etc/vold.fstab \
-	device/samsung/wave-common/egl.cfg:system/lib/egl/egl.cfg \
-	device/samsung/wave-common/mxt224_ts_input.idc:system/usr/idc/mxt224_ts_input.idc \
-	device/samsung/wave-common/main.conf:system/etc/bluetooth/main.conf
+	device/samsung/wave/vold.fstab:system/etc/vold.fstab \
+	device/samsung/wave/egl.cfg:system/lib/egl/egl.cfg \
+	device/samsung/wave/mxt224_ts_input.idc:system/usr/idc/mxt224_ts_input.idc \
+	device/samsung/wave/main.conf:system/etc/bluetooth/main.conf
 
 # Init files
 PRODUCT_COPY_FILES += \
-	device/samsung/wave-common/init.wave.rc:root/init.wave.rc \
-	device/samsung/wave-common/init.wave.rc:root/init.wave2.rc \
-	device/samsung/wave-common/init.wave.usb.rc:root/init.wave.usb.rc \
-	device/samsung/wave-common/init.wave.usb.rc:recovery/root/usb.rc \
-	device/samsung/wave-common/ueventd.wave.rc:root/ueventd.wave.rc \
-	device/samsung/wave-common/ueventd.wave.rc:root/ueventd.wave2.rc 
+	device/samsung/wave/init.wave.rc:root/init.wave.rc \
+	device/samsung/wave/init.wave.rc:root/init.wave2.rc \
+	device/samsung/wave/init.wave.usb.rc:root/init.wave.usb.rc \
+	device/samsung/wave/init.wave.usb.rc:recovery/root/usb.rc \
+	device/samsung/wave/ueventd.wave.rc:root/ueventd.wave.rc \
+	device/samsung/wave/ueventd.wave.rc:root/ueventd.wave2.rc 
 \
 
 # Keylayout and Keychars
 PRODUCT_COPY_FILES += \
-	device/samsung/wave-common/prebuilt/usr/keylayout/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
-	device/samsung/wave-common/prebuilt/usr/keylayout/s5pv210-keypad.kl:system/usr/keylayout/s5pv210-keypad.kl \
-	device/samsung/wave-common/prebuilt/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
-	device/samsung/wave-common/prebuilt/usr/keychars/s5pv210-keypad.kcm:system/usr/keychars/s5pv210-keypad.kcm \
-	device/samsung/wave-common/prebuilt/usr/keychars/sec_jack.kcm:system/usr/keychars/sec_jack.kcm \
-	device/samsung/wave-common/prebuilt/usr/keychars/gpio-keys.kcm:system/usr/keychars/gpio-keys.kcm
+	device/samsung/wave/prebuilt/usr/keylayout/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
+	device/samsung/wave/prebuilt/usr/keylayout/s5pv210-keypad.kl:system/usr/keylayout/s5pv210-keypad.kl \
+	device/samsung/wave/prebuilt/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+	device/samsung/wave/prebuilt/usr/keychars/s5pv210-keypad.kcm:system/usr/keychars/s5pv210-keypad.kcm \
+	device/samsung/wave/prebuilt/usr/keychars/sec_jack.kcm:system/usr/keychars/sec_jack.kcm \
+	device/samsung/wave/prebuilt/usr/keychars/gpio-keys.kcm:system/usr/keychars/gpio-keys.kcm
 
 # SHP Modem interfaces
 PRODUCT_PACKAGES := \
@@ -87,8 +87,8 @@ PRODUCT_PACKAGES += \
 # These are the OpenMAX IL configuration files
 PRODUCT_COPY_FILES += \
 	hardware/samsung/exynos3/s5pc110/sec_mm/sec_omx/sec_omx_core/secomxregistry:system/etc/secomxregistry \
-	device/samsung/wave-common/media_profiles.xml:system/etc/media_profiles.xml \
-	device/samsung/wave-common/media_codecs.xml:system/etc/media_codecs.xml
+	device/samsung/wave/media_profiles.xml:system/etc/media_profiles.xml \
+	device/samsung/wave/media_codecs.xml:system/etc/media_codecs.xml
 
 # These are the OpenMAX IL modules
 PRODUCT_PACKAGES += \
@@ -112,7 +112,7 @@ PRODUCT_PACKAGES += \
 	libs3cjpeg
 
 PRODUCT_COPY_FILES += \
-	device/samsung/wave-common/libaudio/audio_policy.conf:system/etc/audio_policy.conf
+	device/samsung/wave/libaudio/audio_policy.conf:system/etc/audio_policy.conf
 
 # Libs
 PRODUCT_PACKAGES += \
@@ -199,4 +199,4 @@ $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329
 # half of the device-specific product definition file takes care
 # of the aspects that require proprietary drivers that aren't
 # commonly available
-$(call inherit-product-if-exists, vendor/samsung/wave-common/wave-vendor.mk)
+$(call inherit-product-if-exists, vendor/samsung/wave/wave-vendor.mk)

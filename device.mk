@@ -46,4 +46,4 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml
 
 # Inherit Wave common device configuration.
-$(call inherit-product, device/samsung/wave-common/device_base.mk)
+$(call inherit-product, device/samsung/wave/device_base.mk)

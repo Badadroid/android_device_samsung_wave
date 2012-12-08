@@ -30,5 +30,5 @@ BOARD_FM_DEVICE := si4709
 
 TARGET_OTA_ASSERT_DEVICE := wave,GT-S8500,S8500
 
-# Import the wave-common BoardConfigCommon.mk
+# Import the wave BoardConfigCommon.mk
 include device/samsung/wave/BoardConfigCommon.mk
