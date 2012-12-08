@@ -52,6 +52,7 @@ PRODUCT_COPY_FILES := \
 	device/samsung/wave/prebuilt/vold.fstab:system/etc/vold.fstab \
 	device/samsung/wave/prebuilt/egl.cfg:system/lib/egl/egl.cfg \
     device/samsung/wave/prebuilt/nvram_net_s8500.txt:system/vendor/firmware/nvram_net_s8500.txt \
+    device/samsung/wave/prebuilt/nvram_net_s8530.txt:system/vendor/firmware/nvram_net_s8530.txt \
 	device/samsung/wave/prebuilt/main.conf:system/etc/bluetooth/main.conf
 
 # Init files
