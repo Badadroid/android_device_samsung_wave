@@ -52,9 +52,12 @@ PRODUCT_COPY_FILES := \
 # Init files
 PRODUCT_COPY_FILES += \
 	device/samsung/wave-common/init.wave.rc:root/init.wave.rc \
+	device/samsung/wave-common/init.wave.rc:root/init.wave2.rc \
 	device/samsung/wave-common/init.wave.usb.rc:root/init.wave.usb.rc \
 	device/samsung/wave-common/init.wave.usb.rc:recovery/root/usb.rc \
 	device/samsung/wave-common/ueventd.wave.rc:root/ueventd.wave.rc \
+	device/samsung/wave-common/ueventd.wave.rc:root/ueventd.wave2.rc 
+\
 
 # Keylayout and Keychars
 PRODUCT_COPY_FILES += \
