@@ -1,0 +1,25 @@
+/dev/pvrsrvkm             0666   system     system
+/dev/video0               0660   system     camera
+/dev/video1               0660   system     camera
+/dev/video2               0660   system     camera
+/dev/s3c-jpg              0660   system     camera
+/dev/s3c-mem              0660   system     system
+/dev/s3c-mfc              0660   media      media
+
+/dev/modem_ctl            0660   radio      radio
+/dev/modem_packet         0660   radio      radio
+/dev/s3c2410_serial3      0660   radio      radio
+/dev/block/mtdblock0      0660   radio      radio
+/dev/mtd/mtd0ro           0660   radio      radio
+
+# TV Out
+/dev/video14              0660   system     graphics
+/dev/video21              0660   system     graphics
+/dev/video22              0660   system     graphics
+
+# for Sensor HAL
+/dev/akm8973              0660   system     system
+/sys/devices/virtual/input/input*   delay      0660  root   input
+
+# for FM Radio
+/dev/radio0               0666   system     audio
