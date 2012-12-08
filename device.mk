@@ -58,7 +58,7 @@ PRODUCT_COPY_FILES := \
 # Init files
 PRODUCT_COPY_FILES += \
 	device/samsung/wave/init.wave.rc:root/init.wave.rc \
-	device/samsung/wave/init.wave.rc:root/init.wave2.rc \
+	device/samsung/wave/init.wave2.rc:root/init.wave2.rc \
 	device/samsung/wave/init.wave.usb.rc:root/init.wave.usb.rc \
 	device/samsung/wave/init.wave.usb.rc:recovery/root/usb.rc \
 	device/samsung/wave/ueventd.wave.rc:root/ueventd.wave.rc \

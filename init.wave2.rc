@@ -1,0 +1,5 @@
+import init.wave.rc
+
+
+on boot
+setprop ro.product.model GT-S8530
