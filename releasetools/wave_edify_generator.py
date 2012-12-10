@@ -77,3 +77,8 @@ class EdifyGenerator(edify_generator.EdifyGenerator):
         """Unpack a given file from the OTA package into the given
         destination file."""
         self.script.append('package_extract_file("%s", "%s");' % (src, dst))
+        
+    def RunSetModel(self):
+        self.script.append('package_extract_file("system/bin/setmodel.sh", "/tmp/setmodel.sh");')
+        self.script.append('set_perm(0, 0, 0777, "/tmp/setmodel.sh");')
+        self.script.append('run_program("/tmp/setmodel.sh");')

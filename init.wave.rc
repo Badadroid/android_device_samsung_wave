@@ -85,8 +85,6 @@ on post-fs
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
 
 on post-fs-data
-	# detect if its wave2 and setup proper things
-	exec /system/bin/setmodel.sh
 	
     # wi-fi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
