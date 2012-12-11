@@ -81,4 +81,4 @@ class EdifyGenerator(edify_generator.EdifyGenerator):
     def RunSetModel(self):
         self.script.append('package_extract_file("system/bin/setmodel.sh", "/tmp/setmodel.sh");')
         self.script.append('set_perm(0, 0, 0777, "/tmp/setmodel.sh");')
-        self.script.append('run_program("/tmp/setmodel.sh");')
+        self.script.append('run_program("/sbin/busybox", "sh", "/tmp/setmodel.sh");')
