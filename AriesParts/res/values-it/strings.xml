@@ -43,8 +43,14 @@
     <string name="deskdock_audio_title_head">Dock da tavolo</string>
     <string name="deskdock_audio_summary_on">Audio dock da tavolo attivato</string>
     <string name="deskdock_audio_summary_off">Audio dock da tavolo disattivato</string>
+    <string name="category_vibration_title">Vibrazione</string>
+    <string name="vibration_title_head">Vibrazione</string>
+    <string name="vibration_summary_head">Controllo intensità vibrazione</string>
+    <string name="vibration_title">Intensità vibrazione</string>
+    <string name="vibration_test_title">Prova</string>
+    <string name="button_reset_title">Ripristina</string>
     <string name="generic_warning_title">Attenzione</string>
     <string name="imei_not_sane_title">Attenzione!</string>
     <string name="imei_not_sane_message">È stato rilevato un problema con il dispositivo. Il numero IMEI del dispositivo non è valido. Un numero IMEI non valido potrebbe causare problemi di rete tra cui l\'impossibilità di chiamare numeri di emergenza.</string>
-    <string name="imei_not_sane_ok">OO</string>
+    <string name="imei_not_sane_ok">Ok</string>
 </resources>
