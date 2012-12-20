@@ -161,8 +161,6 @@ PRODUCT_PROPERTY_OVERRIDES := \
 # be reachable from resources or other mechanisms.
 PRODUCT_PROPERTY_OVERRIDES += \
        wifi.interface=wlan0 \
-       ro.telephony.ril_class=SamsungRIL \
-       ro.telephony.ril.v3=icccardstatus,datacall,signalstrength,facilitylock \
        mobiledata.interfaces=pdp0,eth0,gprs,ppp0 \
        ro.vold.switchablepair=/storage/sdcard0,/storage/sdcard1 \
 	   rild.libpath=/system/lib/libsamsung-ril.so \
