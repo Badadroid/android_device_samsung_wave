@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">הגדרות Galaxy S</string>
+
+    <string name="category_screen_title">מסך</string>
+    <string name="color_tuning_title_head">כיול צבעים</string>
+    <string name="color_tuning_summary_head">כיל את צבעי המסך</string>
+    <string name="color_red_title">אדום</string>
+    <string name="color_green_title">ירוק</string>
+    <string name="color_blue_title">כחול</string>
+    <string name="color_red_gamma_title">תיקון גאמא אדום</string>
+    <string name="color_green_gamma_title">תיקון גאמא ירוק</string>
+    <string name="color_blue_gamma_title">תיקון גאמא כחול</string>
+    <string name="mdnie_title_head">מצב mDNIe</string>
+    <string name="mdnie_summary_head">התאם אישית את אופן פעולת מנוע התמונה הטבעית הדיגיטלית</string>
+
+    <string name="category_touchkey_title">כפתורי מגע</string>
+    <string name="backlight_timeout_title_head">תאורה אחורית</string>
+    <string name="backlight_timeout_summary_head">התאם אישית את משך הזמן בו תפעל התאורה האחורית של כפתורי המגע</string>
+
+    <string name="category_radio_title">אלחוט</string>
+    <string name="hspa_title_head">HSPA</string>
+    <string name="hspa_summary_head">הפעל את HSDPA/HSUPA</string>
+
+    <string name="category_tvout_title">יציאת טלוויזיה</string>
+    <string name="tvout_enable_head">יציאת טלוויזיה</string>
+    <string name="tvout_enable_summary_nocable">כבל יציאת הטלוויזיה אינו מחובר</string>
+    <string name="tvout_enable_summary">כבל יציאת הטלוויזיה מחובר, סמן כדי להפעיל</string>
+    <string name="tvout_enable_summary_on">יציאת הטלוויזיה פועלת</string>
+    <string name="tvout_system_head">שיטת שידור</string>
+    <string name="tvout_system_summary">בחר את שיטת השידור לטלוויזיה</string>
+
+    <string name="category_volume_boost_title">עוצמות קול</string>
+    <string name="volume_boost_title_head">עוצמת קול בזמן שיחה</string>
+    <string name="volume_boost_summary_head">הגבר את עוצמת הקול בשיחה</string>
+    <string name="boost_rcv_title">עוצמת קול באוזניה (בודדת)</string>
+    <string name="boost_bt_title">עוצמת קול דרך Bluetooth</string>
+    <string name="boost_spk_title">עוצמת קול ב-Speakerphone</string>
+    <string name="boost_hp_title">עוצמת קול באוזניות</string>
+    <string name="mic_rcv_title">מיקרופון של אוזניה (בודדת)</string>
+    <string name="mic_spk_title">מיקרופון של Speakerphone</string>
+    <string name="mic_hp_title">מיקרופון של אוזניות</string>
+    <string name="mic_hp_no_mic_title">מיקרופון של אוזניות (ללא מיקרופון)</string>
+
+    <string name="category_dock_audio_title">קול בתחנות עגינה</string>
+    <string name="cardock_audio_title_head">תחנת עגינה ברכב</string>
+    <string name="cardock_audio_summary_on">קול בתחנת עגינה ברכב מופעל</string>
+    <string name="cardock_audio_summary_off">קול בתחנת עגינה ברכב מושבת</string>
+    <string name="deskdock_audio_title_head">תחנת עגינה שולחנית</string>
+    <string name="deskdock_audio_summary_on">קול בתחנת עגינה שולחנית מופעל</string>
+    <string name="deskdock_audio_summary_off">קול בתחנת עגינה שולחנית מושבת</string>
+
+    <string name="category_vibration_title">רטט</string>
+    <string name="vibration_title_head">רטט</string>
+    <string name="vibration_summary_head">שלוט בעוצמת הרטט</string>
+    <string name="vibration_title">עוצמת רטט</string>
+    <string name="vibration_test_title">בדיקה</string>
+
+    <string name="button_reset_title">איפוס</string>
+
+    <!-- Used for activity title. Usually not visible, except on the
+         multi-task screen -->
+    <string name="generic_warning_title">אזהרה</string>
+
+    <!-- Invalid IMEI -->
+    <string name="imei_not_sane_title">אזהרה!</string>
+    <string name="imei_not_sane_message">התגלתה בעייה במכשיר. מספר ה-IMEI שגוי. מספר IMEI שגוי עלול לגרום לבעיות רשת כולל חוסר אפשרות להתקשר למספרי חירום.</string>
+    <string name="imei_not_sane_ok">אישור</string>
+
+</resources>
