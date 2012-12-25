@@ -182,7 +182,7 @@ service orientationd /system/vendor/bin/orientationd
     disabled
 
 service tvout /system/bin/tvoutserver
-    class late_start
+    class main
     user system
     group graphics
 
