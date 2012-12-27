@@ -10,7 +10,6 @@ public class Startup extends BroadcastReceiver {
     public void onReceive(final Context context, final Intent bootintent) {
         ColorTuningPreference.restore(context);
         Mdnie.restore(context);
-        TouchKeyBacklightTimeout.restore(context);
         Hspa.restore(context);
         VolumeBoostPreference.restore(context);
         DockAudio.restore(context);

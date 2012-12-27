@@ -12,9 +12,6 @@
     <string name="color_blue_gamma_title">Gamma Blu</string>
     <string name="mdnie_title_head">Modalità mDNIe</string>
     <string name="mdnie_summary_head">Imposta grado di post-processamento del display</string>
-    <string name="category_touchkey_title">Tasti a sfioramento</string>
-    <string name="backlight_timeout_title_head">Timer retroilluminazione</string>
-    <string name="backlight_timeout_summary_head">Imposta l\'intervallo dopo cui la retroilluminazione dei tasti si spegne</string>
     <string name="category_radio_title">Gestione della rete</string>
     <string name="hspa_title_head">HSPA</string>
     <string name="hspa_summary_head">Abilita HSDPA/HSUPA</string>

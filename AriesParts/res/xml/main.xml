@@ -19,18 +19,6 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory
-    	android:title="@string/category_touchkey_title">
-	    <!-- Touch key backlight timeout -->
-	    <ListPreference 
-	        android:key="backlight_timeout"
-	        android:title="@string/backlight_timeout_title_head"
-	        android:summary="@string/backlight_timeout_summary_head"
-	        android:entries="@array/backlight_timeout_entries"
-  			android:entryValues="@array/backlight_timeout_entries_values"
-  			android:defaultValue="1600" />
-	</PreferenceCategory>
-
-	<PreferenceCategory
         android:title="@string/category_radio_title"
         android:key="category_radio">
 	    <!-- UMTS/HSDPA/HSUPA settings -->

@@ -8,16 +8,6 @@
         <item>Toni freddi</item>
         <item>Modalità camera</item>
     </string-array>
-    <string-array name="backlight_timeout_entries">
-        <item>Predefinito (1.6 secondi)</item>
-        <item>0.5 secondi</item>
-        <item>2 secondi</item>
-        <item>5 secondi</item>
-        <item>10 secondi</item>
-        <item>15 secondi</item>
-        <item>30 secondi</item>
-        <item>Mai</item>
-    </string-array>
     <string-array name="hspa_entries">
         <item>Solo UMTS</item>
         <item>Solo HSDPA</item>

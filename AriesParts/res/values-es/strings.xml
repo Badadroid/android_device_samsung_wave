@@ -12,9 +12,6 @@
     <string name="color_blue_gamma_title">"Gamma azul"</string>
     <string name="mdnie_title_head">"Modo mDNIe"</string>
     <string name="mdnie_summary_head">"Ajustar post-procesado de pantalla para mDNIe"</string>
-    <string name="category_touchkey_title">"Teclas táctiles"</string>
-    <string name="backlight_timeout_title_head">"Tiempo de espera de retroiluminación"</string>
-    <string name="backlight_timeout_summary_head">"Tiempo tras pulsar una tecla antes de apagar la retroiluminación"</string>
     <string name="category_radio_title">"Radio"</string>
     <string name="hspa_title_head">"HSPA"</string>
     <string name="hspa_summary_head">"Habilitar HSDPA/HSUPA"</string>

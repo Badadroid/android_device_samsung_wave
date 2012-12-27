@@ -14,10 +14,6 @@
     <string name="mdnie_title_head">מצב mDNIe</string>
     <string name="mdnie_summary_head">התאם אישית את אופן פעולת מנוע התמונה הטבעית הדיגיטלית</string>
 
-    <string name="category_touchkey_title">כפתורי מגע</string>
-    <string name="backlight_timeout_title_head">תאורה אחורית</string>
-    <string name="backlight_timeout_summary_head">התאם אישית את משך הזמן בו תפעל התאורה האחורית של כפתורי המגע</string>
-
     <string name="category_radio_title">אלחוט</string>
     <string name="hspa_title_head">HSPA</string>
     <string name="hspa_summary_head">הפעל את HSDPA/HSUPA</string>

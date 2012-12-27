@@ -14,10 +14,6 @@
     <string name="mdnie_title_head">mDNIe-modus</string>
     <string name="mdnie_summary_head">mDNIe-schermnabewerking aanpassen</string>
 
-    <string name="category_touchkey_title">Aanraakknoppen</string>
-    <string name="backlight_timeout_title_head">Time-out achtergrondverlichting</string>
-    <string name="backlight_timeout_summary_head">Vertraging voor automatisch uitschakelen achtergrondverlichting aanpassen</string>
-
     <string name="category_radio_title">Radio</string>
     <string name="hspa_title_head">HSPA</string>
     <string name="hspa_summary_head">HSDPA/HSUPA inschakelen</string>

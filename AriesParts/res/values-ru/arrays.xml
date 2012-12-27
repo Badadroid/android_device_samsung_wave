@@ -8,16 +8,6 @@
         <item>Режим Video Cold</item>
         <item>Режим Camera</item>
     </string-array>
-    <string-array name="backlight_timeout_entries">
-        <item>По-умолч. (1.6 с)</item>
-        <item>0.5 с</item>
-        <item>2 с</item>
-        <item>5 с</item>
-        <item>10 с</item>
-        <item>15 с</item>
-        <item>30 с</item>
-        <item>Никогда</item>
-    </string-array>
     <string-array name="hspa_entries">
         <item>Только UMTS</item>
         <item>Только HSDPA</item>

@@ -14,10 +14,6 @@
     <string name="mdnie_title_head">mDNIe-tilstand</string>
     <string name="mdnie_summary_head">Justér mDNIe-skærm-post-processering</string>
 
-    <string name="category_touchkey_title">Berøringstaster</string>
-    <string name="backlight_timeout_title_head">Baggrundslys-timeout</string>
-    <string name="backlight_timeout_summary_head">Justér forsinkelsen, før berøringstastens baggrundslys automatisk slukkes</string>
-
     <string name="category_radio_title">Radio</string>
     <string name="hspa_title_head">HSPA</string>
     <string name="hspa_summary_head">Slå HSDPA/HSUPA til</string>

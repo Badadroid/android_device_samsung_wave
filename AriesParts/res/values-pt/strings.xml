@@ -9,10 +9,6 @@
     <string name="color_green_title">Verde</string>
     <string name="color_blue_title">Azul</string>
 
-    <string name="category_touchkey_title">Botões Touch</string>
-    <string name="backlight_timeout_title_head">Tempo Limite da Iluminação</string>
-    <string name="backlight_timeout_summary_head">Ajuste o tempo para desligar a iluminação dos Botões Touch</string>
-
     <string name="category_radio_title">Radio</string>
     <string name="hspa_title_head">HSPA</string>
     <string name="hspa_summary_head">Ativar HSDPA/HSUPA</string>

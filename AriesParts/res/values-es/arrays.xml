@@ -7,16 +7,6 @@
         <item>Vídeo frío</item>
         <item>Cámara</item>
     </string-array>
-    <string-array name="backlight_timeout_entries">
-        <item>1,6 segundos (por defecto)</item>
-        <item>0,5 segundos</item>
-        <item>2 segundos</item>
-        <item>5 segundos</item>
-        <item>10 segundos</item>
-        <item>15 segundos</item>
-        <item>30 segundos</item>
-        <item>Nunca</item>
-    </string-array>
     <string-array name="hspa_entries">
         <item>Solo UMTS</item>
         <item>Solo HSDPA</item>

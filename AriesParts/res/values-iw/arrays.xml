@@ -8,17 +8,6 @@
         <item>מצב מצלמה</item>
     </string-array>
 
-    <string-array name="backlight_timeout_entries">
-        <item>ברירת מחדל (1.6 שניות)</item>
-        <item>0.5 שניות</item>
-        <item>2 שניות</item>
-        <item>5 שניות</item>
-        <item>10 שניות</item>
-        <item>15 שניות</item>
-        <item>30 שניות</item>
-        <item>אף פעם</item>
-    </string-array>
-
     <string-array name="hspa_entries">
         <item>UMTS בלבד</item>
         <item>HSDPA בלבד</item>

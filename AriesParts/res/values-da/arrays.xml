@@ -8,18 +8,7 @@
     <item>Kamera-tilstand</item>
   </string-array>
 
-  <string-array name="backlight_timeout_entries">
-     <item>Standard (1.6 sekunder)</item>
-     <item>0.5 sekunder</item>
-     <item>2 sekunder</item>
-     <item>5 sekunder</item>
-     <item>10 sekunder</item>
-     <item>15 sekunder</item>
-     <item>30 sekunder</item>
-     <item>Aldrig</item>
-  </string-array>
-
-  <string-array name="hspa_entries">
+   <string-array name="hspa_entries">
      <item>Kun UMTS</item>
      <item>Kun HSDPA</item>
      <item>HSDPA + HSUPA</item>

@@ -16,7 +16,6 @@ public class DeviceSettings extends PreferenceActivity  {
 
     public static final String KEY_COLOR_TUNING = "color_tuning";
     public static final String KEY_MDNIE = "mdnie";
-    public static final String KEY_BACKLIGHT_TIMEOUT = "backlight_timeout";
     public static final String KEY_HSPA = "hspa";
     public static final String KEY_HSPA_CATEGORY = "category_radio";
     public static final String KEY_TVOUT_ENABLE = "tvout_enable";
@@ -31,7 +30,6 @@ public class DeviceSettings extends PreferenceActivity  {
 
     private ColorTuningPreference mColorTuning;
     private ListPreference mMdnie;
-    private ListPreference mBacklightTimeout;
     private ListPreference mHspa;
     private CheckBoxPreference mTvOutEnable;
     private ListPreference mTvOutSystem;
@@ -62,10 +60,6 @@ public class DeviceSettings extends PreferenceActivity  {
         mMdnie = (ListPreference) findPreference(KEY_MDNIE);
         mMdnie.setEnabled(Mdnie.isSupported());
         mMdnie.setOnPreferenceChangeListener(new Mdnie());
-
-        mBacklightTimeout = (ListPreference) findPreference(KEY_BACKLIGHT_TIMEOUT);
-        mBacklightTimeout.setEnabled(TouchKeyBacklightTimeout.isSupported());
-        mBacklightTimeout.setOnPreferenceChangeListener(new TouchKeyBacklightTimeout());
 
         mHspa = (ListPreference) findPreference(KEY_HSPA);
         if (Hspa.isSupported()) {

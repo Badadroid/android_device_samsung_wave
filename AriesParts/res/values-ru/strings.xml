@@ -14,10 +14,6 @@
     <string name="mdnie_title_head">Режим mDNIe</string>
     <string name="mdnie_summary_head">Настройте пост-обработку mDNIe</string>
 
-    <string name="category_touchkey_title">Сенсорные кнопки</string>
-    <string name="backlight_timeout_title_head">Подсветка кнопок</string>
-    <string name="backlight_timeout_summary_head">Настройте время подсветки сенсорных кнопок</string>
-
     <string name="category_radio_title">Модем</string>
     <string name="hspa_title_head">HSPA</string>
     <string name="hspa_summary_head">Вкл. HSDPA/HSUPA</string>
