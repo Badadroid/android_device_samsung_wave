@@ -339,7 +339,6 @@ void CameraHardwareSec::initDefaultParameters(int cameraId)
     ip.set("sharpness", SHARPNESS_DEFAULT);
     ip.set("contrast", CONTRAST_DEFAULT);
     ip.set("saturation", SATURATION_DEFAULT);
-    ip.set("iso", "auto");
     ip.set("metering", "center");
 
     ip.set("wdr", 0);
@@ -348,6 +347,9 @@ void CameraHardwareSec::initDefaultParameters(int cameraId)
         ip.set("vtmode", 0);
         ip.set("blur", 0);
     }
+
+    p.set("iso-values", "auto,ISO50,ISO100,ISO200,ISO400,ISO800,ISO1600");
+    p.set("iso", "auto");
 
     p.set(CameraParameters::KEY_HORIZONTAL_VIEW_ANGLE, "51.2");
     p.set(CameraParameters::KEY_VERTICAL_VIEW_ANGLE, "39.4");
@@ -1559,6 +1561,41 @@ status_t CameraHardwareSec::setParameters(const CameraParameters& params)
             ret = UNKNOWN_ERROR;
         } else {
             mParameters.set(CameraParameters::KEY_EXPOSURE_COMPENSATION, new_exposure_compensation);
+        }
+    }
+
+    // ISO
+    const char *new_iso_str = params.get("iso");
+    ALOGV("%s : new_iso_str %s", __func__, new_iso_str);
+    if (new_iso_str != NULL) {
+        int new_iso = -1;
+
+        if (!strcmp(new_iso_str, "auto")) {
+            new_iso = ISO_AUTO;
+        } else if (!strcmp(new_iso_str, "ISO50")) {
+            new_iso = ISO_50;
+        } else if (!strcmp(new_iso_str, "ISO100")) {
+            new_iso = ISO_100;
+        } else if (!strcmp(new_iso_str, "ISO200")) {
+            new_iso = ISO_200;
+        } else if (!strcmp(new_iso_str, "ISO400")) {
+            new_iso = ISO_400;
+        } else if (!strcmp(new_iso_str, "ISO800")) {
+            new_iso = ISO_800;
+        } else if (!strcmp(new_iso_str, "ISO1600")) {
+            new_iso = ISO_1600;
+        } else {
+            ALOGE("ERR(%s):Invalid iso value(%s)", __func__, new_iso_str);
+            ret = UNKNOWN_ERROR;
+        }
+
+        if (0 <= new_iso) {
+            if (mSecCamera->setISO(new_iso) < 0) {
+                ALOGE("ERR(%s):Fail on mSecCamera->setISO(new_iso(%d))", __func__, new_iso);
+                ret = UNKNOWN_ERROR;
+            } else {
+                mParameters.set("iso", new_iso_str);
+            }
         }
     }
 

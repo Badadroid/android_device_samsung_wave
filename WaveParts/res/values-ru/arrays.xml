@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mdnie_entries">
+        <item>Откл.</item>
+        <item>Режим UI</item>
+        <item>Режим Video</item>
+        <item>Режим Video Warm</item>
+        <item>Режим Video Cold</item>
+        <item>Режим Camera</item>
+    </string-array>
+    <string-array name="hspa_entries">
+        <item>Только UMTS</item>
+        <item>Только HSDPA</item>
+        <item>HSDPA + HSUPA</item>
+    </string-array>
+</resources>

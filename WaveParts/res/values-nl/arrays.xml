@@ -1,0 +1,11 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string-array name="hspa_entries">
+        <item>Alleen UMTS</item>
+        <item>Alleen HSDPA</item>
+        <item>HSDPA + HSUPA</item>
+    </string-array>
+    <string-array name="tvout_system_entries">
+        <item>NTSC</item>
+        <item>PAL</item>
+    </string-array>
+</resources>
