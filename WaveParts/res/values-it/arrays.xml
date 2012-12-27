@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mdnie_entries">
+        <item>Disabilitato</item>
+        <item>Modalità UI</item>
+        <item>Modalità video</item>
+        <item>Toni caldi</item>
+        <item>Toni freddi</item>
+        <item>Modalità camera</item>
+    </string-array>
+    <string-array name="hspa_entries">
+        <item>Solo UMTS</item>
+        <item>Solo HSDPA</item>
+        <item>HSDPA + HSUPA</item>
+    </string-array>
+    <string-array name="tvout_system_entries">
+        <item>NTSC</item>
+        <item>PAL</item>
+    </string-array>
+</resources>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Настройки Wave</string>
+
+    <string name="category_screen_title">Экран</string>
+    <string name="color_tuning_title_head">Настройки цвета</string>
+    <string name="color_tuning_summary_head">Настройте экранные цвета</string>
+    <string name="color_red_title">Красный</string>
+    <string name="color_green_title">Зеленый</string>
+    <string name="color_blue_title">Синий</string>
+    <string name="color_red_gamma_title">Гамма красного</string>
+    <string name="color_green_gamma_title">Гамма зеленого</string>
+    <string name="color_blue_gamma_title">Гамма синего</string>
+    <string name="mdnie_title_head">Режим mDNIe</string>
+    <string name="mdnie_summary_head">Настройте пост-обработку mDNIe</string>
+
+    <string name="category_radio_title">Модем</string>
+    <string name="hspa_title_head">HSPA</string>
+    <string name="hspa_summary_head">Вкл. HSDPA/HSUPA</string>
+
+    <string name="category_tvout_title">ТВ выход</string>
+    <string name="tvout_enable_head">ТВ выход</string>
+    <string name="tvout_enable_summary_nocable">ТВ выход - кабель не подключен</string>
+    <string name="tvout_enable_summary">ТВ выход - кабель подключен, нажмите для включения</string>
+    <string name="tvout_enable_summary_on">ТВ выход включен</string>
+    <string name="tvout_system_head">Система ТВ</string>
+    <string name="tvout_system_summary">Установите систему вещания</string>
+
+    <string name="category_volume_boost_title">Регулировка громкости</string>
+    <string name="volume_boost_title_head">Регулировка громкости разговора</string>
+    <string name="volume_boost_summary_head">Увеличение громкости в телефонных разговорах</string>
+    <string name="boost_rcv_title">Громкость динамика</string>
+    <string name="boost_bt_title">Громоксть Bluetooth</string>
+    <string name="boost_spk_title">Громкость спикера</string>
+    <string name="boost_hp_title">Громкость гарнитуры</string>
+    <string name="mic_rcv_title">Микрофон</string>
+    <string name="mic_spk_title">Микрофон спикера</string>
+    <string name="mic_hp_title">Микрофон гарнитуры</string>
+    <string name="mic_hp_no_mic_title">Микрофон гарнитуры (без микрофона)</string>
+
+    <string name="category_dock_audio_title">Аудио док-станция</string>
+    <string name="cardock_audio_title_head">Автомобильная док-станция</string>
+    <string name="cardock_audio_summary_on">Автомоб. док-станция подключена</string>
+    <string name="cardock_audio_summary_off">Автомоб. док-станция отключена</string>
+    <string name="deskdock_audio_title_head">Настольная док-станция</string>
+    <string name="deskdock_audio_summary_on">Настольная док-станция подключена</string>
+    <string name="deskdock_audio_summary_off">Настольная док-станция отключена</string>
+
+    <string name="category_vibration_title">Вибрация</string>
+    <string name="vibration_title_head">Интенсивность</string>
+    <string name="vibration_summary_head">Настройка интенсивности вибрации</string>
+    <string name="vibration_title">Интенсивность вибрации</string>
+    <string name="vibration_test_title">Тест</string>
+
+    <!-- Used for activity title. Usually not visible, except on the
+         multi-task screen -->
+    <string name="generic_warning_title">Внимание</string>
+
+    <!-- Invalid IMEI -->
+    <string name="imei_not_sane_title">Внимание!</string>
+    <string name="imei_not_sane_message">Обнаружена проблема! IMEI номер не действителен. Такой IMEI номер может привести к сбоям в работе с оператором, в частности, будет невозможен вызов служб экстренной помощи.</string>
+    <string name="imei_not_sane_ok">OK</string>
+</resources>

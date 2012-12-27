@@ -1,0 +1,10 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string-array name="hspa_entries">
+        <item>僅 UMTS</item>
+        <item>僅 HSDPA</item>
+        <item>HSDPA＋HSUPA</item>
+    </string-array>
+
+    <!-- skipping untranslatable /resources:0/string-array:name=hspa_entries_values -->
+</resources>

@@ -30,6 +30,9 @@ on boot
     setprop status.battery.level_raw  50
     setprop status.battery.level_scale 9
 
+# Set our own bdaddr path
+  setprop ro.bt.bdaddr_path /data/bdaddr
+
 # phone
     setprop ro.telephony.call_ring.multiple 0
 
@@ -84,6 +87,9 @@ on post-fs
 # trigger governor change uevent
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
 
+on property:ril.bt_macaddr=*
+  start bdaddr
+
 on post-fs-data
 	
     # wi-fi
@@ -106,6 +112,16 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
 
+on property:dev.bootcomplete=1
+    class_start late_start
+
+###############################################################################
+#-------------------- End Triggers / Actions ---------------------------------#
+###############################################################################
+
+#- Begin Core Services -#
+
+
  service wave-ril-daemon /system/bin/rild
     class core
     socket rild stream 660 root radio
@@ -119,6 +135,10 @@ service pvrsrvinit /system/vendor/bin/pvrsrvinit
     user root
     group root
     oneshot
+
+#- End core Services -#
+
+#- Begin main Services -#
 
 service wpa_supplicant /system/bin/wpa_supplicant \
 	-iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -e/data/misc/wifi/entropy.bin
@@ -157,9 +177,6 @@ service bdaddr /system/bin/bdaddr_read
     disabled
     oneshot
 
-on property:init.svc.bootanim=running
-    start bdaddr
-
 service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm \
     --baudrate 3000000 --patchram /vendor/firmware/bcm4329.hcd /dev/s3c2410_serial0
     class main
@@ -174,6 +191,10 @@ service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm \
 #    disabled
 #    oneshot
 #    keycodes 114 115 116
+
+#- End main Services -#
+
+#- Begin late_start Services-#
 
 service orientationd /system/vendor/bin/orientationd
     class late_start
