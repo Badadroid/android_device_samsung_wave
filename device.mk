@@ -111,7 +111,6 @@ PRODUCT_PACKAGES += \
 	hwcomposer.s5pc110 \
 	camera.wave \
 	audio.primary.wave \
-	audio_policy.wave \
 	audio.a2dp.default \
 	audio.usb.default \
 	libaudio-ril-interface \
