@@ -77,8 +77,6 @@ PRODUCT_COPY_FILES += \
 
 # SHP Modem interfaces
 PRODUCT_PACKAGES := \
-	libmocha-ipc \
-	ipc-modemctrl \
 	libmocha-ril
 
 # Filesystem management tools
@@ -116,6 +114,7 @@ PRODUCT_PACKAGES += \
 	audio_policy.wave \
 	audio.a2dp.default \
 	audio.usb.default \
+	libaudio-ril-interface \
 	libs3cjpeg
 
 PRODUCT_COPY_FILES += \
