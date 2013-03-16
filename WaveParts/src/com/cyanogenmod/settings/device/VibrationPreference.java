@@ -24,6 +24,7 @@ public class VibrationPreference extends DialogPreference implements OnClickList
     private VibrationSeekBar mSeekBar = new VibrationSeekBar();
 
     private static final int MAX_VALUE = 100;
+    private static final int DEFAULT_VALUE = 42;
 
     // Track instances to know when to restore original value
     // (when the orientation changes, a new dialog is created before the old one is destroyed)
@@ -75,7 +76,7 @@ public class VibrationPreference extends DialogPreference implements OnClickList
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        int value = sharedPrefs.getInt(FILE_PATH, MAX_VALUE);
+        int value = sharedPrefs.getInt(FILE_PATH, DEFAULT_VALUE);
         Utils.writeValue(FILE_PATH, String.valueOf(value));
     }
 
@@ -102,7 +103,7 @@ public class VibrationPreference extends DialogPreference implements OnClickList
 
             // Read original value
             SharedPreferences sharedPreferences = getSharedPreferences();
-            mOriginal = sharedPreferences.getInt(mFilePath, MAX_VALUE);
+            mOriginal = sharedPreferences.getInt(mFilePath, DEFAULT_VALUE);
 
             seekBar.setMax(MAX_VALUE);
             reset();
@@ -146,9 +147,9 @@ public class VibrationPreference extends DialogPreference implements OnClickList
         }
 
         public void resetDefault() {
-            mSeekBar.setProgress(MAX_VALUE);
-            updateValue(MAX_VALUE);
-            Utils.writeValue(FILE_PATH, String.valueOf(MAX_VALUE));
+            mSeekBar.setProgress(DEFAULT_VALUE);
+            updateValue(DEFAULT_VALUE);
+            Utils.writeValue(FILE_PATH, String.valueOf(DEFAULT_VALUE));
         }
     }
 
