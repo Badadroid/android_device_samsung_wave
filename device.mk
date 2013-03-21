@@ -77,9 +77,9 @@ PRODUCT_COPY_FILES += \
 
 # SHP Modem interfaces
 PRODUCT_PACKAGES := \
-	libsamsung-ipc \
+	libmocha-ipc \
 	ipc-modemctrl \
-	libsamsung-ril
+	libmocha-ril
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -163,7 +163,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
        wifi.interface=wlan0 \
        mobiledata.interfaces=pdp0,eth0,gprs,ppp0 \
        ro.vold.switchablepair=/storage/sdcard0,/storage/sdcard1 \
-	   rild.libpath=/system/lib/libsamsung-ril.so \
+	   rild.libpath=/system/lib/libmocha-ril.so \
 	   ro.sf.lcd_density=240
 
 # enable Google-specific location features,
