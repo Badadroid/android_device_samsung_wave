@@ -6,7 +6,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 public class Sanity {
-    private static final String TAG = "AriesParts";
+    private static final String TAG = "WaveParts";
     private static final String BAD_IMEI[] = {
         "004999010640000"
     };
@@ -27,7 +27,7 @@ public class Sanity {
     }
 
     public static boolean ensureIMEISanity(String id) {
-        Log.d(TAG, "Current IMEI: " + id);
+       // Log.d(TAG, "Current IMEI: " + id);
         for (int j = 0; j < BAD_IMEI.length; j++) {
             if (BAD_IMEI[j].equals(id)) {
                 return false;
