@@ -19,6 +19,7 @@
 
 # for Sensor HAL
 /dev/akm8973              0660   system     system
+/dev/accelerometer        0660   system     system
 /sys/devices/virtual/input/input*   delay      0660  root   input
 
 # for FM Radio
