@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2013 Paul Kocialkowski
+ * Copyright (C) 2013 Dominik Marszk
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -124,10 +125,10 @@ int isConnected_RILD(HRilClient data)
 	return 1;
 }
 
-int SetCallVolume(HRilClient data, SoundType type, int level)
+int SetVolume(HRilClient data, SoundType type, int level)
 {
 	struct srs_client *client;
-	struct srs_snd_call_volume call_volume;
+	struct srs_snd_set_volume_packet volume;
 	int rc;
 
 	ALOGE("%s(%p, %d, %d)", __func__, data, type, level);
@@ -136,11 +137,12 @@ int SetCallVolume(HRilClient data, SoundType type, int level)
 		return RIL_CLIENT_ERR_INVAL;
 
 	client = (struct srs_client *) data;
+	/* TODO: Convert type to some real sound type used by Bada */
 
-	call_volume.type = (enum srs_snd_type) type;
-	call_volume.volume = level;
+	volume.soundType = type;
+	volume.volume = level;
 
-	rc = srs_client_send(client, SRS_SND_SET_CALL_VOLUME, &call_volume, sizeof(call_volume));
+	rc = srs_client_send(client, SRS_SND_SET_VOLUME, &volume, sizeof(volume));
 	if (rc < 0)
 		return RIL_CLIENT_ERR_UNKNOWN;
 
@@ -148,44 +150,30 @@ int SetCallVolume(HRilClient data, SoundType type, int level)
 }
 
 
-int SetCallAudioPath(HRilClient data, AudioPath path)
+int SetAudioPath(HRilClient data, AudioPath path)
 {
 	struct srs_client *client;
-	struct srs_snd_call_audio_path call_audio_path;
+	struct srs_snd_set_path_packet audio_path;
 	int rc;
 
 	ALOGE("%s(%p, %d)", __func__, data, path);
-
-	if (data == NULL)
-		return RIL_CLIENT_ERR_INVAL;
-
-	client = (struct srs_client *) data;
-
-	call_audio_path.path = path;
-
-	rc = srs_client_send(client, SRS_SND_SET_CALL_AUDIO_PATH, &call_audio_path, sizeof(call_audio_path));
-	if (rc < 0)
+	
+	if(path != SOUND_AUDIO_PATH_RECORDING_MIC)
+	{
+		ALOGE("%s: path not supported", __func__);
 		return RIL_CLIENT_ERR_UNKNOWN;
-
-	return RIL_CLIENT_ERR_SUCCESS;
-}
-
-int SetCallClockSync(HRilClient data, SoundClockCondition condition)
-{
-	struct srs_client *client;
-	struct srs_snd_call_clock_sync call_clock_sync;
-	int rc;
-
-	ALOGE("%s(%p, %d)", __func__, data, condition);
-
+	}
+	
 	if (data == NULL)
 		return RIL_CLIENT_ERR_INVAL;
 
 	client = (struct srs_client *) data;
-
-	call_clock_sync.sync = condition;
-
-	rc = srs_client_send(client, SRS_SND_SET_CALL_CLOCK_SYNC, &call_clock_sync, sizeof(call_clock_sync));
+	
+	audio_path.inDevice = SND_INPUT_MIC;
+	audio_path.outDevice = SND_OUTPUT_AP_PCM;
+	audio_path.soundType = SND_TYPE_RECORDING;
+	
+	rc = srs_client_send(client, SRS_SND_SET_AUDIO_PATH, &audio_path, sizeof(audio_path));
 	if (rc < 0)
 		return RIL_CLIENT_ERR_UNKNOWN;
 

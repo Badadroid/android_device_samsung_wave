@@ -120,6 +120,7 @@ int RegisterErrorCallback(HRilClient client, RilOnError cb, void *data);
  */
 int InvokeOemRequestHookRaw(HRilClient client, char *data, size_t len);
 
+
 /**
  * Sound device types.
  */
@@ -127,7 +128,8 @@ typedef enum _SoundType {
     SOUND_TYPE_VOICE,
     SOUND_TYPE_SPEAKER,
     SOUND_TYPE_HEADSET,
-    SOUND_TYPE_BTVOICE
+    SOUND_TYPE_BTVOICE,
+	SOUND_TYPE_RECORDING
 } SoundType;
 
 /**
@@ -139,31 +141,21 @@ typedef enum _AudioPath {
     SOUND_AUDIO_PATH_SPEAKER,
     SOUND_AUDIO_PATH_BLUETOOTH,
     SOUND_AUDIO_PATH_BLUETOOTH_NO_NR,
-    SOUND_AUDIO_PATH_HEADPHONE
+    SOUND_AUDIO_PATH_HEADPHONE,	
+	SOUND_AUDIO_PATH_RECORDING_MIC,
+	SOUND_AUDIO_PATH_RECORDING_BT
 } AudioPath;
-
-/**
- * Clock adjustment parameters.
- */
-typedef enum _SoundClockCondition {
-    SOUND_CLOCK_STOP,
-    SOUND_CLOCK_START
-} SoundClockCondition;
 
 /**
  * Set in-call volume.
  */
-int SetCallVolume(HRilClient client, SoundType type, int vol_level);
+int SetVolume(HRilClient client, SoundType type, int vol_level);
 
 /**
  * Set external sound device path for noise reduction.
  */
-int SetCallAudioPath(HRilClient client, AudioPath path);
+int SetAudioPath(HRilClient client, AudioPath path);
 
-/**
- * Set modem clock to master or slave.
- */
-int SetCallClockSync(HRilClient client, SoundClockCondition condition);
 
 #ifdef __cplusplus
 };

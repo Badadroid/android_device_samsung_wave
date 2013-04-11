@@ -126,6 +126,7 @@ public:
             const char *getVoiceRouteFromDevice(uint32_t device);
 
             status_t setIncallPath_l(uint32_t device);
+			status_t setRecordingPath_l(AudioPath path);
 
 #ifdef HAVE_FM_RADIO
             void enableFMRadio();
@@ -191,9 +192,8 @@ private:
     int             (*closeClientRILD) (HRilClient);
     int             (*isConnectedRILD) (HRilClient);
     int             (*connectRILD)     (HRilClient);
-    int             (*setCallVolume)   (HRilClient, SoundType, int);
-    int             (*setCallAudioPath)(HRilClient, AudioPath);
-    int             (*setCallClockSync)(HRilClient, SoundClockCondition);
+    int             (*setVolume)   (HRilClient, SoundType, int);
+    int             (*setAudioPath)(HRilClient, AudioPath);
     void            loadRILD(void);
     status_t        connectRILDIfRequired(void);
     struct echo_reference_itfe *mEchoReference;
