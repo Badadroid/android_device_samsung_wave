@@ -73,14 +73,10 @@ on fs
 on post-fs
     #symlinks for samsung RIL
 
-    chown radio radio /mnt/bada_user/modem/*
-    chmod 0666 /mnt/bada_user/modem/*
-    chown radio radio /mnt/bada_user/modem/nvm/*
-    chmod 0666 /mnt/bada_user/modem/nvm/*
-    chown radio radio /mnt/bada_user/modem/nvm/num/*
-    chmod 0666 /mnt/bada_user/modem/nvm/num/*
-    chown radio radio /mnt/bada_user/modem/NV/*
-    chmod 0666 /mnt/bada_user/modem/NV/*
+    mkdir /data/radio
+    chown radio radio /data/radio
+    chmod 0666 /data/radio
+
 	
 # allow system to modify cpufreq control files
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
