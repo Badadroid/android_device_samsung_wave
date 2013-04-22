@@ -18,6 +18,9 @@ int main() {
     int count;
     int fd;
 
+    //waiting while RIL will create file with MAC adress
+    usleep (1000*1000*5);
+
     fd = open(RIL_BDADDR_PATH, O_RDONLY);
     if(fd < 0) {
         fprintf(stderr, "open(%s) failed\n", RIL_BDADDR_PATH);
