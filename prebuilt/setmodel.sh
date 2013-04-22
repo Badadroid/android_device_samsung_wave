@@ -23,10 +23,4 @@ if /sbin/busybox grep -q wave2 /proc/cpuinfo ; then
    	/sbin/busybox ln -f /system/vendor/firmware/nvram_net_s8500.txt /system/vendor/firmware/nvram_net.txt 
 fi
 
-if ! [ -d /bada_user/modem ] ; then
-
-	/sbin/busybox mkdir /bada_user/modem
-	ui_print "Modem directory created"
-
-fi
 
