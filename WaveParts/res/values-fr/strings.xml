@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Paramètres avancés</string>
+    <string name="category_screen_title">Écran</string>
+    <string name="color_tuning_title_head">Couleurs</string>
+    <string name="color_tuning_summary_head">Calibrer les couleurs de l\'écran</string>
+    <string name="color_red_title">Rouge</string>
+    <string name="color_green_title">Vert</string>
+    <string name="color_blue_title">Bleu</string>
+    <string name="color_red_gamma_title">Gamma rouge</string>
+    <string name="color_green_gamma_title">Gamma vert</string>
+    <string name="color_blue_gamma_title">Gamma bleu</string>
+    <string name="mdnie_title_head">Mode mDNIe</string>
+    <string name="mdnie_summary_head">Ajuster le pré-traitement de l\'affichage mDNIe</string>
+    <string name="category_radio_title">Radio</string>
+    <string name="hspa_title_head">HSPA</string>
+    <string name="hspa_summary_head">Activer HSDPA/HSUPA</string>
+    <string name="category_tvout_title">Sortie TV</string>
+    <string name="tvout_enable_head">Sortie TV</string>
+    <string name="tvout_enable_summary_nocable">Câble de sortie TV non connecté</string>
+    <string name="tvout_enable_summary">Câble de sortie TV connecté, vérification de l\'activation</string>
+    <string name="tvout_enable_summary_on">Sortie TV activée</string>
+    <string name="tvout_system_head">Système TV</string>
+    <string name="tvout_system_summary">Définir le système de sortie TV</string>
+    <string name="category_volume_boost_title">Bouton volume</string>
+    <string name="volume_boost_title_head">Bouton de volume pendant un appel</string>
+    <string name="volume_boost_summary_head">Augmenter les paramètres de volume pendant un appel</string>
+    <string name="boost_rcv_title">Volume des écouteurs</string>
+    <string name="boost_bt_title">Volume des écouteurs bluetooth</string>
+    <string name="boost_spk_title">Volume du haut-parleur</string>
+    <string name="boost_hp_title">Volume du casque</string>
+    <string name="mic_rcv_title">Micro des écouteurs</string>
+    <string name="mic_spk_title">Micro du haut-parleur</string>
+    <string name="mic_hp_title">Micro du casque</string>
+    <string name="mic_hp_no_mic_title">Micro du casque (sans micro)</string>
+    <string name="category_dock_audio_title">Audio</string>
+    <string name="cardock_audio_title_head">Station d\'accueil automobile</string>
+    <string name="cardock_audio_summary_on">Son de la station d\'accueil automobile activé</string>
+    <string name="cardock_audio_summary_off">Son de la station d\'accueil automobile désactivé</string>
+    <string name="deskdock_audio_title_head">Station d\'accueil de bureau</string>
+    <string name="deskdock_audio_summary_on">Son de la station d\'accueil de bureau activé</string>
+    <string name="deskdock_audio_summary_off">Son de la station d\'accueil de bureau désactivé</string>
+    <string name="category_vibration_title">Vibreur</string>
+    <string name="vibration_title_head">Vibreur</string>
+    <string name="vibration_summary_head">Définir l\'intensité du vibreur</string>
+    <string name="vibration_title">Intensité du vibreur</string>
+    <string name="vibration_test_title">Tester</string>
+    <string name="button_reset_title">Réinitialiser</string>
+    <string name="generic_warning_title">Attention</string>
+    <string name="imei_not_sane_title">Attention\u00A0!</string>
+    <string name="imei_not_sane_message">Un problème a été détecté avec votre appareil. Votre numéro IMEI est invalide. Un numéro IMEI invalide peut poser des problèmes de connexion au réseau mobile y compris l\'impossibilité de passer des appels d\'urgence.</string>
+    <string name="imei_not_sane_ok">OK</string>
+</resources>
