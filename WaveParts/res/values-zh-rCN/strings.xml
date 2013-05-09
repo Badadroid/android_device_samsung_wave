@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">高级设置</string>
+
+    <string name="category_screen_title">屏幕</string>
+    <string name="color_tuning_title_head">颜色调整</string>
+    <string name="color_tuning_summary_head">校准屏幕颜色</string>
+    <string name="color_red_title">红</string>
+    <string name="color_green_title">绿</string>
+    <string name="color_blue_title">蓝</string>
+    <string name="color_red_gamma_title">红伽玛</string>
+    <string name="color_green_gamma_title">绿伽玛</string>
+    <string name="color_blue_gamma_title">蓝伽玛</string>
+    <string name="mdnie_title_head">mDNIe 模式</string>
+    <string name="mdnie_summary_head">调整 mDNIe 显示后期处理</string>
+
+    <string name="category_radio_title">无线电</string>
+    <string name="hspa_title_head">HSPA</string>
+    <string name="hspa_summary_head">启用 HSDPA/HSUPA</string>
+
+    <string name="category_tvout_title">电视输出</string>
+    <string name="tvout_enable_head">电视输出</string>
+    <string name="tvout_enable_summary_nocable">电视输出线未连接</string>
+    <string name="tvout_enable_summary">电视输出线已连接，点击以启用</string>
+    <string name="tvout_enable_summary_on">电视输出已启用</string>
+    <string name="tvout_system_head">电视制式</string>
+    <string name="tvout_system_summary">设定电视输出使用的制式</string>
+
+    <string name="category_volume_boost_title">音量控制</string>
+    <string name="volume_boost_title_head">通话音量控制</string>
+    <string name="volume_boost_summary_head">增强通话音量设置</string>
+    <string name="boost_rcv_title">听筒音量</string>
+    <string name="boost_bt_title">蓝牙音量</string>
+    <string name="boost_spk_title">扬声器音量</string>
+    <string name="boost_hp_title">耳机音量</string>
+    <string name="mic_rcv_title">听筒麦克风</string>
+    <string name="mic_spk_title">扬声器麦克风</string>
+    <string name="mic_hp_title">耳机麦克风</string>
+    <string name="mic_hp_no_mic_title">耳机 (无麦克风) 麦克风</string>
+
+    <string name="category_dock_audio_title">基座音频</string>
+    <string name="cardock_audio_title_head">车载基座</string>
+    <string name="cardock_audio_summary_on">车载基座音频已启用</string>
+    <string name="cardock_audio_summary_off">车载基座音频已禁用</string>
+    <string name="deskdock_audio_title_head">台式基座</string>
+    <string name="deskdock_audio_summary_on">台式基座音频已启用</string>
+    <string name="deskdock_audio_summary_off">台式基座音频已禁用</string>
+
+    <string name="category_vibration_title">振动</string>
+    <string name="vibration_title_head">振动</string>
+    <string name="vibration_summary_head">控制振动强度</string>
+    <string name="vibration_title">振动强度</string>
+    <string name="vibration_test_title">测试</string>
+
+    <string name="button_reset_title">重置</string>
+
+    <string name="generic_warning_title">警告</string>
+
+    <string name="imei_not_sane_title">警告！</string>
+    <string name="imei_not_sane_message">在您的设备上发现了一个问题。您设备的 IMEI 号码是无效的。无效的 IMEI 号码可能会导致网络问题，包括无法拔打紧急呼叫电话。</string>
+    <string name="imei_not_sane_ok">确定</string>
+
+</resources>

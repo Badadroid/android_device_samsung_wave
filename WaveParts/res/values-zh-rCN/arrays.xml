@@ -14,16 +14,21 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">高級設定</string>
-
-    <string name="category_screen_title">螢幕</string>
-    <string name="color_tuning_title_head">色彩調整</string>
-    <string name="color_tuning_summary_head">校正螢幕色彩</string>
-    <string name="color_red_title">紅</string>
-    <string name="color_green_title">綠</string>
-    <string name="color_blue_title">藍</string>
-
-    <string name="category_radio_title">行動網路</string>
-    <string name="hspa_title_head">HSPA</string>
-    <string name="hspa_summary_head">啟用 HSDPA／HSUPA</string>
+    <string-array name="mdnie_entries">
+        <item>已禁用</item>
+        <item>UI 模式</item>
+        <item>影像模式</item>
+        <item>影像模式 (温)</item>
+        <item>影像模式 (冷)</item>
+        <item>相机模式</item>
+    </string-array>
+    <string-array name="hspa_entries">
+        <item>仅使用 UMTS</item>
+        <item>仅使用 HSDPA</item>
+        <item>使用 HSDPA + HSUPA</item>
+    </string-array>
+    <string-array name="tvout_system_entries">
+        <item>NTSC</item>
+        <item>PAL</item>
+    </string-array>
 </resources>
