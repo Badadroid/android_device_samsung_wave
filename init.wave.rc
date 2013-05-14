@@ -9,8 +9,8 @@ on init
     export DOWNLOAD_CACHE /data/download
 
     mkdir /storage 0050 system sdcard_r
-    mkdir /storage/sdcard0 0000 system system
-    mkdir /storage/sdcard1 0000 system system
+    mkdir /storage/sdcard0 0000 root root
+    mkdir /storage/sdcard1 0000 root root
     symlink /storage/sdcard0 /sdcard
     symlink /storage/sdcard0 /mnt/sdcard
     # FIXME: Remove emmc?
@@ -48,11 +48,11 @@ on fs
     mount ext4 loop@/mnt/bada_app/data.img /data noatime
 
 # permissions for bluetooth.
-    chown bluetooth bluetooth /dev/s3c2410_serial0
+    chown bluetooth net_bt_stack /dev/s3c2410_serial0
     chmod 0600 /dev/s3c2410_serial0
     chmod 0660 /sys/class/rfkill/rfkill0/state
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
 
 # Permissions for Battery Control
 
@@ -123,7 +123,7 @@ on property:dev.bootcomplete=1
     socket rild stream 660 root radio
     socket rild-debug stream 660 radio system
     user root
-    group radio cache inet misc audio sdcard_rw log
+    group radio cache inet misc audio log
 
 # 3D init
 service pvrsrvinit /system/vendor/bin/pvrsrvinit
@@ -147,7 +147,7 @@ service wpa_supplicant /system/bin/wpa_supplicant \
 	disabled
 	oneshot
 
-service dhcpcd_wlan0 /system/bin/dhcpcd -aABKL
+service dhcpcd_wlan0 /system/bin/dhcpcd -aABDKL
     class main
     disabled
     oneshot
@@ -164,14 +164,6 @@ service iprenew_wlan0 /system/bin/dhcpcd -n
 
 service iprenew_bnep0 /system/bin/dhcpcd -n
     class main
-    disabled
-    oneshot
-
-service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm \
-    --baudrate 3000000 --patchram /vendor/firmware/bcm4329.hcd /dev/s3c2410_serial0
-    class main
-    user bluetooth
-    group bluetooth net_bt_admin
     disabled
     oneshot
 
