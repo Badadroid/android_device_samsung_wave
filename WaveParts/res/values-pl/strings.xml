@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Zaawansowane ustawienia</string>
+
+    <string name="category_screen_title">Ekran</string>
+    <string name="color_tuning_title_head">Kalibracja kolorów</string>
+    <string name="color_tuning_summary_head">Kalibruj kolory ekranu</string>
+    <string name="color_red_title">Czerwony</string>
+    <string name="color_green_title">Zielony</string>
+    <string name="color_blue_title">Niebieski</string>
+    <string name="color_red_gamma_title">Czerwony (gamma)</string>
+    <string name="color_green_gamma_title">Zielony (gamma)</string>
+    <string name="color_blue_gamma_title">Niebieski (gamma)</string>
+    <string name="mdnie_title_head">Tryb mDNIe</string>
+    <string name="mdnie_summary_head">Dostosuj końcowe przetwarzanie trybu mDNIe</string>
+
+    <string name="category_radio_title">Radio</string>
+    <string name="hspa_title_head">HSPA</string>
+    <string name="hspa_summary_head">Aktywuj HSDPA/HSUPA</string>
+
+    <string name="category_tvout_title">Wyjście TV</string>
+    <string name="tvout_enable_head">Wyjście TV</string>
+    <string name="tvout_enable_summary_nocable">Kabel nie jest podłączony do wyjścia TV</string>
+    <string name="tvout_enable_summary">Kabel podłączony do wyjścia TV. Zaznacz, aby aktywować</string>
+    <string name="tvout_enable_summary_on">Wyjście TV aktywowane</string>
+    <string name="tvout_system_head">System na wyjściu TV</string>
+    <string name="tvout_system_summary">Ustaw system na wyjściu TV</string>
+
+    <string name="category_volume_boost_title">Regulatory głośności</string>
+    <string name="volume_boost_title_head">Głośność podczas rozmowy</string>
+    <string name="volume_boost_summary_head">Podbij głośność podczas rozmowy</string>
+    <string name="boost_rcv_title">Głośność słuchawek</string>
+    <string name="boost_bt_title">Głośność słuchawki Bluetooth</string>
+    <string name="boost_spk_title">Głośność zestawu głośnomówiącego</string>
+    <string name="boost_hp_title">Głośność słuchawek</string>
+    <string name="mic_rcv_title">Mikrofon słuchawek</string>
+    <string name="mic_spk_title">Mikrofon zestawu głośnomówiącego</string>
+    <string name="mic_hp_title">Mikrofon słuchawek</string>
+    <string name="mic_hp_no_mic_title">Słuchawki (bez mikrofonu)</string>
+
+    <string name="category_dock_audio_title">Stacja dokująca</string>
+    <string name="cardock_audio_title_head">Samochodowa stacja dokująca</string>
+    <string name="cardock_audio_summary_on">Dźwięk w samochodowej stacji dokującej włączony</string>
+    <string name="cardock_audio_summary_off">Dźwięk w samochodowej stacji dokującej wyłączony</string>
+    <string name="deskdock_audio_title_head">Stacja dokująca</string>
+    <string name="deskdock_audio_summary_on">Dźwięk w stacji dokującej włączony</string>
+    <string name="deskdock_audio_summary_off">Dźwięk w stacji dokującej wyłączony</string>
+
+    <string name="category_vibration_title">Wibracje</string>
+    <string name="vibration_title_head">Wibracje</string>
+    <string name="vibration_summary_head">Kontroluj intensywność wibracji</string>
+    <string name="vibration_title">Intensywność wibracji</string>
+    <string name="vibration_test_title">Testuj</string>
+
+    <string name="button_reset_title">Resetuj</string>
+
+    <!-- Used for activity title. Usually not visible, except on the
+         multi-task screen -->
+    <string name="generic_warning_title">Uwaga</string>
+
+    <!-- Invalid IMEI -->
+    <string name="imei_not_sane_title">Uwaga!</string>
+    <string name="imei_not_sane_message">Został wykryty problem z Twoim urządzeniem. Numer IMEI Twojego urządzenia jest niepoprawny. Niepoprawny numer IMEI może spowodować problemy z siecią, w tym brak możliwości połączenia z numerami alarmowymi.</string>
+    <string name="imei_not_sane_ok">OK</string>
+
+</resources>
