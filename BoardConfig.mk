@@ -110,6 +110,7 @@ WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
 
 # Bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/wave/bluetooth 
 BOARD_BLUEDROID_VENDOR_CONF := device/samsung/wave/prebuilt/libbt_vndcfg.txt 
 
 # Vold
