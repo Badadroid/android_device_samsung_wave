@@ -158,20 +158,28 @@ int SetAudioPath(HRilClient data, AudioPath path)
 
 	ALOGE("%s(%p, %d)", __func__, data, path);
 	
-	if(path != SOUND_AUDIO_PATH_RECORDING_MIC)
-	{
-		ALOGE("%s: path not supported", __func__);
-		return RIL_CLIENT_ERR_UNKNOWN;
-	}
-	
 	if (data == NULL)
 		return RIL_CLIENT_ERR_INVAL;
+		
+	switch(path)
+	{
+		case SOUND_AUDIO_PATH_HANDSET:
+			audio_path.inDevice = SND_INPUT_MIC;
+			audio_path.outDevice = SND_OUTPUT_2;
+			audio_path.soundType = SND_TYPE_VOICE;
+			break;
+		case SOUND_AUDIO_PATH_RECORDING_MIC:
+			audio_path.inDevice = SND_INPUT_MIC;
+			audio_path.outDevice = SND_OUTPUT_AP_PCM;
+			audio_path.soundType = SND_TYPE_RECORDING;
+			break;
+		default:
+			ALOGE("%s: path %d not supported", __func__, path);
+			return RIL_CLIENT_ERR_UNKNOWN;
+			break;
+	}
 
 	client = (struct srs_client *) data;
-	
-	audio_path.inDevice = SND_INPUT_MIC;
-	audio_path.outDevice = SND_OUTPUT_AP_PCM;
-	audio_path.soundType = SND_TYPE_RECORDING;
 	
 	rc = srs_client_send(client, SRS_SND_SET_AUDIO_PATH, &audio_path, sizeof(audio_path));
 	if (rc < 0)
