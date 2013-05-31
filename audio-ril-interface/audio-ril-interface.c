@@ -167,6 +167,7 @@ int SetAudioPath(HRilClient data, AudioPath path)
 {
 	struct srs_client *client;
 	struct srs_snd_set_path_packet audio_path;
+	struct srs_snd_enable_disable_packet en_pkt;
 	int rc;
 
 	ALOGE("%s(%p, %d)", __func__, data, path);
@@ -202,6 +203,14 @@ int SetAudioPath(HRilClient data, AudioPath path)
 	rc = srs_client_send(client, SRS_SND_SET_AUDIO_PATH, &audio_path, sizeof(audio_path));
 	if (rc < 0)
 		return RIL_CLIENT_ERR_UNKNOWN;
+
+	if(audio_path.soundType == SND_TYPE_VOICE)
+	{
+		en_pkt.enabled = 1;
+		rc = srs_client_send(client, SRS_SND_PCM_IF_CTRL, &en_pkt, sizeof(en_pkt));
+		if (rc < 0)
+			return RIL_CLIENT_ERR_UNKNOWN;
+	}
 
 	return RIL_CLIENT_ERR_SUCCESS;
 }
