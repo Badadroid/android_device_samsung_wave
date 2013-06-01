@@ -65,7 +65,7 @@ public class ColorTuningPreference extends DialogPreference implements OnClickLi
     private static final int MAX_VALUE = Integer.MAX_VALUE;
 
     private static final int GAMMA_MAX_VALUE = 40;
-    private static final int GAMMA_DEFAULT_VALUE = 0;
+    private static final int[] GAMMA_DEFAULT_VALUE = new int[] { 22, 22, 4 };
 
     // Track instances to know when to restore original color
     // (when the orientation changes, a new dialog is created before the old one is destroyed)
@@ -92,7 +92,7 @@ public class ColorTuningPreference extends DialogPreference implements OnClickLi
         for (int i = 0; i < GAMMA_SEEKBAR_ID.length; i++) {
             SeekBar seekBar = (SeekBar) view.findViewById(GAMMA_SEEKBAR_ID[i]);
             TextView valueDisplay = (TextView) view.findViewById(GAMMA_VALUE_DISPLAY_ID[i]);
-            mSeekBars[SEEKBAR_ID.length + i] = new GammaSeekBar(seekBar, valueDisplay, GAMMA_FILE_PATH[i]);
+            mSeekBars[SEEKBAR_ID.length + i] = new GammaSeekBar(seekBar, valueDisplay, GAMMA_FILE_PATH[i], i);
         }
 
         SetupButtonClickListener(view);
@@ -134,9 +134,9 @@ public class ColorTuningPreference extends DialogPreference implements OnClickLi
             int value = sharedPrefs.getInt(filePath, MAX_VALUE);
             Utils.writeColor(filePath, value);
         }
-        for (String filePath : GAMMA_FILE_PATH) {
-            int value = sharedPrefs.getInt(filePath, GAMMA_DEFAULT_VALUE);
-            Utils.writeGamma(filePath, value);
+        for (int i = 0; i < GAMMA_FILE_PATH.length; i++) {
+            int value = sharedPrefs.getInt(GAMMA_FILE_PATH[i], GAMMA_DEFAULT_VALUE[i]);
+            Utils.writeGamma(GAMMA_FILE_PATH[i], value);
         }
     }
 
@@ -227,14 +227,14 @@ public class ColorTuningPreference extends DialogPreference implements OnClickLi
 
     class GammaSeekBar extends ColorSeekBar {
 
-        public GammaSeekBar(SeekBar seekBar, TextView valueDisplay, String filePath) {
+        public GammaSeekBar(SeekBar seekBar, TextView valueDisplay, String filePath, int i) {
             mSeekBar = seekBar;
             mValueDisplay = valueDisplay;
             mFilePath = filePath;
 
             // Read original value
             SharedPreferences sharedPreferences = getSharedPreferences();
-            mOriginal = sharedPreferences.getInt(mFilePath, GAMMA_DEFAULT_VALUE);
+            mOriginal = sharedPreferences.getInt(mFilePath, GAMMA_DEFAULT_VALUE[i]);
 
             seekBar.setMax(GAMMA_MAX_VALUE);
             reset();
@@ -268,7 +268,7 @@ public class ColorTuningPreference extends DialogPreference implements OnClickLi
                     mSeekBars[i].resetDefault(FILE_PATH[i], MAX_VALUE);
                 }
                 for (int i = 0; i < GAMMA_SEEKBAR_ID.length; i++) {
-                    mSeekBars[SEEKBAR_ID.length + i].resetDefault(GAMMA_FILE_PATH[i], GAMMA_DEFAULT_VALUE);
+                    mSeekBars[SEEKBAR_ID.length + i].resetDefault(GAMMA_FILE_PATH[i], GAMMA_DEFAULT_VALUE[i]);
                 }
                 break;
         }
