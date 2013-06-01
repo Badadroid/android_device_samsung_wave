@@ -45,6 +45,7 @@
   <string name="vibration_summary_head">Control intensitate vibraţii</string>
   <string name="vibration_title">Intesitate vibraţii</string>
   <string name="vibration_test_title">Testaţi</string>
+  <string name="button_reset_title">Resetați</string>
   <string name="generic_warning_title">Avertisment</string>
   <string name="imei_not_sane_message">A fost detectată o problemă la dispozitivul dvs. IMEI-ul dispozitivului nu este valid. Un IMEI nevalid poate provoca probleme de reţea inclusiv incapacitatea de a apela nr. de urgenţă.</string>
   <string name="imei_not_sane_ok">OK</string>
