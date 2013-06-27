@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">הגדרות Wave</string>
 
     <string name="category_screen_title">מסך</string>
@@ -68,13 +68,9 @@
 
     <string name="button_reset_title">איפוס</string>
 
-    <!-- Used for activity title. Usually not visible, except on the
-         multi-task screen -->
     <string name="generic_warning_title">אזהרה</string>
 
-    <!-- Invalid IMEI -->
     <string name="imei_not_sane_title">אזהרה!</string>
     <string name="imei_not_sane_message">התגלתה בעייה במכשיר. מספר ה-IMEI שגוי. מספר IMEI שגוי עלול לגרום לבעיות רשת כולל חוסר אפשרות להתקשר למספרי חירום.</string>
     <string name="imei_not_sane_ok">אישור</string>
-
 </resources>

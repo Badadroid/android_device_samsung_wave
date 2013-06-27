@@ -73,5 +73,4 @@
     <string name="imei_not_sane_title">警告！</string>
     <string name="imei_not_sane_message">在您的设备上发现了一个问题。您设备的 IMEI 号码是无效的。无效的 IMEI 号码可能会导致网络问题，包括无法拔打紧急呼叫电话。</string>
     <string name="imei_not_sane_ok">确定</string>
-
 </resources>

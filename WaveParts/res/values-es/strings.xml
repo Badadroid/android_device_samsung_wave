@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Ajustes avanzados</string>
     <string name="category_screen_title">Pantalla</string>
     <string name="color_tuning_title_head">Color</string>

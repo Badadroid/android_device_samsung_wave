@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Wave-indstillinger</string>
 
     <string name="category_screen_title">Skærm</string>
@@ -73,6 +73,4 @@
     <string name="imei_not_sane_title">Advarsel!</string>
     <string name="imei_not_sane_message">Der blev fundet et problem med din enhed. Din enheds IMEI-nummer er ugyldigt. Et ugyldigt IMEI-nummer kan forårsage netværksproblemer, bl.a. manglende evne til at foretage nødopkald.</string>
     <string name="imei_not_sane_ok">OK</string>
-
 </resources>
-
