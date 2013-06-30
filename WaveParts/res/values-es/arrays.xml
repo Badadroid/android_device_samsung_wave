@@ -8,8 +8,8 @@
         <item>Cámara</item>
     </string-array>
     <string-array name="hspa_entries">
-        <item>Solo UMTS</item>
-        <item>Solo HSDPA</item>
+        <item>Sólo UMTS</item>
+        <item>Sólo HSDPA</item>
         <item>HSDPA + HSUPA</item>
     </string-array>
     <string-array name="tvout_system_entries">

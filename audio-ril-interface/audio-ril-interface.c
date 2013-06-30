@@ -137,10 +137,25 @@ int SetVolume(HRilClient data, SoundType type, int level)
 		return RIL_CLIENT_ERR_INVAL;
 
 	client = (struct srs_client *) data;
-	/* TODO: Convert type to some real sound type used by Bada */
 
-	volume.soundType = type;
-	volume.volume = level;
+	switch(type)
+	{
+		case SOUND_TYPE_VOICE:
+		case SOUND_TYPE_SPEAKER:
+			volume.outDevice = SND_OUTPUT_2;
+			break;
+		case SOUND_TYPE_HEADSET:
+			volume.outDevice = SND_OUTPUT_3;
+			break;
+		default:
+			ALOGE("%s: type %d not supported", __func__, type);
+			return RIL_CLIENT_ERR_UNKNOWN;
+			break;
+	}
+
+	volume.soundType = SND_TYPE_VOICE;
+
+	volume.volume = level * 3; //In bada we have 15 levels, but in android - only 5
 
 	rc = srs_client_send(client, SRS_SND_SET_VOLUME, &volume, sizeof(volume));
 	if (rc < 0)
@@ -165,8 +180,14 @@ int SetAudioPath(HRilClient data, AudioPath path)
 	switch(path)
 	{
 		case SOUND_AUDIO_PATH_HANDSET:
+		case SOUND_AUDIO_PATH_SPEAKER:
 			audio_path.inDevice = SND_INPUT_MIC;
 			audio_path.outDevice = SND_OUTPUT_2;
+			audio_path.soundType = SND_TYPE_VOICE;
+			break;
+		case SOUND_AUDIO_PATH_HEADSET:
+			audio_path.inDevice = SND_INPUT_MIC;
+			audio_path.outDevice = SND_OUTPUT_3;
 			audio_path.soundType = SND_TYPE_VOICE;
 			break;
 		case SOUND_AUDIO_PATH_RECORDING_MIC:
@@ -193,5 +214,6 @@ int SetAudioPath(HRilClient data, AudioPath path)
 		if (rc < 0)
 			return RIL_CLIENT_ERR_UNKNOWN;
 	}
+
 	return RIL_CLIENT_ERR_SUCCESS;
 }
