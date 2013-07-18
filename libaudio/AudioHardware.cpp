@@ -174,10 +174,12 @@ void AudioHardware::loadRILD(void)
                               dlsym(mSecRilLibHandle, "SetVolume");
         setAudioPath = (int (*)(HRilClient, AudioPath))
                               dlsym(mSecRilLibHandle, "SetAudioPath");
+        pcmIfCtrl = (int (*)(HRilClient, int))
+                              dlsym(mSecRilLibHandle, "PcmIfCtrl");
 
         if (!openClientRILD  || !disconnectRILD   || !closeClientRILD ||
             !isConnectedRILD || !connectRILD      ||
-            !setVolume   || !setAudioPath ) {
+            !setVolume   || !setAudioPath || !pcmIfCtrl ) {
             ALOGE("Can't load all functions from libaudio-ril-interface.so");
 
             dlclose(mSecRilLibHandle);
@@ -408,6 +410,7 @@ status_t AudioHardware::setMode(int mode)
             openMixer_l();
             setInputSource_l(AUDIO_SOURCE_DEFAULT);
             setVoiceVolume_l(mVoiceVol);
+            pcmIfEn_l(true);
             mInCallAudioMode = true;
         }
         if (mMode == AudioSystem::MODE_NORMAL && mInCallAudioMode) {
@@ -435,7 +438,7 @@ status_t AudioHardware::setMode(int mode)
                 ALOGV("setMode() off call force input standby");
                 spIn->doStandby_l();
             }
-
+	    pcmIfEn_l(false);
             mInCallAudioMode = false;
         }
 
@@ -652,6 +655,24 @@ void AudioHardware::setVoiceVolume_l(float volume)
         }
         setVolume(mRilClient, type, int_volume);
     }
+
+}
+
+status_t AudioHardware::pcmIfEn_l(bool state)
+{
+    ALOGD("### pcmIfEn_l");
+
+    if ((mSecRilLibHandle) &&
+        (connectRILDIfRequired() == OK)) {
+
+    	if (state)
+        	pcmIfCtrl(mRilClient, 1);
+	else
+		pcmIfCtrl(mRilClient, 0);
+	
+    }
+
+    return NO_ERROR;
 
 }
 

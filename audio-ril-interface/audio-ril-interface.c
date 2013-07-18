@@ -207,13 +207,28 @@ int SetAudioPath(HRilClient data, AudioPath path)
 	if (rc < 0)
 		return RIL_CLIENT_ERR_UNKNOWN;
 
-	if(audio_path.soundType == SND_TYPE_VOICE)
-	{
-		en_pkt.enabled = 1;
-		rc = srs_client_send(client, SRS_SND_PCM_IF_CTRL, &en_pkt, sizeof(en_pkt));
-		if (rc < 0)
-			return RIL_CLIENT_ERR_UNKNOWN;
-	}
+	return RIL_CLIENT_ERR_SUCCESS;
+}
+
+int PcmIfCtrl(HRilClient data, int enabled)
+{
+	struct srs_client *client;
+	struct srs_snd_enable_disable_packet en_pkt;
+	int rc;
+
+	ALOGE("%s(%p, %d)", __func__, data, enabled);
+	
+	if (data == NULL)
+		return RIL_CLIENT_ERR_INVAL;
+	
+	client = (struct srs_client *) data;
+	
+	en_pkt.enabled = enabled;
+	
+	rc = srs_client_send(client, SRS_SND_PCM_IF_CTRL, &en_pkt, sizeof(en_pkt));
+
+	if (rc < 0)
+		return RIL_CLIENT_ERR_UNKNOWN;
 
 	return RIL_CLIENT_ERR_SUCCESS;
 }
