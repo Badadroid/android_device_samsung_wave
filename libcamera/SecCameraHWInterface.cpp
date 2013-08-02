@@ -259,30 +259,9 @@ void CameraHardwareSec::initDefaultParameters(int cameraId)
               CameraParameters::FLASH_MODE_OFF);
 #endif
 
-        parameterString = CameraParameters::SCENE_MODE_AUTO;
-        parameterString.append(",");
-        parameterString.append(CameraParameters::SCENE_MODE_PORTRAIT);
-        parameterString.append(",");
-        parameterString.append(CameraParameters::SCENE_MODE_LANDSCAPE);
-        parameterString.append(",");
-        parameterString.append(CameraParameters::SCENE_MODE_NIGHT);
-        parameterString.append(",");
-        parameterString.append(CameraParameters::SCENE_MODE_BEACH);
-        parameterString.append(",");
-        parameterString.append(CameraParameters::SCENE_MODE_SNOW);
-        parameterString.append(",");
-        parameterString.append(CameraParameters::SCENE_MODE_SUNSET);
-        parameterString.append(",");
-        parameterString.append(CameraParameters::SCENE_MODE_FIREWORKS);
-        parameterString.append(",");
-        parameterString.append(CameraParameters::SCENE_MODE_SPORTS);
-        parameterString.append(",");
-        parameterString.append(CameraParameters::SCENE_MODE_PARTY);
-        parameterString.append(",");
-        parameterString.append(CameraParameters::SCENE_MODE_CANDLELIGHT);
-        // TODO: CE147 doesn't understand scene mode
-        //p.set(CameraParameters::KEY_SUPPORTED_SCENE_MODES,
-        //      parameterString.string());
+        // CE147 doesn't understand scene mode
+        p.set(CameraParameters::KEY_SUPPORTED_SCENE_MODES,
+              CameraParameters::SCENE_MODE_AUTO);
         p.set(CameraParameters::KEY_SCENE_MODE,
               CameraParameters::SCENE_MODE_AUTO);
 
