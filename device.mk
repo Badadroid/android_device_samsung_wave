@@ -168,8 +168,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
        wifi.interface=wlan0 \
        mobiledata.interfaces=pdp0,eth0,gprs,ppp0 \
        ro.vold.switchablepair=/storage/sdcard0,/storage/sdcard1 \
-	   rild.libpath=/system/lib/libmocha-ril.so \
-	   ro.sf.lcd_density=240
+       rild.libpath=/system/lib/libmocha-ril.so \
+       ro.sf.lcd_density=240 \
+       ro.bq.gpu_to_cpu_unsupported=1 \
 
 # SGX540 is slower with the scissor optimization enabled
 PRODUCT_PROPERTY_OVERRIDES += \
