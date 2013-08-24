@@ -190,11 +190,6 @@ int SetAudioPath(HRilClient data, AudioPath path)
 			audio_path.outDevice = SND_OUTPUT_3;
 			audio_path.soundType = SND_TYPE_VOICE;
 			break;
-		case SOUND_AUDIO_PATH_RECORDING_MIC:
-			audio_path.inDevice = SND_INPUT_MIC;
-			audio_path.outDevice = SND_OUTPUT_AP_PCM;
-			audio_path.soundType = SND_TYPE_RECORDING;
-			break;
 		default:
 			ALOGE("%s: path %d not supported", __func__, path);
 			return RIL_CLIENT_ERR_UNKNOWN;

@@ -127,7 +127,6 @@ public:
             const char *getVoiceRouteFromDevice(uint32_t device);
 
             status_t setIncallPath_l(uint32_t device);
-			status_t setRecordingPath_l(AudioPath path);
 
 #ifdef HAVE_FM_RADIO
             void enableFMRadio();
