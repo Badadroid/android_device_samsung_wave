@@ -841,15 +841,6 @@ status_t AudioHardware::setIncallPath_l(uint32_t device)
     return NO_ERROR;
 }
 
-status_t AudioHardware::setRecordingPath_l(AudioPath path)
-{
-    if ((mSecRilLibHandle) && (connectRILDIfRequired() == OK)) {
-        setAudioPath(mRilClient, path);
-		return NO_ERROR;
-	}
-	return -1;
-}
-
 #ifdef HAVE_FM_RADIO
 void AudioHardware::enableFMRadio() {
     ALOGV("AudioHardware::enableFMRadio() Turning FM Radio ON");
@@ -2156,8 +2147,6 @@ status_t AudioHardware::AudioStreamInALSA::open_l()
         silence_threshold : 0,
     };
 
-    ALOGV("setup PCM path for AP-CODEC");
-	mHardware->setRecordingPath_l(SOUND_AUDIO_PATH_RECORDING_MIC);
     ALOGV("open pcm_in driver");
     TRACE_DRIVER_IN(DRV_PCM_OPEN)
     mPcm = pcm_open(0, 0, flags, &config);
