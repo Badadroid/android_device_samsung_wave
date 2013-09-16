@@ -141,11 +141,13 @@ int SetVolume(HRilClient data, SoundType type, int level)
 	switch(type)
 	{
 		case SOUND_TYPE_VOICE:
+			volume.outDevice = SND_OUTPUT_EARPIECE;
+			break;
 		case SOUND_TYPE_SPEAKER:
-			volume.outDevice = SND_OUTPUT_2;
+			volume.outDevice = SND_OUTPUT_SPEAKER;
 			break;
 		case SOUND_TYPE_HEADSET:
-			volume.outDevice = SND_OUTPUT_3;
+			volume.outDevice = SND_OUTPUT_HEADSET;
 			break;
 		default:
 			ALOGE("%s: type %d not supported", __func__, type);
@@ -180,14 +182,23 @@ int SetAudioPath(HRilClient data, AudioPath path)
 	switch(path)
 	{
 		case SOUND_AUDIO_PATH_HANDSET:
+			audio_path.inDevice = SND_INPUT_MAIN_MIC;
+			audio_path.outDevice = SND_OUTPUT_EARPIECE;
+			audio_path.soundType = SND_TYPE_VOICE;
+			break;
 		case SOUND_AUDIO_PATH_SPEAKER:
-			audio_path.inDevice = SND_INPUT_MIC;
-			audio_path.outDevice = SND_OUTPUT_2;
+			audio_path.inDevice = SND_INPUT_MAIN_MIC;
+			audio_path.outDevice = SND_OUTPUT_SPEAKER;
 			audio_path.soundType = SND_TYPE_VOICE;
 			break;
 		case SOUND_AUDIO_PATH_HEADSET:
-			audio_path.inDevice = SND_INPUT_MIC;
-			audio_path.outDevice = SND_OUTPUT_3;
+			audio_path.inDevice = SND_INPUT_MAIN_MIC;
+			audio_path.outDevice = SND_OUTPUT_HEADSET;
+			audio_path.soundType = SND_TYPE_VOICE;
+			break;
+		case SOUND_AUDIO_PATH_HEADPHONE:
+			audio_path.inDevice = SND_INPUT_EAR_MIC;
+			audio_path.outDevice = SND_OUTPUT_HEADSET;
 			audio_path.soundType = SND_TYPE_VOICE;
 			break;
 		default:
