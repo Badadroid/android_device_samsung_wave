@@ -180,6 +180,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.kernel.android.checkjni=0 \
     dalvik.vm.checkjni=false
 
+# Disable GC freed lines
+PRODUCT_PROPERTY_OVERRIDES += \
+	dalvik.vm.debug.alloc=0
+
 # Override /proc/sys/vm/dirty_ratio on UMS
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vold.umsdirtyratio=20
