@@ -157,7 +157,7 @@ int SetVolume(HRilClient data, SoundType type, int level)
 
 	volume.soundType = SND_TYPE_VOICE;
 
-	volume.volume = level * 3; //In bada we have 15 levels, but in android - only 5
+	volume.volume = level;
 
 	rc = srs_client_send(client, SRS_SND_SET_VOLUME, &volume, sizeof(volume));
 	if (rc < 0)
