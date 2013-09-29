@@ -22,8 +22,8 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES := audio-ril-interface.c
 
 LOCAL_C_INCLUDES := \
-	external/bada-modemril/libmocha-ipc/include \
-	external/bada-modemril/libmocha-ipc/srs-client/include \
+	external/libmocha-ipc/include \
+	external/libmocha-ipc/srs-client/include \
 	device/samsung/wave/libaudio/
 
 LOCAL_SHARED_LIBRARIES := liblog libcutils libsrs-client
