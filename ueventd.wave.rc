@@ -11,6 +11,7 @@
 /dev/s3c2410_serial3      0660   radio      radio
 /dev/block/mtdblock0      0660   radio      radio
 /dev/mtd/mtd0ro           0660   radio      radio
+/dev/tun*                 0660   radio      radio
 
 # TV Out
 /dev/video14              0660   system     graphics
