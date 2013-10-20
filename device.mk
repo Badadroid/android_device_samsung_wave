@@ -129,7 +129,6 @@ PRODUCT_PACKAGES += \
 
 # Device-specific packages
 PRODUCT_PACKAGES += \
-	SamsungServiceMode \
 	WaveParts \
 	tvouthack \
 	Torch
