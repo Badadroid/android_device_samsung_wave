@@ -28,10 +28,6 @@
     <string name="mdnie_title_head">מצב mDNIe</string>
     <string name="mdnie_summary_head">התאם אישית את אופן פעולת מנוע התמונה הטבעית הדיגיטלית</string>
 
-    <string name="category_radio_title">אלחוט</string>
-    <string name="hspa_title_head">HSPA</string>
-    <string name="hspa_summary_head">הפעל את HSDPA/HSUPA</string>
-
     <string name="category_tvout_title">יציאת טלוויזיה</string>
     <string name="tvout_enable_head">יציאת טלוויזיה</string>
     <string name="tvout_enable_summary_nocable">כבל יציאת הטלוויזיה אינו מחובר</string>
@@ -70,7 +66,4 @@
 
     <string name="generic_warning_title">אזהרה</string>
 
-    <string name="imei_not_sane_title">אזהרה!</string>
-    <string name="imei_not_sane_message">התגלתה בעייה במכשיר. מספר ה-IMEI שגוי. מספר IMEI שגוי עלול לגרום לבעיות רשת כולל חוסר אפשרות להתקשר למספרי חירום.</string>
-    <string name="imei_not_sane_ok">אישור</string>
 </resources>

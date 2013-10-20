@@ -28,10 +28,6 @@
     <string name="mdnie_title_head">mDNIe-tilstand</string>
     <string name="mdnie_summary_head">Justér mDNIe-skærm-post-processering</string>
 
-    <string name="category_radio_title">Radio</string>
-    <string name="hspa_title_head">HSPA</string>
-    <string name="hspa_summary_head">Slå HSDPA/HSUPA til</string>
-
     <string name="category_tvout_title">TV-OUT</string>
     <string name="tvout_enable_head">TV-OUT</string>
     <string name="tvout_enable_summary_nocable">TV-OUT-kabel ikke tilsluttet</string>
@@ -69,8 +65,4 @@
     <string name="button_reset_title">Nulstil</string>
 
     <string name="generic_warning_title">Advarsel</string>
-
-    <string name="imei_not_sane_title">Advarsel!</string>
-    <string name="imei_not_sane_message">Der blev fundet et problem med din enhed. Din enheds IMEI-nummer er ugyldigt. Et ugyldigt IMEI-nummer kan forårsage netværksproblemer, bl.a. manglende evne til at foretage nødopkald.</string>
-    <string name="imei_not_sane_ok">OK</string>
 </resources>

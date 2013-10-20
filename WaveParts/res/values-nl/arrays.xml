@@ -22,11 +22,7 @@
         <item>Video (koud)</item>
         <item>Camera</item>
     </string-array>
-    <string-array name="hspa_entries">
-        <item>Alleen UMTS</item>
-        <item>Alleen HSDPA</item>
-        <item>HSDPA + HSUPA</item>
-    </string-array>
+
     <string-array name="tvout_system_entries">
         <item>NTSC</item>
         <item>PAL</item>

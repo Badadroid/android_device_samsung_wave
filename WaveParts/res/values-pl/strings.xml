@@ -28,10 +28,6 @@
     <string name="mdnie_title_head">Tryb mDNIe</string>
     <string name="mdnie_summary_head">Dostosuj końcowe przetwarzanie trybu mDNIe</string>
 
-    <string name="category_radio_title">Radio</string>
-    <string name="hspa_title_head">HSPA</string>
-    <string name="hspa_summary_head">Aktywuj HSDPA/HSUPA</string>
-
     <string name="category_tvout_title">Wyjście TV</string>
     <string name="tvout_enable_head">Wyjście TV</string>
     <string name="tvout_enable_summary_nocable">Kabel nie jest podłączony do wyjścia TV</string>
@@ -70,7 +66,4 @@
 
     <string name="generic_warning_title">Uwaga</string>
 
-    <string name="imei_not_sane_title">Uwaga!</string>
-    <string name="imei_not_sane_message">Został wykryty problem z Twoim urządzeniem. Numer IMEI Twojego urządzenia jest niepoprawny. Niepoprawny numer IMEI może spowodować problemy z siecią, w tym brak możliwości połączenia z numerami alarmowymi.</string>
-    <string name="imei_not_sane_ok">OK</string>
 </resources>

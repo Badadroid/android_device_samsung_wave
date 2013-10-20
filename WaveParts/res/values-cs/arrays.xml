@@ -23,9 +23,4 @@
         <item>Režim videokamera</item>
     </string-array>
 
-    <string-array name="hspa_entries">
-        <item>Pouze UMTS</item>
-        <item>Pouze HSDPA</item>
-        <item>HSDPA + HSUPA</item>
-    </string-array>
 </resources>

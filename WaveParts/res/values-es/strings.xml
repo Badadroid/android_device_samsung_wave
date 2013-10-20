@@ -26,9 +26,6 @@
     <string name="color_blue_gamma_title">Gamma azul</string>
     <string name="mdnie_title_head">Modo mDNIe</string>
     <string name="mdnie_summary_head">Ajustar post-procesado de pantalla para mDNIe</string>
-    <string name="category_radio_title">Radio</string>
-    <string name="hspa_title_head">HSPA</string>
-    <string name="hspa_summary_head">Habilitar HSDPA/HSUPA</string>
     <string name="category_tvout_title">Salida TV</string>
     <string name="tvout_enable_head">Salida TV</string>
     <string name="tvout_enable_summary_nocable">Cable de salida a televisión no conectado</string>
@@ -61,7 +58,4 @@
     <string name="vibration_test_title">Probar</string>
     <string name="button_reset_title">Restablecer</string>
     <string name="generic_warning_title">Aviso</string>
-    <string name="imei_not_sane_title">¡Aviso!</string>
-    <string name="imei_not_sane_message">Se ha detectado un problema en su dispositivo. El número IMEI de su dispositivo es inválido. Un número IMEI inválido puede causar problemas de red, incluyendo la imposibilidad de realizar llamadas a números de emergencia.</string>
-    <string name="imei_not_sane_ok">Aceptar</string>
 </resources>

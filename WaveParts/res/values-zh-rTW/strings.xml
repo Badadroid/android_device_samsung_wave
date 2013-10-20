@@ -23,7 +23,4 @@
     <string name="color_green_title">綠</string>
     <string name="color_blue_title">藍</string>
 
-    <string name="category_radio_title">行動網路</string>
-    <string name="hspa_title_head">HSPA</string>
-    <string name="hspa_summary_head">啟用 HSDPA／HSUPA</string>
 </resources>

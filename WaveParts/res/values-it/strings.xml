@@ -28,10 +28,6 @@
     <string name="mdnie_title_head">Modalità mDNIe</string>
     <string name="mdnie_summary_head">Imposta grado di post-processamento del display</string>
 
-    <string name="category_radio_title">Radio</string>
-    <string name="hspa_title_head">HSPA</string>
-    <string name="hspa_summary_head">Abilita HSDPA/HSUPA</string>
-
     <string name="category_tvout_title">Uscita TV</string>
     <string name="tvout_enable_head">Uscita TV</string>
     <string name="tvout_enable_summary_nocable">Cavo per uscita TV non connesso</string>
@@ -71,8 +67,4 @@
     <!-- Usato per il titolo dell'attività. Di solito non è visibile, se non sullo schermo degli multi-task -->
     <string name="generic_warning_title">Attenzione</string>
     
-    <!-- IMEI Non Valido -->
-    <string name="imei_not_sane_title">Attenzione!</string>
-    <string name="imei_not_sane_message">È stato rilevato un problema con il dispositivo. Il numero IMEI del dispositivo non è valido. Un numero IMEI non valido potrebbe causare problemi di rete tra cui l\'impossibilità di chiamare numeri di emergenza.</string>
-    <string name="imei_not_sane_ok">OK</string>
 </resources>

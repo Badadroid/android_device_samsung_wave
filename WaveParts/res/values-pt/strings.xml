@@ -24,9 +24,6 @@
     <string name="color_red_gamma_title">Gama Vermelha</string>
     <string name="color_green_gamma_title">Gama Verde</string>
     <string name="color_blue_gamma_title">Gama Azul</string>
-    <string name="category_radio_title">Radio</string>
-    <string name="hspa_title_head">HSPA</string>
-    <string name="hspa_summary_head">Ativar HSDPA/HSUPA</string>
     <string name="category_tvout_title">Saída de TV</string>
     <string name="tvout_enable_head">Saída de TV</string>
     <string name="tvout_enable_summary_nocable">Cabo para Saída de TV não conectado</string>
@@ -61,6 +58,4 @@
     <string name="vibration_test_title">Testar</string>
     <string name="button_reset_title">Resetar</string>
     <string name="generic_warning_title">Aviso</string>
-    <string name="imei_not_sane_title">Aviso!</string>
-    <string name="imei_not_sane_message">Um problema foi detectado no seu dispositivo. O número IMEI do seu dispositivo é inválido. Um número de IMEI inválido pode causar problemas de rede incluindo a impossibilidade de realizar chamadas a números de emergências.</string>
 </resources>

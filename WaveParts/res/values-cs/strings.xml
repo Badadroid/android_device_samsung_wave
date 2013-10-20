@@ -28,10 +28,6 @@
     <string name="mdnie_title_head">Režim mDNIe</string>
     <string name="mdnie_summary_head">Upravit mDNIe</string>
 
-    <string name="category_radio_title">Rádio</string>
-    <string name="hspa_title_head">HSPA</string>
-    <string name="hspa_summary_head">Povolit HSDPA/HSUPA</string>
-
     <string name="category_tvout_title">Výstup na TV</string>
     <string name="tvout_enable_head">Výstup na TV</string>
     <string name="tvout_enable_summary_nocable">Kabel pro připojení TV není připojen</string>
@@ -70,7 +66,4 @@
 
     <string name="generic_warning_title">Upozornění</string>
 
-    <string name="imei_not_sane_title">Upozornění!</string>
-    <string name="imei_not_sane_message">Zjištěn problém s tímto zařízením. Číslo IMEI je neplatné. Neplatné číslo IMEI může způsobit potíže při registraci do sítě operátora a nemožnost volat tísňová čísla.</string>
-    <string name="imei_not_sane_ok">OK</string>
 </resources>

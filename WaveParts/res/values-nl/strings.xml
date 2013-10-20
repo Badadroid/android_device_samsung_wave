@@ -26,9 +26,6 @@
     <string name="color_blue_gamma_title">Blauw gamma</string>
     <string name="mdnie_title_head">mDNIe-modus</string>
     <string name="mdnie_summary_head">mDNIe-schermnabewerking aanpassen</string>
-    <string name="category_radio_title">Radio</string>
-    <string name="hspa_title_head">HSPA</string>
-    <string name="hspa_summary_head">HSDPA/HSUPA inschakelen</string>
     <string name="category_tvout_title">Tv-uitvoer</string>
     <string name="tvout_enable_head">Tv-uitvoer</string>
     <string name="tvout_enable_summary_nocable">Kabel voor tv-uitvoer niet verbonden</string>
@@ -61,7 +58,4 @@
     <string name="vibration_test_title">Testen</string>
     <string name="button_reset_title">Herstellen</string>
     <string name="generic_warning_title">Let op</string>
-    <string name="imei_not_sane_title">Let op</string>
-    <string name="imei_not_sane_message">Er is een probleem gevonden met uw telefoon. Het IMEI-nummer van uw telefoon is ongeldig. Hierdoor kunnen problemen optreden met uw mobiele netwerkverbinding, inclusief het niet kunnen bellen van het alarmnummer.</string>
-    <string name="imei_not_sane_ok">OK</string>
 </resources>
