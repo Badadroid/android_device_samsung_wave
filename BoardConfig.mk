@@ -40,6 +40,7 @@ TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_ARCH_VARIANT_CPU := cortex-a8
+TARGET_CPU_VARIANT := cortex-a8
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
 # Dalvik startup with low memory footprint
@@ -51,7 +52,6 @@ TARGET_NO_RADIOIMAGE := true
 TARGET_PROVIDES_INIT := true
 TARGET_BOARD_PLATFORM := s5pc110
 TARGET_BOOTLOADER_BOARD_NAME := wave
-TARGET_RECOVERY_INITRC := device/samsung/wave/recovery.rc
 
 BOARD_MOBILEDATA_INTERFACE_NAME = "pdp0"
 BOARD_UMS_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun/file
@@ -128,6 +128,8 @@ BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/wave/recovery/graphics.c
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/wave/recovery/recovery_keys.c
 BOARD_USES_BML_OVER_MTD := true
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/wave/shbootimg.mk
+TARGET_RECOVERY_FSTAB := device/samsung/wave/fstab.wave
+RECOVERY_FSTAB_VERSION := 2
 
 # Boot Animation
 TARGET_BOOTANIMATION_PRELOAD := true

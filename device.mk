@@ -49,7 +49,6 @@ TARGET_RECOVERY_FSTAB := device/samsung/wave/recovery.fstab
 # These are the hardware-specific configuration files
 PRODUCT_COPY_FILES := \
 	device/samsung/wave/prebuilt/asound.conf:system/etc/asound.conf \
-	device/samsung/wave/prebuilt/vold.fstab:system/etc/vold.fstab \
 	device/samsung/wave/prebuilt/egl.cfg:system/lib/egl/egl.cfg \
 	device/samsung/wave/prebuilt/nvram_net_s8500.txt:system/vendor/firmware/nvram_net_s8500.txt \
 	device/samsung/wave/prebuilt/nvram_net_s8530.txt:system/vendor/firmware/nvram_net_s8530.txt \
@@ -63,6 +62,7 @@ PRODUCT_COPY_FILES += \
 	device/samsung/wave/init.wave.rc:root/init.wave.rc \
 	device/samsung/wave/init.wave2.rc:root/init.wave2.rc \
 	device/samsung/wave/init.wave.usb.rc:root/init.wave.usb.rc \
+	device/samsung/wave/init.recovery.wave.rc:root/init.recovery.wave.rc \
 	device/samsung/wave/init.wave.usb.rc:recovery/root/usb.rc \
 	device/samsung/wave/ueventd.wave.rc:root/ueventd.wave.rc \
 	device/samsung/wave/ueventd.wave.rc:root/ueventd.wave2.rc
