@@ -30,7 +30,7 @@ def load_module_from_file(module_name, filename):
 	
 #overriding original LoadRecoveryFSTab
 @wraps(LoadRecoveryFSTab)
-def _LoadRecoveryFSTab(original_func, zip):
+def _LoadRecoveryFSTab(original_func, zip, fstab_version):
   class Partition(object):
     pass
 
