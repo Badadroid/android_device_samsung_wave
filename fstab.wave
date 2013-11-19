@@ -13,8 +13,5 @@ boot				/boot		mtd	defaults	recoveryonly
 /bada_system/cache.img 		/cache 		ext4 	defaults,loop	recoveryonly,length=18874368
 /bada_app/data.img 		/data 		ext4 	defaults,loop	recoveryonly,length=419430400
 
-/dev/block/mmcblk0p2		/sdcard		vfat	defaults	recoveryonly
-/dev/block/mmcblk1p1		/external_sd	auto	defaults	recoveryonly
-
 /devices/platform/s3c-sdhci.0/mmc_host/mmc0 	/storage/sdcard0 vfat	defaults	voldmanaged=sdcard0:2,nonremovable
 /devices/platform/s3c-sdhci.2/mmc_host/mmc2 	/storage/sdcard1 auto	defaults	voldmanaged=sdcard1:auto
