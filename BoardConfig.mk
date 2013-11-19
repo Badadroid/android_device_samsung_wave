@@ -53,7 +53,6 @@ TARGET_BOARD_PLATFORM := s5pc110
 TARGET_BOOTLOADER_BOARD_NAME := wave
 
 BOARD_MOBILEDATA_INTERFACE_NAME = "pdp0"
-BOARD_UMS_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun/file
 
 # Kernel Source
 TARGET_KERNEL_SOURCE := kernel/samsung/wave
@@ -61,7 +60,6 @@ TARGET_KERNEL_SOURCE := kernel/samsung/wave
 # Releasetools
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/wave/releasetools/wave_ota_from_target_files
 TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/wave/releasetools/wave_img_from_target_files
-
 
 # Camera
 USE_CAMERA_STUB := false

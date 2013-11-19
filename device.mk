@@ -64,6 +64,7 @@ PRODUCT_COPY_FILES += \
 	device/samsung/wave/init.wave.usb.rc:root/init.wave.usb.rc \
 	device/samsung/wave/init.recovery.wave.rc:root/init.recovery.wave.rc \
 	device/samsung/wave/init.wave.usb.rc:recovery/root/usb.rc \
+	device/samsung/wave/fstab.wave:root/fstab.wave \
 	device/samsung/wave/ueventd.wave.rc:root/ueventd.wave.rc \
 	device/samsung/wave/ueventd.wave.rc:root/ueventd.wave2.rc
 
@@ -211,7 +212,6 @@ include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
-
 
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
 
