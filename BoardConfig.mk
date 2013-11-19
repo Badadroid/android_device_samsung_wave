@@ -148,6 +148,23 @@ TARGET_DISABLE_TRIPLE_BUFFERING := false
 
 BOARD_ALLOW_EGL_HIBERNATION := true
 
+# SELinux
+BOARD_SEPOLICY_DIRS += \
+    device/samsung/wave/sepolicy
+
+BOARD_SEPOLICY_UNION += \
+    bdaddr_read.te \
+    device.te \
+    domain.te \
+    file_contexts \
+    mediaserver.te \
+    orientationd.te \
+    property_contexts \
+    pvrsrvinit.te \
+    rild.te \
+    tvouthack.te \
+    tvoutserver.te \
+
 # Include wave specific stuff
 -include device/samsung/wave/Android.mk
 

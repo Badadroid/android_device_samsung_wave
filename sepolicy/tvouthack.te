@@ -1,0 +1,7 @@
+type tvouthack, domain;
+type tvouthack_exec, exec_type, file_type;
+
+init_daemon_domain(tvouthack)
+binder_use(tvouthack)
+binder_call(tvouthack, servicemanager)
+binder_call(tvouthack, tvoutserver)
