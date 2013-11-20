@@ -144,13 +144,6 @@ on post-fs-data
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
 
-    # Dalvik cache on /system to save space
-#    mkdir /system/dalvik-cache 0771 system system
-#    chown system system /system/dalvik-cache
-#    chmod 0771 /system/dalvik-cache
-#    exec /system/bin/rm -r /data/dalvik-cache
-#    symlink /system/dalvik-cache /data/dalvik-cache
-
     # download cache
     mkdir /data/download 0770 system cache
 
@@ -227,13 +220,6 @@ service bdaddr /system/bin/bdaddr_read
 
 on property:init.svc.bootanim=running
     start bdaddr
-
-# bugreport is triggered by holding down volume down, volume up and power
-#service bugreport /system/bin/dumpstate -d -v -o /sdcard/bugreports/bugreport
-#    class main
-#    disabled
-#    oneshot
-#    keycodes 114 115 116
 
 #- End main Services -#
 

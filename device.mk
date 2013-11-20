@@ -42,13 +42,10 @@ DEVICE_PACKAGE_OVERLAYS += \
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml
 
-DEVICE_PACKAGE_OVERLAYS := device/samsung/wave/overlay
-
-TARGET_RECOVERY_FSTAB := device/samsung/wave/recovery.fstab
-
 # These are the hardware-specific configuration files
 PRODUCT_COPY_FILES := \
 	device/samsung/wave/prebuilt/asound.conf:system/etc/asound.conf \
+	device/samsung/wave/libaudio/audio_policy.conf:system/etc/audio_policy.conf \
 	device/samsung/wave/prebuilt/egl.cfg:system/lib/egl/egl.cfg \
 	device/samsung/wave/prebuilt/nvram_net_s8500.txt:system/vendor/firmware/nvram_net_s8500.txt \
 	device/samsung/wave/prebuilt/nvram_net_s8530.txt:system/vendor/firmware/nvram_net_s8530.txt \
@@ -118,9 +115,6 @@ PRODUCT_PACKAGES += \
 	libaudio-ril-interface \
 	libs3cjpeg
 
-PRODUCT_COPY_FILES += \
-	device/samsung/wave/libaudio/audio_policy.conf:system/etc/audio_policy.conf
-
 # Libs
 PRODUCT_PACKAGES += \
 	libstagefrighthw
@@ -149,7 +143,6 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
 	frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
 	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-	packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 
 # The OpenGL ES API level that is natively supported by this device.
 # This is a 16.16 fixed point number
@@ -195,7 +188,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vold.umsdirtyratio=20
 
-# We have sacrificed /cache for a larger /system, so it's not large enough for dalvik cache
+# Move Dalvik cache on /data partition
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dexopt-data-only=1
 
