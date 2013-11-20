@@ -17,12 +17,12 @@ ui_print "Applying Wave1/Wave2 specific parameters..."
 if /sbin/busybox grep -q wave2 /proc/cpuinfo ; then
 	ui_print "Model is GT-S8530"	
 	/sbin/busybox ln -f /system/vendor/firmware/nvram_net_s8530.txt /system/vendor/firmware/nvram_net.txt
-	/sbin/busybox ln -f /system/vendor/firmware/bcm4329_s8530.hcd /system/vendor/firmware/bcm4329.hcd
+	/sbin/busybox rm /system/vendor/firmware/bcm4329_s8500.hcd
 	/sbin/busybox sed 's/S8500/S8530/g' -i /system/build.prop	
 	else
 	ui_print "Model is GT-S8500"
    	/sbin/busybox ln -f /system/vendor/firmware/nvram_net_s8500.txt /system/vendor/firmware/nvram_net.txt 
-	/sbin/busybox ln -f /system/vendor/firmware/bcm4329_s8500.hcd /system/vendor/firmware/bcm4329.hcd
+	/sbin/busybox rm /system/vendor/firmware/bcm4329_s8530.hcd
 fi
 
 
