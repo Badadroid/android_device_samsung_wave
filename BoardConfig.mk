@@ -165,6 +165,9 @@ BOARD_SEPOLICY_UNION += \
     tvouthack.te \
     tvoutserver.te \
 
+# Hardware tunables
+BOARD_HARDWARE_CLASS := device/samsung/wave/cmhw
+
 # Include wave specific stuff
 -include device/samsung/wave/Android.mk
 
