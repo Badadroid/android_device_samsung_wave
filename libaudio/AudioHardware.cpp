@@ -410,7 +410,7 @@ status_t AudioHardware::setMode(int mode)
             openMixer_l();
             setInputSource_l(AUDIO_SOURCE_DEFAULT);
             setVoiceVolume_l(mVoiceVol);
-            pcmIfEn_l(true);
+            //pcmIfEn_l(true);
             mInCallAudioMode = true;
         }
         if (mMode == AudioSystem::MODE_NORMAL && mInCallAudioMode) {
@@ -438,7 +438,7 @@ status_t AudioHardware::setMode(int mode)
                 ALOGV("setMode() off call force input standby");
                 spIn->doStandby_l();
             }
-	    pcmIfEn_l(false);
+	    //pcmIfEn_l(false);
             mInCallAudioMode = false;
         }
 
