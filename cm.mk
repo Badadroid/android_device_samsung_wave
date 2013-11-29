@@ -5,7 +5,7 @@ $(call inherit-product, vendor/cm/config/gsm.mk)
 PRODUCT_RELEASE_NAME := Wave
 
 # Inherit some common CM stuff.
-$(call inherit-product, vendor/cm/config/common_full_phone.mk)
+$(call inherit-product, vendor/cm/config/common_mini_phone.mk)
 
 # Inherit device configuration
 $(call inherit-product, device/samsung/wave/full_wave.mk)
