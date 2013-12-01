@@ -60,8 +60,10 @@ PRODUCT_COPY_FILES += \
 	device/samsung/wave/init.wave2.rc:root/init.wave2.rc \
 	device/samsung/wave/init.wave.usb.rc:root/init.wave.usb.rc \
 	device/samsung/wave/init.recovery.wave.rc:root/init.recovery.wave.rc \
+	device/samsung/wave/init.recovery.wave2.rc:root/init.recovery.wave2.rc \
 	device/samsung/wave/init.wave.usb.rc:recovery/root/usb.rc \
 	device/samsung/wave/fstab.wave:root/fstab.wave \
+	device/samsung/wave/fstab.wave:root/fstab.wave2 \
 	device/samsung/wave/ueventd.wave.rc:root/ueventd.wave.rc \
 	device/samsung/wave/ueventd.wave.rc:root/ueventd.wave2.rc
 
