@@ -620,7 +620,7 @@ void AudioHardware::setVoiceVolume_l(float volume)
         if (mOutput != 0) {
             device = mOutput->device();
         }
-        int int_volume = (int)(volume * 5);
+        int int_volume = (int)(volume * 15);
         SoundType type;
 
         ALOGD("### route(%d) call volume(%f)", device, volume);

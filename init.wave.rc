@@ -30,6 +30,9 @@ on boot
 # phone
     setprop ro.telephony.call_ring.multiple 0
 
+# call volume steps
+    setprop ro.config.vc_call_vol_steps 15
+
 on fs
     mkdir /mnt/bada_system
     chmod 0777 /mnt/bada_system
