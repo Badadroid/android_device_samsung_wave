@@ -71,19 +71,19 @@ static const struct sensor_t sSensorList[] = {
         { "BMA023 3-axis Accelerometer",
           "Bosch Sensortec",
           1, SENSORS_ACCELERATION_HANDLE,
-          SENSOR_TYPE_ACCELEROMETER, RANGE_A, RESOLUTION_A, 0.20f, 10000, { } },
+          SENSOR_TYPE_ACCELEROMETER, RANGE_A, RESOLUTION_A, 0.20f, 10000, 0, 0, { } },
         { "AK8973 3-axis Magnetic field sensor",
           "Asahi Kasei Microdevices",
           1, SENSORS_MAGNETIC_FIELD_HANDLE,
-          SENSOR_TYPE_MAGNETIC_FIELD, 2000.0f, CONVERT_M, 6.8f, 16667, { } },
+          SENSOR_TYPE_MAGNETIC_FIELD, 2000.0f, CONVERT_M, 6.8f, 16667, 0, 0, { } },
 		{ "CM Hacked Orientation Sensor",
           "CM Team",
           1, SENSORS_ORIENTATION_HANDLE,
-          SENSOR_TYPE_ORIENTATION,  360.0f, CONVERT_O, 7.8f, 10000, { } },
+          SENSOR_TYPE_ORIENTATION,  360.0f, CONVERT_O, 7.8f, 10000, 0, 0, { } },
         { "GP2A Proximity sensor",
           "Sharp",
           1, SENSORS_PROXIMITY_HANDLE,
-          SENSOR_TYPE_PROXIMITY, 5.0f, 5.0f, 0.75f, 0, { } },        
+          SENSOR_TYPE_PROXIMITY, 5.0f, 5.0f, 0.75f, 0, 0, 0, { } },
 };
 
 
