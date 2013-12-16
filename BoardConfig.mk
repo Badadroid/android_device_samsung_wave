@@ -153,6 +153,9 @@ TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 # Required for TV out
 COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
+# Screenrecord
+BOARD_SCREENRECORD_LANDSCAPE_ONLY := true
+
 # SELinux
 BOARD_SEPOLICY_DIRS += \
     device/samsung/wave/sepolicy
