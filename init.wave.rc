@@ -39,9 +39,6 @@ on fs
     mkdir /mnt/bada_system
     chmod 0777 /mnt/bada_system
     mount vfat /dev/block/mmcblk0p1 /mnt/bada_system noatime
-    mkdir /mnt/bada_user
-    chmod 0777 /mnt/bada_user
-    mount vfat /dev/block/mmcblk0p2 /mnt/bada_user noatime
     mkdir /mnt/bada_app
     chmod 0777 /mnt/bada_app
     mount vfat /dev/block/mmcblk0p3 /mnt/bada_app noatime
