@@ -448,7 +448,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
     script.RunBackup("backup")
     script.Unmount("/system")
 
-  script.ShowProgress(0.5, 0)
+  script.ShowProgress(0.1, 0)
 
   if OPTIONS.wipe_user_data:
     script.FormatPartition("/data")
@@ -459,6 +459,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.FormatPartition("/system")
   script.Mount("/system")
   #script.UnpackPackageDir("recovery", "/system")
+  script.ShowProgress(0.7, 30)
   script.UnpackPackageDir("system", "/system")
 
   symlinks = CopySystemFiles(input_zip, output_zip)
@@ -482,14 +483,13 @@ def WriteFullOTAPackage(input_zip, output_zip):
   common.ZipWriteStr(output_zip, "zImage", boot_img.data)
 
   
-  script.ShowProgress(0.2, 0)
+  script.ShowProgress(0.1, 10)
   script.UnpackPackageFile("zImage", "/bada_user/zImage")
 
   if OPTIONS.backuptool:
     script.ShowProgress(0.2, 10)
     script.RunBackup("restore")
 
-  script.ShowProgress(0.2, 10)
   # script.WriteRawImage("/boot", "boot.img")
 
   script.RunSetModel()
