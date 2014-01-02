@@ -59,8 +59,11 @@ on fs
 # Permissions for Battery Control
 
     chmod 0666 /sys/devices/platform/i2c-gpio.6/i2c-6/6-0066/max8998-charger/power_supply/battery/capacity
+    chmod 0666 /sys/devices/platform/i2c-gpio.6/i2c-6/6-0066/max8998-charger/power_supply/battery/voltage_now
+    chmod 0666 /sys/devices/platform/i2c-gpio.6/i2c-6/6-0066/max8998-charger/power_supply/battery/temp
     chmod 0666 /sys/devices/platform/i2c-gpio.6/i2c-6/6-0066/max8998-charger/power_supply/ac/online
     chmod 0666 /sys/devices/platform/i2c-gpio.6/i2c-6/6-0066/max8998-charger/power_supply/usb/online
+
 
 # Permissions for System Server and daemons.
     chown system system /sys/class/backlight/s5p_bl/brightness
