@@ -15,3 +15,6 @@ boot				/boot		mtd	defaults	recoveryonly
 
 /devices/platform/s3c-sdhci.2/mmc_host/mmc2 	auto auto	defaults	voldmanaged=sdcard0:auto,noemulatedsd
 /devices/platform/s3c-sdhci.0/mmc_host/mmc0 	auto auto	defaults	voldmanaged=sdcard1:2,nonremovable
+
+#ZRam
+/dev/block/zram0		none		swap	defaults	zramsize=83886080

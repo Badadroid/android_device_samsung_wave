@@ -46,6 +46,10 @@ on fs
     mount ext4 loop@/mnt/bada_system/cache.img /cache noatime
     mount ext4 loop@/mnt/bada_app/data.img /data noatime
     mount_all fstab.wave
+    swapon_all fstab.wave
+
+# add zram parameters
+    write /proc/sys/vm/page-cluster 0
 
 # permissions for bluetooth.
     chown bluetooth net_bt_stack /dev/s3c2410_serial0
