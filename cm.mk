@@ -4,6 +4,12 @@ $(call inherit-product, vendor/cm/config/gsm.mk)
 # Release name
 PRODUCT_RELEASE_NAME := Wave
 
+# We need screen width/height defined before inheriting
+# common_mini_phone.mk to avoid automatically bringing in the wrong
+# boot animation.
+TARGET_SCREEN_WIDTH := 480
+TARGET_SCREEN_HEIGHT := 800
+
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_mini_phone.mk)
 
