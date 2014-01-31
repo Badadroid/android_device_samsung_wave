@@ -9,6 +9,7 @@ PRODUCT_RELEASE_NAME := Wave
 # boot animation.
 TARGET_SCREEN_WIDTH := 480
 TARGET_SCREEN_HEIGHT := 800
+TARGET_BOOTANIMATION_HALF_RES := true
 
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_mini_phone.mk)
