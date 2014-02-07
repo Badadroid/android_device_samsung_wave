@@ -1,6 +1,8 @@
 /*
  * Copyright (C) 2013 Paul Kocialkowski
  * Copyright (C) 2013 Dominik Marszk
+ * Copyright (C) 2013-2014 Nikolay Volkov
+
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +20,7 @@
 
 #include <stdlib.h>
 
-#define LOG_TAG "Audio-RIL-Interface"
+#define LOG_TAG "LibRIL-Client"
 #include <cutils/log.h>
 
 #include <secril-client.h>
@@ -125,6 +127,8 @@ int isConnected_RILD(HRilClient data)
 	return 1;
 }
 
+/************************* Audio Interface *************************/
+
 int SetVolume(HRilClient data, SoundType type, int level)
 {
 	struct srs_client *client;
@@ -178,10 +182,10 @@ int SetAudioPath(HRilClient data, AudioPath path)
 	int rc;
 
 	ALOGE("%s(%p, %d)", __func__, data, path);
-	
+
 	if (data == NULL)
 		return RIL_CLIENT_ERR_INVAL;
-		
+
 	switch(path)
 	{
 		case SOUND_AUDIO_PATH_HANDSET:
@@ -217,7 +221,7 @@ int SetAudioPath(HRilClient data, AudioPath path)
 	}
 
 	client = (struct srs_client *) data;
-	
+
 	rc = srs_client_send(client, SRS_SND_SET_AUDIO_PATH, &audio_path, sizeof(audio_path));
 	if (rc < 0)
 		return RIL_CLIENT_ERR_UNKNOWN;
@@ -232,15 +236,40 @@ int PcmIfCtrl(HRilClient data, int enabled)
 	int rc;
 
 	ALOGE("%s(%p, %d)", __func__, data, enabled);
-	
+
 	if (data == NULL)
 		return RIL_CLIENT_ERR_INVAL;
-	
+
 	client = (struct srs_client *) data;
-	
+
 	en_pkt.enabled = enabled;
-	
+
 	rc = srs_client_send(client, SRS_SND_PCM_IF_CTRL, &en_pkt, sizeof(en_pkt));
+
+	if (rc < 0)
+		return RIL_CLIENT_ERR_UNKNOWN;
+
+	return RIL_CLIENT_ERR_SUCCESS;
+}
+
+/************************* GPS Interface *************************/
+
+int GPSNavigation(HRilClient data, int enabled)
+{
+	struct srs_client *client;
+	struct srs_snd_enable_disable_packet en_pkt;
+	int rc;
+
+	ALOGE("%s(%p, %d)", __func__, data, enabled);
+
+	if (data == NULL)
+		return RIL_CLIENT_ERR_INVAL;
+
+	client = (struct srs_client *) data;
+
+	en_pkt.enabled = enabled;
+
+	rc = srs_client_send(client, SRS_GPS_NAVIGATION, &en_pkt, sizeof(en_pkt));
 
 	if (rc < 0)
 		return RIL_CLIENT_ERR_UNKNOWN;

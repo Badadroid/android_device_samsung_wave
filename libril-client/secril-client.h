@@ -158,6 +158,12 @@ int SetAudioPath(HRilClient client, AudioPath path);
  */
 int PcmIfCtrl(HRilClient client, int enabled);
 
+/**
+ * Set navigation mode
+ */
+
+int GPSNavigation(HRilClient data, int enabled);
+
 #ifdef __cplusplus
 };
 #endif
