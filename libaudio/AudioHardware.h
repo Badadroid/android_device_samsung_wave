@@ -26,7 +26,7 @@
 #include <hardware_legacy/AudioHardwareBase.h>
 #include <hardware/audio_effect.h>
 
-#include "secril-client.h"
+#include <secril-client.h>
 
 #include <audio_utils/resampler.h>
 #include <audio_utils/echo_reference.h>

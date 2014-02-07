@@ -23,7 +23,8 @@ LOCAL_SHARED_LIBRARIES += libdl
 LOCAL_C_INCLUDES += \
 	external/tinyalsa/include \
 	$(call include-path-for, audio-effects) \
-	$(call include-path-for, audio-utils)
+	$(call include-path-for, audio-utils) \
+	device/samsung/wave/libril-client
 
 include $(BUILD_SHARED_LIBRARY)
 

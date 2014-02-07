@@ -19,17 +19,16 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_SRC_FILES := audio-ril-interface.c
+LOCAL_SRC_FILES := ril-client.c
 
 LOCAL_C_INCLUDES := \
 	external/libmocha-ipc/include \
 	external/libmocha-ipc/srs-client/include \
-	device/samsung/wave/libaudio/
 
 LOCAL_SHARED_LIBRARIES := liblog libcutils libsrs-client
 LOCAL_PRELINK_MODULE := false
 
-LOCAL_MODULE := libaudio-ril-interface
+LOCAL_MODULE := libril-client
 LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)
