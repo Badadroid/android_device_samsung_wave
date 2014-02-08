@@ -111,10 +111,11 @@ PRODUCT_PACKAGES += \
 	power.s5pc110 \
 	hwcomposer.s5pc110 \
 	camera.wave \
+	gps.wave \
 	audio.primary.wave \
 	audio.a2dp.default \
 	audio.usb.default \
-	libaudio-ril-interface \
+	libril-client \
 	libs3cjpeg
 
 # Libs
