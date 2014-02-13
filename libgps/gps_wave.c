@@ -33,6 +33,48 @@
 #  define  D(...)   ((void)0)
 #endif
 
+enum {
+	STATE_QUIT = 0,
+	STATE_INIT = 1,
+	STATE_START = 2
+};
+
+typedef struct {
+	int init;
+	GpsCallbacks callbacks;
+	GpsStatus status;
+} GpsState;
+
+static GpsState _gps_state[1];
+
+void update_gps_location(GpsLocation *location) {
+	D("%s(): GpsLocation=%f, %f", __FUNCTION__, location->latitude, location->longitude);
+
+	GpsState* state = _gps_state;
+
+	if(state->callbacks.location_cb)
+		state->callbacks.location_cb(location);
+}
+
+void update_gps_status(GpsStatusValue value) {
+	D("%s(): GpsStatusValue=%d", __FUNCTION__, value);
+
+	GpsState* state = _gps_state;
+
+	state->status.status=value;
+	if(state->callbacks.status_cb)
+		state->callbacks.status_cb(&state->status);
+}
+
+void update_gps_svstatus(GpsSvStatus *svstatus) {
+	D("%s(): GpsSvStatus.num_svs=%d", __FUNCTION__, svstatus->num_svs);
+
+	GpsState* state = _gps_state;
+
+	if(state->callbacks.sv_status_cb)
+		state->callbacks.sv_status_cb(svstatus);
+}
+
 /********************************* RIL interface *********************************/
 
 void*		mSecRilLibHandle;
@@ -113,8 +155,18 @@ wave_gps_init(GpsCallbacks* callbacks)
 	D("%s() is called", __FUNCTION__);
 	/* not yet implemented */
 
-       if (!mSecRilLibHandle)
+	GpsState* s = _gps_state;
+
+	if (!mSecRilLibHandle)
 		loadRILD();
+
+	if (!s->init)
+	{
+		update_gps_status(GPS_STATUS_ENGINE_ON);
+		s->init = STATE_INIT;
+	}
+
+	s->callbacks = *callbacks;
 
 	return 0;
 }
@@ -123,20 +175,35 @@ static void
 wave_gps_cleanup(void)
 {
 	D("%s() is called", __FUNCTION__);
-	/* not yet implemented */
-}
 
+	GpsState* s = _gps_state;
+
+	if (s->init) {
+		update_gps_status(GPS_STATUS_ENGINE_OFF);
+		s->init = STATE_QUIT;
+	}
+}
 
 static int
 wave_gps_start()
 {
 	D("%s() is called", __FUNCTION__);
-	/* not yet implemented */
 
-	if ((mSecRilLibHandle) && (connectRILDIfRequired() == 0))
+	GpsState* s = _gps_state;
+
+	if (!s->init) {
+		D("%s: called with uninitialized state !!", __FUNCTION__);
+		return -1;
+	}
+
+	if ((mSecRilLibHandle) && (connectRILDIfRequired() == 0)) {
 		gpsNavigation(mRilClient, 1);
-
-	return 0;
+		update_gps_status(GPS_STATUS_SESSION_BEGIN);
+		s->init = STATE_START;
+		return 0;
+	}
+	else
+		return -1;
 }
 
 
@@ -144,12 +211,22 @@ static int
 wave_gps_stop()
 {
 	D("%s() is called", __FUNCTION__);
-	/* not yet implemented */
 
-	if ((mSecRilLibHandle) && (connectRILDIfRequired() == 0))
+	GpsState* s = _gps_state;
+
+	if (!s->init) {
+		D("%s: called with uninitialized state !!", __FUNCTION__);
+		return -1;
+	}
+
+	if ((mSecRilLibHandle) && (connectRILDIfRequired() == 0)) {
 		gpsNavigation(mRilClient, 0);
-
-	return 0;
+		update_gps_status(GPS_STATUS_SESSION_END);
+		s->init = STATE_INIT;
+		return 0;
+	}
+	else
+		return -1;
 }
 
 
