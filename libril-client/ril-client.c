@@ -254,7 +254,7 @@ int PcmIfCtrl(HRilClient data, int enabled)
 
 /************************* GPS Interface *************************/
 
-int GPSNavigation(HRilClient data, int enabled)
+int GpsSetNavigationMode(HRilClient data, int enabled)
 {
 	struct srs_client *client;
 	struct srs_snd_enable_disable_packet en_pkt;

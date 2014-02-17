@@ -76,70 +76,14 @@ void update_gps_svstatus(GpsSvStatus *svstatus) {
 }
 
 /********************************* RIL interface *********************************/
-
-void*		mSecRilLibHandle;
 HRilClient	mRilClient;
-HRilClient	(*openClientRILD)	(void);
-int		(*disconnectRILD)	(HRilClient);
-int		(*closeClientRILD)	(HRilClient);
-int		(*isConnectedRILD)	(HRilClient);
-int		(*connectRILD)		(HRilClient);
-int		(*gpsNavigation)	(HRilClient, int);
-void		loadRILD(void);
-int		connectRILDIfRequired(void);
-
-void loadRILD(void)
-{
-	mSecRilLibHandle = dlopen("libril-client.so", RTLD_NOW);
-
-	if (mSecRilLibHandle) {
-		ALOGV("libril-client.so is loaded");
-
-		openClientRILD   = (HRilClient (*)(void))
-					dlsym(mSecRilLibHandle, "OpenClient_RILD");
-		disconnectRILD   = (int (*)(HRilClient))
-					dlsym(mSecRilLibHandle, "Disconnect_RILD");
-		closeClientRILD  = (int (*)(HRilClient))
-					dlsym(mSecRilLibHandle, "CloseClient_RILD");
-		isConnectedRILD  = (int (*)(HRilClient))
-					dlsym(mSecRilLibHandle, "isConnected_RILD");
-		connectRILD      = (int (*)(HRilClient))
-					dlsym(mSecRilLibHandle, "Connect_RILD");
-		gpsNavigation    = (int (*)(HRilClient, int))
-					dlsym(mSecRilLibHandle, "GPSNavigation");
-
-		if (!openClientRILD  || !disconnectRILD   || !closeClientRILD ||
-				!isConnectedRILD || !connectRILD || !gpsNavigation ) {
-			ALOGE("Can't load all functions from libril-client.so");
-
-			dlclose(mSecRilLibHandle);
-			mSecRilLibHandle = NULL;
-		} else {
-			mRilClient = openClientRILD();
-			if (!mRilClient) {
-				ALOGE("OpenClient_RILD() error");
-
-			dlclose(mSecRilLibHandle);
-			mSecRilLibHandle = NULL;
-			}
-		}
-	} else {
-		ALOGE("Can't load libril-client.so");
-	}
-}
-
 int connectRILDIfRequired(void)
 {
-	if (!mSecRilLibHandle) {
-		ALOGE("connectIfRequired() lib is not loaded");
-		return -1;
-	}
-
-	if (isConnectedRILD(mRilClient)) {
+	if (isConnected_RILD(mRilClient)) {
 		return 0;
 	}
 
-	if (connectRILD(mRilClient) != RIL_CLIENT_ERR_SUCCESS) {
+	if (Connect_RILD(mRilClient) != RIL_CLIENT_ERR_SUCCESS) {
 		ALOGE("Connect_RILD() error");
 		return -1;
 	}
@@ -157,8 +101,12 @@ wave_gps_init(GpsCallbacks* callbacks)
 
 	GpsState* s = _gps_state;
 
-	if (!mSecRilLibHandle)
-		loadRILD();
+	if (!mRilClient) {
+		mRilClient = OpenClient_RILD();
+		if (!mRilClient) {
+			ALOGE("OpenClient_RILD() error");
+		}
+	}
 
 	if (!s->init)
 	{
@@ -196,8 +144,8 @@ wave_gps_start()
 		return -1;
 	}
 
-	if ((mSecRilLibHandle) && (connectRILDIfRequired() == 0)) {
-		gpsNavigation(mRilClient, 1);
+	if (connectRILDIfRequired() == 0) {
+		GpsSetNavigationMode(mRilClient, 1);
 		update_gps_status(GPS_STATUS_SESSION_BEGIN);
 		s->init = STATE_START;
 		return 0;
@@ -219,8 +167,8 @@ wave_gps_stop()
 		return -1;
 	}
 
-	if ((mSecRilLibHandle) && (connectRILDIfRequired() == 0)) {
-		gpsNavigation(mRilClient, 0);
+	if (connectRILDIfRequired() == 0) {
+		GpsSetNavigationMode(mRilClient, 0);
 		update_gps_status(GPS_STATUS_SESSION_END);
 		s->init = STATE_INIT;
 		return 0;
