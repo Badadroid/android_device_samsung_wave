@@ -163,6 +163,11 @@ int SetAudioPath(HRilClient client, AudioPath path);
 int PcmIfCtrl(HRilClient client, int enabled);
 
 /**
+ * Introduce self as GPS SRS client
+ */
+int GpsHello(HRilClient data);
+
+/**
  * Set navigation mode
  */
 int GpsSetNavigationMode(HRilClient data, int enabled);

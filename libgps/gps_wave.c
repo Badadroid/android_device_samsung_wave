@@ -77,19 +77,6 @@ void update_gps_svstatus(GpsSvStatus *svstatus) {
 
 /********************************* RIL interface *********************************/
 HRilClient	mRilClient;
-int connectRILDIfRequired(void)
-{
-	if (isConnected_RILD(mRilClient)) {
-		return 0;
-	}
-
-	if (Connect_RILD(mRilClient) != RIL_CLIENT_ERR_SUCCESS) {
-		ALOGE("Connect_RILD() error");
-		return -1;
-	}
-
-    return 0;
-}
 /* Copied from samsung-ril-socket.h */
 #define SRS_GPS_NAVIGATION_MODE	0x0301
 #define SRS_GPS_SV_STATUS		0x0302
@@ -104,6 +91,27 @@ int _GpsHandler(int type, void *data)
 		update_gps_location(status);
 	}
 	return 0;
+}
+
+int connectRILDIfRequired(void)
+{
+	if (isConnected_RILD(mRilClient)) {
+		return 0;
+	}
+
+	if (Connect_RILD(mRilClient) != RIL_CLIENT_ERR_SUCCESS) {
+		ALOGE("Connect_RILD() error");
+		return -1;
+	}
+
+	/* Has to be registered after connecting to let SRS read ping in main thread*/
+	RegisterGpsHandler(mRilClient, _GpsHandler);
+
+	if (GpsHello(mRilClient) != RIL_CLIENT_ERR_SUCCESS) {
+		ALOGE("GpsHello() error");
+		return -1;
+	}
+    return 0;
 }
 
 /********************************* GPS interface *********************************/
@@ -121,7 +129,6 @@ wave_gps_init(GpsCallbacks* callbacks)
 		if (!mRilClient) {
 			ALOGE("OpenClient_RILD() error");
 		}
-		RegisterGpsHandler(mRilClient, _GpsHandler);
 	}
 
 	if (!s->init)
