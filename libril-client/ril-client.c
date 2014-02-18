@@ -269,7 +269,7 @@ int GpsSetNavigationMode(HRilClient data, int enabled)
 
 	en_pkt.enabled = enabled;
 
-	rc = srs_client_send(client, SRS_GPS_NAVIGATION, &en_pkt, sizeof(en_pkt));
+	rc = srs_client_send(client, SRS_GPS_NAVIGATION_MODE, &en_pkt, sizeof(en_pkt));
 
 	if (rc < 0)
 		return RIL_CLIENT_ERR_UNKNOWN;
