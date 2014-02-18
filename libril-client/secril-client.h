@@ -55,6 +55,8 @@ typedef int (*RilOnUnsolicited)(HRilClient handle, const void *data, size_t data
 
 typedef int (*RilOnError)(void *data, int error);
 
+typedef int (*GpsHandler)(int type, void *data);
+
 
 //---------------------------------------------------------------------------
 // Client APIs
@@ -89,6 +91,8 @@ int isConnected_RILD(HRilClient client);
  * Return is 0 or error code.
  */
 int Disconnect_RILD(HRilClient client);
+
+int RegisterGpsHandler(HRilClient client, GpsHandler handler);
 
 /**
  * Register unsolicited response handler. If handler is NULL,
@@ -161,7 +165,6 @@ int PcmIfCtrl(HRilClient client, int enabled);
 /**
  * Set navigation mode
  */
-
 int GpsSetNavigationMode(HRilClient data, int enabled);
 
 #ifdef __cplusplus

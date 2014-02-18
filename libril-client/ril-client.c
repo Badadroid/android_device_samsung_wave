@@ -126,7 +126,26 @@ int isConnected_RILD(HRilClient data)
 
 	return 1;
 }
+GpsHandler _handler;
+void srs_client_cb(struct srs_message *message)
+{
+	if(SRS_GROUP(message->command) == SRS_GPS) {
+		if(_handler != NULL) {
+			_handler(message->command, message->data);
+		}
+	}
+}
 
+int RegisterGpsHandler(HRilClient data, GpsHandler handler)
+{
+	struct srs_client *client;
+	_handler = handler;
+	client = (struct srs_client *) data;
+	if(client->thread_run == 0) {
+		srs_client_thread_start(client, srs_client_cb);
+	}
+	return 0;
+}
 /************************* Audio Interface *************************/
 
 int SetVolume(HRilClient data, SoundType type, int level)
@@ -269,7 +288,7 @@ int GpsSetNavigationMode(HRilClient data, int enabled)
 
 	en_pkt.enabled = enabled;
 
-	rc = srs_client_send(client, SRS_GPS_NAVIGATION, &en_pkt, sizeof(en_pkt));
+	rc = srs_client_send(client, SRS_GPS_NAVIGATION_MODE, &en_pkt, sizeof(en_pkt));
 
 	if (rc < 0)
 		return RIL_CLIENT_ERR_UNKNOWN;

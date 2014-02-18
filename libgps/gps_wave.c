@@ -90,6 +90,21 @@ int connectRILDIfRequired(void)
 
     return 0;
 }
+/* Copied from samsung-ril-socket.h */
+#define SRS_GPS_NAVIGATION_MODE	0x0301
+#define SRS_GPS_SV_STATUS		0x0302
+#define SRS_GPS_LOCATION		0x0303
+int _GpsHandler(int type, void *data)
+{
+	if(type == SRS_GPS_SV_STATUS) {
+		GpsSvStatus *status = (GpsSvStatus*) data;
+		update_gps_svstatus(status);
+	} else if (type == SRS_GPS_LOCATION) {
+		GpsLocation *status = (GpsLocation*) data;
+		update_gps_location(status);
+	}
+	return 0;
+}
 
 /********************************* GPS interface *********************************/
 
@@ -106,6 +121,7 @@ wave_gps_init(GpsCallbacks* callbacks)
 		if (!mRilClient) {
 			ALOGE("OpenClient_RILD() error");
 		}
+		RegisterGpsHandler(mRilClient, _GpsHandler);
 	}
 
 	if (!s->init)
