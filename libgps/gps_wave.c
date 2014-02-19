@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <dlfcn.h>
+#include <pthread.h>
 
 #define  LOG_TAG  "gps_wave"
 #include <utils/Log.h>
@@ -43,36 +44,45 @@ typedef struct {
 	int init;
 	GpsCallbacks callbacks;
 	GpsStatus status;
+	GpsLocation location;
+	GpsSvStatus svStatus;
+
+	pthread_mutex_t GpsMutex;
 } GpsState;
 
 static GpsState _gps_state[1];
 
-void update_gps_location(GpsLocation *location) {
-	D("%s(): GpsLocation=%f, %f", __FUNCTION__, location->latitude, location->longitude);
+#define GPS_LOCK() pthread_mutex_lock(&_gps_state->GpsMutex)
+#define GPS_UNLOCK() pthread_mutex_unlock(&_gps_state->GpsMutex)
 
+void update_gps_location(void* arg) {
 	GpsState* state = _gps_state;
+	D("%s(): GpsLocation=%f, %f", __FUNCTION__, state->location.latitude, state->location.longitude);
 
+	GPS_LOCK();
 	if(state->callbacks.location_cb)
-		state->callbacks.location_cb(location);
+		state->callbacks.location_cb(&state->location);
+	GPS_UNLOCK();
 }
 
-void update_gps_status(GpsStatusValue value) {
-	D("%s(): GpsStatusValue=%d", __FUNCTION__, value);
-
+void update_gps_status(void* arg) {
 	GpsState* state = _gps_state;
+	D("%s(): GpsStatusValue=%d", __FUNCTION__, state->status.status);
 
-	state->status.status=value;
+	GPS_LOCK();
 	if(state->callbacks.status_cb)
 		state->callbacks.status_cb(&state->status);
+	GPS_UNLOCK();
 }
 
-void update_gps_svstatus(GpsSvStatus *svstatus) {
-	D("%s(): GpsSvStatus.num_svs=%d", __FUNCTION__, svstatus->num_svs);
-
+void update_gps_svstatus(void* arg) {
 	GpsState* state = _gps_state;
+	D("%s(): GpsSvStatus.num_svs=%d", __FUNCTION__, state->svStatus.num_svs);
 
+	GPS_LOCK();
 	if(state->callbacks.sv_status_cb)
-		state->callbacks.sv_status_cb(svstatus);
+		state->callbacks.sv_status_cb(&state->svStatus);
+	GPS_UNLOCK();
 }
 
 /********************************* RIL interface *********************************/
@@ -83,12 +93,19 @@ HRilClient	mRilClient;
 #define SRS_GPS_LOCATION		0x0303
 int _GpsHandler(int type, void *data)
 {
+	GpsState* state = _gps_state;
 	if(type == SRS_GPS_SV_STATUS) {
-		GpsSvStatus *status = (GpsSvStatus*) data;
-		update_gps_svstatus(status);
+		GPS_LOCK();
+		memcpy(&state->svStatus, data, sizeof(GpsSvStatus));
+		GPS_UNLOCK();
+		if(state->callbacks.create_thread_cb)
+			state->callbacks.create_thread_cb("update_gps_svstatus", update_gps_svstatus, NULL);
 	} else if (type == SRS_GPS_LOCATION) {
-		GpsLocation *status = (GpsLocation*) data;
-		update_gps_location(status);
+		GPS_LOCK();
+		memcpy(&state->location, data, sizeof(GpsLocation));
+		GPS_UNLOCK();
+		if(state->callbacks.create_thread_cb)
+			state->callbacks.create_thread_cb("update_gps_location", update_gps_location, NULL);
 	}
 	return 0;
 }
@@ -133,7 +150,11 @@ wave_gps_init(GpsCallbacks* callbacks)
 
 	if (!s->init)
 	{
-		update_gps_status(GPS_STATUS_ENGINE_ON);
+		GPS_LOCK();
+		s->status.status = GPS_STATUS_ENGINE_ON;
+		GPS_UNLOCK();
+		if(s->callbacks.create_thread_cb)
+			s->callbacks.create_thread_cb("update_gps_svstatus", update_gps_svstatus, NULL);
 		s->init = STATE_INIT;
 	}
 
@@ -150,7 +171,11 @@ wave_gps_cleanup(void)
 	GpsState* s = _gps_state;
 
 	if (s->init) {
-		update_gps_status(GPS_STATUS_ENGINE_OFF);
+		GPS_LOCK();
+		s->status.status = GPS_STATUS_ENGINE_OFF;
+		GPS_UNLOCK();
+		if(s->callbacks.create_thread_cb)
+			s->callbacks.create_thread_cb("update_gps_svstatus", update_gps_svstatus, NULL);
 		s->init = STATE_QUIT;
 	}
 }
@@ -169,7 +194,11 @@ wave_gps_start()
 
 	if (connectRILDIfRequired() == 0) {
 		GpsSetNavigationMode(mRilClient, 1);
-		update_gps_status(GPS_STATUS_SESSION_BEGIN);
+		GPS_LOCK();
+		s->status.status = GPS_STATUS_SESSION_BEGIN;
+		GPS_UNLOCK();
+		if(s->callbacks.create_thread_cb)
+			s->callbacks.create_thread_cb("update_gps_svstatus", update_gps_svstatus, NULL);
 		s->init = STATE_START;
 		return 0;
 	}
@@ -192,7 +221,11 @@ wave_gps_stop()
 
 	if (connectRILDIfRequired() == 0) {
 		GpsSetNavigationMode(mRilClient, 0);
-		update_gps_status(GPS_STATUS_SESSION_END);
+		GPS_LOCK();
+		s->status.status = GPS_STATUS_SESSION_END;
+		GPS_UNLOCK();
+		if(s->callbacks.create_thread_cb)
+			s->callbacks.create_thread_cb("update_gps_svstatus", update_gps_svstatus, NULL);
 		s->init = STATE_INIT;
 		return 0;
 	}
@@ -274,6 +307,8 @@ static int open_gps(const struct hw_module_t* module, char const* name,
     dev->get_gps_interface = gps__get_gps_interface;
 
     *device = (struct hw_device_t*)dev;
+
+	pthread_mutex_init(&_gps_state->GpsMutex, NULL);
     return 0;
 }
 
