@@ -25,7 +25,8 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 LOCAL_SHARED_LIBRARIES := liblog libcutils libhardware libdl libril-client
 LOCAL_SRC_FILES := gps_wave.c
 LOCAL_C_INCLUDES += \
-	device/samsung/wave/libril-client
+	device/samsung/wave/libril-client \
+	external/libmocha-ipc/include
 
 LOCAL_MODULE := gps.wave
 

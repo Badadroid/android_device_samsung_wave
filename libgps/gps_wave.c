@@ -18,6 +18,7 @@
 #include <fcntl.h>
 #include <hardware/gps.h>
 #include <secril-client.h>
+#include <samsung-ril-socket.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <dlfcn.h>
@@ -87,10 +88,7 @@ void update_gps_svstatus(void* arg) {
 
 /********************************* RIL interface *********************************/
 HRilClient	mRilClient;
-/* Copied from samsung-ril-socket.h */
-#define SRS_GPS_NAVIGATION_MODE	0x0301
-#define SRS_GPS_SV_STATUS		0x0302
-#define SRS_GPS_LOCATION		0x0303
+
 int _GpsHandler(int type, void *data)
 {
 	GpsState* state = _gps_state;
@@ -106,6 +104,12 @@ int _GpsHandler(int type, void *data)
 		GPS_UNLOCK();
 		if(state->callbacks.create_thread_cb)
 			state->callbacks.create_thread_cb("update_gps_location", update_gps_location, NULL);
+	} else if (type == SRS_GPS_STATE) {
+		GPS_LOCK();
+		memcpy(&state->status.status, data, sizeof(GpsStatusValue));
+		GPS_UNLOCK();
+		if(state->callbacks.create_thread_cb)
+			state->callbacks.create_thread_cb("update_gps_status", update_gps_status, NULL);
 	}
 	return 0;
 }
@@ -150,16 +154,16 @@ wave_gps_init(GpsCallbacks* callbacks)
 
 	if (!s->init)
 	{
+		s->callbacks = *callbacks;
+
 		GPS_LOCK();
 		s->status.status = GPS_STATUS_ENGINE_ON;
 		GPS_UNLOCK();
 		if(s->callbacks.create_thread_cb)
-			s->callbacks.create_thread_cb("update_gps_svstatus", update_gps_svstatus, NULL);
+			s->callbacks.create_thread_cb("update_gps_status", update_gps_status, NULL);
+
 		s->init = STATE_INIT;
 	}
-
-	s->callbacks = *callbacks;
-
 	return 0;
 }
 
@@ -175,7 +179,7 @@ wave_gps_cleanup(void)
 		s->status.status = GPS_STATUS_ENGINE_OFF;
 		GPS_UNLOCK();
 		if(s->callbacks.create_thread_cb)
-			s->callbacks.create_thread_cb("update_gps_svstatus", update_gps_svstatus, NULL);
+			s->callbacks.create_thread_cb("update_gps_status", update_gps_status, NULL);
 		s->init = STATE_QUIT;
 	}
 }
@@ -194,16 +198,10 @@ wave_gps_start()
 
 	if (connectRILDIfRequired() == 0) {
 		GpsSetNavigationMode(mRilClient, 1);
-		GPS_LOCK();
-		s->status.status = GPS_STATUS_SESSION_BEGIN;
-		GPS_UNLOCK();
-		if(s->callbacks.create_thread_cb)
-			s->callbacks.create_thread_cb("update_gps_svstatus", update_gps_svstatus, NULL);
 		s->init = STATE_START;
-		return 0;
 	}
-	else
-		return -1;
+
+	return 0;
 }
 
 
@@ -221,16 +219,10 @@ wave_gps_stop()
 
 	if (connectRILDIfRequired() == 0) {
 		GpsSetNavigationMode(mRilClient, 0);
-		GPS_LOCK();
-		s->status.status = GPS_STATUS_SESSION_END;
-		GPS_UNLOCK();
-		if(s->callbacks.create_thread_cb)
-			s->callbacks.create_thread_cb("update_gps_svstatus", update_gps_svstatus, NULL);
 		s->init = STATE_INIT;
-		return 0;
 	}
-	else
-		return -1;
+
+	return 0;
 }
 
 
