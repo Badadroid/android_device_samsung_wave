@@ -42,9 +42,9 @@ on fs
     mkdir /mnt/bada_app
     chmod 0777 /mnt/bada_app
     mount vfat /dev/block/mmcblk0p3 /mnt/bada_app noatime
-    mount ext4 loop@/mnt/bada_system/system.img /system noatime
-    mount ext4 loop@/mnt/bada_system/cache.img /cache noatime
-    mount ext4 loop@/mnt/bada_app/data.img /data noatime
+    mount ext4 loop@/mnt/bada_system/system.img /system noatime noauto_da_alloc discard journal_async_commit nodiratime data=writeback barrier=0 nobh nomblk_io_submit
+    mount ext4 loop@/mnt/bada_system/cache.img /cache noatime noauto_da_alloc discard journal_async_commit nodiratime data=writeback barrier=0 nobh nomblk_io_submit
+    mount ext4 loop@/mnt/bada_app/data.img /data noatime noauto_da_alloc discard journal_async_commit nodiratime data=writeback barrier=0 nobh nomblk_io_submit
     mount_all fstab.wave
     swapon_all fstab.wave
 

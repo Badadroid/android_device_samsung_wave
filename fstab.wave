@@ -5,13 +5,13 @@
 
 boot				/boot		mtd	defaults	recoveryonly
 
-/dev/block/mmcblk0p1		/bada_system	vfat	defaults	recoveryonly
-/dev/block/mmcblk0p2		/bada_user	vfat	defaults	recoveryonly
-/dev/block/mmcblk0p3		/bada_app	vfat	defaults	recoveryonly
+/dev/block/mmcblk0p1		/bada_system	vfat	defaults,noatime	recoveryonly
+/dev/block/mmcblk0p2		/bada_user	vfat	defaults,noatime	recoveryonly
+/dev/block/mmcblk0p3		/bada_app	vfat	defaults,noatime	recoveryonly
 
-/bada_system/system.img 	/system 	ext4 	defaults,loop	recoveryonly,length=393216000
-/bada_system/cache.img 		/cache 		ext4 	defaults,loop	recoveryonly,length=18874368
-/bada_app/data.img 		/data 		ext4 	defaults,loop	recoveryonly,length=419430400
+/bada_system/system.img 	/system 	ext4 	noatime,noauto_da_alloc,discard,journal_async_commit,nodiratime,data=writeback,barrier=0,nobh,nomblk_io_submit,loop	recoveryonly,length=393216000
+/bada_system/cache.img 		/cache 		ext4 	noatime,noauto_da_alloc,discard,journal_async_commit,nodiratime,data=writeback,barrier=0,nobh,nomblk_io_submit,loop	recoveryonly,length=18874368
+/bada_app/data.img 		/data 		ext4 	noatime,noauto_da_alloc,discard,journal_async_commit,nodiratime,data=writeback,barrier=0,nobh,nomblk_io_submit,loop	recoveryonly,length=419430400
 
 /devices/platform/s3c-sdhci.2/mmc_host/mmc2 	auto auto	defaults	voldmanaged=sdcard0:auto,noemulatedsd
 /devices/platform/s3c-sdhci.0/mmc_host/mmc0 	auto auto	defaults	voldmanaged=sdcard1:2,nonremovable
