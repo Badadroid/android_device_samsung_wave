@@ -48,9 +48,6 @@ on fs
     mount_all fstab.wave
     swapon_all fstab.wave
 
-# add zram parameters
-    write /proc/sys/vm/page-cluster 0
-
 # permissions for bluetooth.
     chown bluetooth net_bt_stack /dev/s3c2410_serial0
     chmod 0600 /dev/s3c2410_serial0
@@ -150,6 +147,9 @@ on post-fs
 
 # trigger governor change uevent
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
+
+# zRAM: only read one page at a time
+    write /proc/sys/vm/page-cluster 0
 
 on post-fs-data
 	
