@@ -202,6 +202,10 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 
+# Recovery Options
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.cwm.forbid_format=/bada_system,/bada_user,/bada_app
+
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
