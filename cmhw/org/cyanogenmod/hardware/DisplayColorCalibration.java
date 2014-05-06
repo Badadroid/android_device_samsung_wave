@@ -39,6 +39,10 @@ public class DisplayColorCalibration {
         return 0;
     }
 
+    public static int getDefValue()  {
+        return Integer.MAX_VALUE;
+    }
+
     public static String getCurColors()  {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < COLOR_FILE.length; i++) {
