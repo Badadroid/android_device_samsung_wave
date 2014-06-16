@@ -3,21 +3,7 @@ import usb.rc # Renamed init.wave.usb.rc, we can't use init*.rc because the buil
 on init
     # legacy symlink
     rmdir /external_sd
-    symlink /storage/sdcard1 /external_sd
-
-on fs
-# this is for auto cache & system mounting
-    mkdir /bada_system
-    chmod 0777 /bada_system
-    mount vfat /dev/block/mmcblk0p1 /bada_system noatime
-# this is in case of zImage patches
-    mkdir /bada_user
-    chmod 0777 /bada_user
-    mount vfat /dev/block/mmcblk0p2 /bada_user noatime
-# this is for mounting data
-    mkdir /bada_app
-    chmod 0777 /bada_app
-    mount vfat /dev/block/mmcblk0p3 /bada_app noatime
+    symlink /storage/sdcard0 /external_sd
 
 on boot
     write /dev/graphics/fb3 1

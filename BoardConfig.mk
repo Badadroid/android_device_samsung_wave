@@ -58,8 +58,7 @@ BOARD_MOBILEDATA_INTERFACE_NAME = "pdp0"
 TARGET_KERNEL_SOURCE := kernel/samsung/wave
 
 # Releasetools
-TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/wave/releasetools/wave_ota_from_target_files
-TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/wave/releasetools/wave_img_from_target_files
+TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/wave
 
 # Camera
 USE_CAMERA_STUB := false

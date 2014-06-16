@@ -3,18 +3,15 @@ import init.wave.usb.rc
 on init
     loglevel 9
     export EXTERNAL_STORAGE /storage/sdcard0
-    export SECONDARY_STORAGE /storage/sdcard1
 
     # FIXME: Market checks this variable for space-checking, but downloads to /datadata
     export DOWNLOAD_CACHE /data/download
 
     mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
-    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
     mkdir /storage/sdcard0 0700 root root
-    mkdir /storage/sdcard1 0700 root root
+
     symlink /storage/sdcard0 /sdcard
     symlink /storage/sdcard0 /mnt/sdcard
-    # FIXME: Remove emmc?
 
     # We will create our own ril-daemon service in class 'core' because the
     # rild doesn't like being killed. (During device encryption.)
@@ -36,15 +33,6 @@ on boot
     setprop ro.config.vc_call_vol_steps 15
 
 on fs
-    mkdir /mnt/bada_system
-    chmod 0777 /mnt/bada_system
-    mount vfat /dev/block/mmcblk0p1 /mnt/bada_system noatime
-    mkdir /mnt/bada_app
-    chmod 0777 /mnt/bada_app
-    mount vfat /dev/block/mmcblk0p3 /mnt/bada_app noatime
-    mount ext4 loop@/mnt/bada_system/system.img /system noatime noauto_da_alloc discard journal_async_commit nodiratime data=writeback barrier=0 nobh nomblk_io_submit
-    mount ext4 loop@/mnt/bada_system/cache.img /cache noatime noauto_da_alloc discard journal_async_commit nodiratime data=writeback barrier=0 nobh nomblk_io_submit
-    mount ext4 loop@/mnt/bada_app/data.img /data noatime noauto_da_alloc discard journal_async_commit nodiratime data=writeback barrier=0 nobh nomblk_io_submit
     mount_all fstab.wave
     swapon_all fstab.wave
 
@@ -257,9 +245,5 @@ service tvouthack /system/bin/tvouthack
 
 # fusewrapped external sdcard daemon running as media_rw (1023)
 service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard0 /storage/sdcard0
-    class late_start
-    disabled
-
-service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
     class late_start
     disabled
