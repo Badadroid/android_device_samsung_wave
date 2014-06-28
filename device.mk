@@ -1,3 +1,4 @@
+# Copyright (C) 2014 OmniROM Project
 # Copyright (C) 2010 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,8 +12,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-
 # This file is the device-specific product definition file for
 # crespo. It lists all the overlays, files, modules and properties
 # that are specific to this hardware: i.e. those are device-specific
@@ -53,7 +52,6 @@ PRODUCT_COPY_FILES := \
 	device/samsung/wave/prebuilt/bcm4329_s8530.hcd:system/vendor/firmware/bcm4329_s8530.hcd \
 	device/samsung/wave/prebuilt/setmodel.sh:system/bin/setmodel.sh \
 
-
 # Init files
 PRODUCT_COPY_FILES += \
 	device/samsung/wave/init.wave.rc:root/init.wave.rc \
@@ -65,7 +63,8 @@ PRODUCT_COPY_FILES += \
 	device/samsung/wave/fstab.wave:root/fstab.wave \
 	device/samsung/wave/fstab.wave:root/fstab.wave2 \
 	device/samsung/wave/ueventd.wave.rc:root/ueventd.wave.rc \
-	device/samsung/wave/ueventd.wave.rc:root/ueventd.wave2.rc
+	device/samsung/wave/ueventd.wave.rc:root/ueventd.wave2.rc \
+	device/samsung/wave/twrp.fstab:recovery/root/etc/twrp.fstab
 
 # Keylayout and Keychars
 PRODUCT_COPY_FILES += \
@@ -128,9 +127,9 @@ PRODUCT_PACKAGES += \
 
 # Device-specific packages
 PRODUCT_PACKAGES += \
-	WaveParts \
+	#WaveParts \
 	tvouthack \
-	Torch
+	OmniTorch
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -158,7 +157,6 @@ PRODUCT_PROPERTY_OVERRIDES := \
 PRODUCT_PROPERTY_OVERRIDES += \
        wifi.interface=wlan0 \
        mobiledata.interfaces=pdp0,eth0,gprs,ppp0 \
-       ro.vold.switchablepair=/storage/sdcard0,/storage/sdcard1 \
        rild.libpath=/system/lib/libmocha-ril.so \
        ro.sf.lcd_density=240 \
        ro.bq.gpu_to_cpu_unsupported=1 \
@@ -197,8 +195,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Set default USB interface and default to internal SD as /sdcard
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mass_storage \
-    persist.sys.vold.switchexternal=1
+    persist.sys.usb.config=mass_storage
 
 include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 

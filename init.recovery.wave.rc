@@ -1,10 +1,5 @@
 import usb.rc # Renamed init.wave.usb.rc, we can't use init*.rc because the build script will delete it
 
-on init
-    # legacy symlink
-    rmdir /external_sd
-    symlink /storage/sdcard0 /external_sd
-
 on boot
     write /dev/graphics/fb3 1
 

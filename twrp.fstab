@@ -1,0 +1,7 @@
+# mount point fstype device options (length for cryptfs encryption footer)
+/boot		mtd	boot
+/recovery	mtd	recovery
+/data		ext4	/dev/block/mmcblk0p3		flags=backup=1;canbewiped;wipeingui;wipeduringfactoryreset
+/cache		ext4	/dev/block/mmcblk0p2		flags=backup=1;canbewiped;wipeingui;wipeduringfactoryreset
+/system	ext4	/dev/block/mmcblk0p1		flags=backup=1;canbewiped;wipeingui
+/external_sd	vfat	/dev/block/mmcblk1p1		flags=display="External SD Card";storage;wipeingui;removable
