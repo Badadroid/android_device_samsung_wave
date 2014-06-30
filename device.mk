@@ -127,7 +127,7 @@ PRODUCT_PACKAGES += \
 
 # Device-specific packages
 PRODUCT_PACKAGES += \
-	#WaveParts \
+	DeviceSettings \
 	tvouthack \
 	OmniTorch
 
