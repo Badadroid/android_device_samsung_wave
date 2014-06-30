@@ -3,7 +3,7 @@
 # Script that does apply Wave1/Wave2 specific parameters during the boot flash.
 
 # ui_print by Chainfire
-OUTFD=$(/sbin/busybox ps | /sbin/busybox grep -v "grep" | /sbin/busybox grep -o -E "update_binary(.*)" | /sbin/busybox cut -d " " -f 3);
+OUTFD=$(/sbin/busybox ps | /sbin/busybox grep -v "grep" | /sbin/busybox grep -o -E "/tmp/updater.*" | /sbin/busybox cut -d " " -f 3);
 ui_print() {
   if [ $OUTFD != "" ]; then
     echo "ui_print ${1} " 1>&$OUTFD;
