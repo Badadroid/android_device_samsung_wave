@@ -17,5 +17,10 @@
     <string name="app_name">高級設定</string>
 
     <string name="category_screen_title">螢幕</string>
+    <string name="color_tuning_title_head">色彩調整</string>
+    <string name="color_tuning_summary_head">校正螢幕色彩</string>
+    <string name="color_red_title">紅</string>
+    <string name="color_green_title">綠</string>
+    <string name="color_blue_title">藍</string>
 
 </resources>

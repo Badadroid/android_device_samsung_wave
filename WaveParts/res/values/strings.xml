@@ -3,6 +3,14 @@
     <string name="app_name">Advanced settings</string>
 
     <string name="category_screen_title">Screen</string>
+    <string name="color_tuning_title_head">Color Tuning</string>
+    <string name="color_tuning_summary_head">Calibrate screen color</string>
+    <string name="color_red_title">Red</string>
+    <string name="color_green_title">Green</string>
+    <string name="color_blue_title">Blue</string>
+    <string name="color_red_gamma_title">Red Gamma</string>
+    <string name="color_green_gamma_title">Green Gamma</string>
+    <string name="color_blue_gamma_title">Blue Gamma</string>
     <string name="mdnie_title_head">mDNIe Mode</string>
     <string name="mdnie_summary_head">Adjust mDNIe display post-processing</string>
 
@@ -13,6 +21,32 @@
     <string name="tvout_enable_summary_on">TV Out enabled</string>
     <string name="tvout_system_head">TV System</string>
     <string name="tvout_system_summary">Set your TV system for TV Out</string>
+
+    <string name="category_volume_boost_title">Volume Controls</string>
+    <string name="volume_boost_title_head">In-Call Volume Controls</string>
+    <string name="volume_boost_summary_head">Boost in-call volume settings</string>
+    <string name="boost_rcv_title">Earpiece Volume</string>
+    <string name="boost_bt_title">Bluetooth Volume</string>
+    <string name="boost_spk_title">Speakerphone Volume</string>
+    <string name="boost_hp_title">Headphone Volume</string>
+    <string name="mic_rcv_title">Earpiece Mic</string>
+    <string name="mic_spk_title">Speakerphone Mic</string>
+    <string name="mic_hp_title">Headphone Mic</string>
+    <string name="mic_hp_no_mic_title">Headphone (with no mic) Mic</string>
+
+    <string name="category_dock_audio_title">Dock Audio</string>
+    <string name="cardock_audio_title_head">Car Dock</string>
+    <string name="cardock_audio_summary_on">Car dock audio enabled</string>
+    <string name="cardock_audio_summary_off">Car dock audio disabled</string>
+    <string name="deskdock_audio_title_head">Desk Dock</string>
+    <string name="deskdock_audio_summary_on">Desk dock audio enabled</string>
+    <string name="deskdock_audio_summary_off">Desk dock audio disabled</string>
+
+    <string name="category_vibration_title">Vibration</string>
+    <string name="vibration_title_head">Vibration</string>
+    <string name="vibration_summary_head">Control vibration intensity</string>
+    <string name="vibration_title">Vibration intensity</string>
+    <string name="vibration_test_title">Test</string>
 
     <string name="button_reset_title">Reset</string>
 

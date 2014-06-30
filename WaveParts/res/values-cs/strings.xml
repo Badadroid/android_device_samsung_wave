@@ -17,6 +17,14 @@
     <string name="app_name">Pokročilé nastavení</string>
 
     <string name="category_screen_title">Obrazovka</string>
+    <string name="color_tuning_title_head">Ladění barev</string>
+    <string name="color_tuning_summary_head">Kalibrovat barvy obrazovky</string>
+    <string name="color_red_title">Červená</string>
+    <string name="color_green_title">Zelená</string>
+    <string name="color_blue_title">Modrá</string>
+    <string name="color_red_gamma_title">Červená gamma</string>
+    <string name="color_green_gamma_title">Zelená gamma</string>
+    <string name="color_blue_gamma_title">Modrá gamma</string>
     <string name="mdnie_title_head">Režim mDNIe</string>
     <string name="mdnie_summary_head">Upravit mDNIe</string>
 
@@ -27,6 +35,32 @@
     <string name="tvout_enable_summary_on">Výstup na TV povolen</string>
     <string name="tvout_system_head">Systém TV</string>
     <string name="tvout_system_summary">Zvolte systém kódování obrazu pro výstup na TV</string>
+
+    <string name="category_volume_boost_title">Ovládání hlasitosti</string>
+    <string name="volume_boost_title_head">Ovládání hlasitosti při hovoru</string>
+    <string name="volume_boost_summary_head">Nastavení zesílení při hovoru</string>
+    <string name="boost_rcv_title">Hlasitost pro sluchátka (do uší)</string>
+    <string name="boost_bt_title">Hlasitost pro Bluetooth</string>
+    <string name="boost_spk_title">Hlasitost pro vnitřní reproduktor</string>
+    <string name="boost_hp_title">Hlasitost pro sluchátka (na uši)</string>
+    <string name="mic_rcv_title">Mikrofon sluchátek (do uší)</string>
+    <string name="mic_spk_title">Mikrofon telefonu</string>
+    <string name="mic_hp_title">Mikrofon sluchátek (na uši)</string>
+    <string name="mic_hp_no_mic_title">Mikrofon sluchátek (bez mikrofonu)</string>
+
+    <string name="category_dock_audio_title">Dok a možnosti zvuku</string>
+    <string name="cardock_audio_title_head">Automobilový dok</string>
+    <string name="cardock_audio_summary_on">Zvuk pro automobilový dok povolen</string>
+    <string name="cardock_audio_summary_off">Zvuk pro automobilový dok zakázán</string>
+    <string name="deskdock_audio_title_head">Stolní dok</string>
+    <string name="deskdock_audio_summary_on">Zvuk pro stolní dok povolen</string>
+    <string name="deskdock_audio_summary_off">Zvuk pro stolní dok zakázán</string>
+
+    <string name="category_vibration_title">Vibrace</string>
+    <string name="vibration_title_head">Vibrace</string>
+    <string name="vibration_summary_head">Ovládání intenzity vibrací</string>
+    <string name="vibration_title">Intenzita vibrací</string>
+    <string name="vibration_test_title">Test</string>
 
     <string name="button_reset_title">Obnovit</string>
 

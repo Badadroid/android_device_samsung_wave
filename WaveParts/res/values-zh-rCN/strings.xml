@@ -17,6 +17,14 @@
     <string name="app_name">高级设置</string>
 
     <string name="category_screen_title">屏幕</string>
+    <string name="color_tuning_title_head">颜色调整</string>
+    <string name="color_tuning_summary_head">校准屏幕颜色</string>
+    <string name="color_red_title">红</string>
+    <string name="color_green_title">绿</string>
+    <string name="color_blue_title">蓝</string>
+    <string name="color_red_gamma_title">红伽玛</string>
+    <string name="color_green_gamma_title">绿伽玛</string>
+    <string name="color_blue_gamma_title">蓝伽玛</string>
     <string name="mdnie_title_head">mDNIe 模式</string>
     <string name="mdnie_summary_head">调整 mDNIe 显示后期处理</string>
 
@@ -27,6 +35,32 @@
     <string name="tvout_enable_summary_on">电视输出已启用</string>
     <string name="tvout_system_head">电视制式</string>
     <string name="tvout_system_summary">设定电视输出使用的制式</string>
+
+    <string name="category_volume_boost_title">音量控制</string>
+    <string name="volume_boost_title_head">通话音量控制</string>
+    <string name="volume_boost_summary_head">增强通话音量设置</string>
+    <string name="boost_rcv_title">听筒音量</string>
+    <string name="boost_bt_title">蓝牙音量</string>
+    <string name="boost_spk_title">扬声器音量</string>
+    <string name="boost_hp_title">耳机音量</string>
+    <string name="mic_rcv_title">听筒麦克风</string>
+    <string name="mic_spk_title">扬声器麦克风</string>
+    <string name="mic_hp_title">耳机麦克风</string>
+    <string name="mic_hp_no_mic_title">耳机 (无麦克风) 麦克风</string>
+
+    <string name="category_dock_audio_title">基座音频</string>
+    <string name="cardock_audio_title_head">车载基座</string>
+    <string name="cardock_audio_summary_on">车载基座音频已启用</string>
+    <string name="cardock_audio_summary_off">车载基座音频已禁用</string>
+    <string name="deskdock_audio_title_head">台式基座</string>
+    <string name="deskdock_audio_summary_on">台式基座音频已启用</string>
+    <string name="deskdock_audio_summary_off">台式基座音频已禁用</string>
+
+    <string name="category_vibration_title">振动</string>
+    <string name="vibration_title_head">振动</string>
+    <string name="vibration_summary_head">控制振动强度</string>
+    <string name="vibration_title">振动强度</string>
+    <string name="vibration_test_title">测试</string>
 
     <string name="button_reset_title">重置</string>
 
