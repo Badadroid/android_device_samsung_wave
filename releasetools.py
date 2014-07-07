@@ -17,11 +17,9 @@
 
 def FullOTA_InstallEnd(info):
 
-  # Remove writing boot.img from script (we do it in updater.sh)
+  # Fix boot.img copying
   info.script.script = [cmd for cmd in info.script.script if not "write_raw_image" in cmd]
-
-  # Copy zImage
-  info.script.AppendExtra('package_extract_file("boot.img", "/external_sd/zImage");')
+  info.script.AppendExtra('package_extract_file("boot.img", "/external_sd/boot.img");')
 
   # Run model specify script
   info.script.AppendExtra(
