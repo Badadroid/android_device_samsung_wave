@@ -203,10 +203,6 @@ include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
-# frandom
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/etc/init.d/00random:system/etc/init.d/00random
-
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
 
 # See comment at the top of this file. This is where the other
