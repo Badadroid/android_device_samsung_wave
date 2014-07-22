@@ -44,13 +44,13 @@ static GRFont *gr_font = 0;
 static GGLContext *gr_context = 0;
 static GGLSurface gr_font_texture;
 static GGLSurface gr_framebuffer[2];
-static GGLSurface gr_mem_surface;
+GGLSurface gr_mem_surface;
 static unsigned gr_active_fb = 0;
 
 static int gr_fb_fd = -1;
 static int gr_vt_fd = -1;
 
-static struct fb_var_screeninfo vi;
+struct fb_var_screeninfo vi;
 
 static int get_framebuffer(GGLSurface *fb)
 {
