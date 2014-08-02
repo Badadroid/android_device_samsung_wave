@@ -8,7 +8,7 @@
 /dev/block/mmcblk0p3					/data		ext4	noatime,nosuid,nodev,errors=panic,discard,noauto_da_alloc	wait,encryptable=footer
 
 /devices/platform/s3c-sdhci.2/mmc_host/mmc2 	auto 		auto	defaults								voldmanaged=sdcard0:auto,noemulatedsd
-/devices/platform/s3c_otghcd/usb			auto		auto	defaults								voldmanaged=usbdisk:auto 
+/devices/platform/s3c_otghcd/usb1			auto		auto	defaults								voldmanaged=usbdisk:auto 
 
 #ZRam
 /dev/block/zram0					none		swap	defaults								zramsize=125829120
