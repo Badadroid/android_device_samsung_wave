@@ -157,7 +157,6 @@ BOARD_SEPOLICY_DIRS += \
 BOARD_SEPOLICY_UNION += \
     bdaddr_read.te \
     file_contexts \
-    orientationd.te \
     property_contexts \
     pvrsrvinit.te \
     rild.te \
