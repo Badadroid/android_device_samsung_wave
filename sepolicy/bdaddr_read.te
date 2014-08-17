@@ -2,8 +2,11 @@ type bdaddr_read, domain;
 type bdaddr_read_exec, exec_type, file_type;
 
 init_daemon_domain(bdaddr_read)
+allow bdaddr_read rild_file:dir search;
+allow bdaddr_read rild_file:file { open read };
 allow bdaddr_read system_data_file:dir { write add_name };
 allow bdaddr_read system_data_file:file { create open write setattr };
-allow bdaddr_read self:capability { chown fowner };
+allow bdaddr_read default_prop:property_service set;
+allow bdaddr_read self:capability { dac_override dac_read_search chown fowner };
 dontaudit bdaddr_read self:capability fsetid;
 unix_socket_connect(bdaddr_read, property, init)

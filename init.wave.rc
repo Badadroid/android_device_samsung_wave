@@ -223,6 +223,7 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
 service bdaddr /system/bin/bdaddr_read
     class main
     user root
+    group system bluetooth
     disabled
     oneshot
 
