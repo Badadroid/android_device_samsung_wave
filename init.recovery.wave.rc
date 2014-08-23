@@ -1,5 +1,10 @@
 import usb.rc # Renamed init.wave.usb.rc, we can't use init*.rc because the build script will delete it
 
+on fs
+    # set up LVM volumes
+    exec /lvm/sbin/lvm vgscan --mknodes --ignorelockingfailure
+    exec /lvm/sbin/lvm vgchange -aly --ignorelockingfailure
+
 on boot
     write /dev/graphics/fb3 1
 
