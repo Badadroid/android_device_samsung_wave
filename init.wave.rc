@@ -3,21 +3,15 @@ import init.wave.usb.rc
 on init
     loglevel 9
     export EXTERNAL_STORAGE /storage/sdcard0
-    export SECONDARY_STORAGE /storage/usbdisk0
 
     # FIXME: Market checks this variable for space-checking, but downloads to /datadata
     export DOWNLOAD_CACHE /data/download
 
     mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
-    mkdir /mnt/media_rw/usbdisk0 0700 media_rw media_rw
     mkdir /storage/sdcard0 0700 root root
-    mkdir /storage/usbdisk0 0700 root root
-
 
     symlink /storage/sdcard0 /sdcard
     symlink /storage/sdcard0 /mnt/sdcard
-    symlink /storage/usbdisk0 /usbdisk
-    symlink /storage/usbdisk0 /mnt/usbdisk
 
     # We will create our own ril-daemon service in class 'core' because the
     # rild doesn't like being killed. (During device encryption.)
@@ -253,9 +247,5 @@ service tvouthack /system/bin/tvouthack
 
 # fusewrapped external sdcard daemon running as media_rw (1023)
 service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard0 /storage/sdcard0
-    class late_start
-    disabled
-
-service fuse_usbdisk0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/usbdisk0 /storage/usbdisk0
     class late_start
     disabled
