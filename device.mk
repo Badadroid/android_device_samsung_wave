@@ -196,7 +196,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Set default USB interface and default to internal SD as /sdcard
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mass_storage
+    persist.sys.usb.config=mtp
 
 include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 

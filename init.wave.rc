@@ -2,16 +2,30 @@ import init.wave.usb.rc
 
 on init
     loglevel 9
-    export EXTERNAL_STORAGE /storage/sdcard0
 
-    # FIXME: Market checks this variable for space-checking, but downloads to /datadata
-    export DOWNLOAD_CACHE /data/download
+    # See storage config details at http://source.android.com/tech/storage/
+    mkdir /mnt/shell/emulated 0700 shell shell
+    mkdir /storage/emulated 0555 root root
 
-    mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
-    mkdir /storage/sdcard0 0700 root root
+    #External storage directories
+    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
+    mkdir /storage/sdcard1 0700 root root
 
-    symlink /storage/sdcard0 /sdcard
-    symlink /storage/sdcard0 /mnt/sdcard
+    export EXTERNAL_STORAGE        /storage/emulated/legacy
+    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
+    export EMULATED_STORAGE_TARGET /storage/emulated
+    export SECONDARY_STORAGE       /storage/sdcard1
+
+    # Support legacy paths
+    symlink /storage/emulated/legacy /sdcard
+    symlink /storage/emulated/legacy /mnt/sdcard
+    symlink /storage/emulated/legacy /storage/sdcard0
+    symlink /storage/emulated/legacy /storage/emulated/0
+    symlink /mnt/shell/emulated/0    /storage/emulated/legacy
+
+    symlink /storage/sdcard1 /extSdCard
+    symlink /storage/sdcard1 /mnt/extSdCard
+    symlink /storage/sdcard1 /external_sd
 
     # We will create our own ril-daemon service in class 'core' because the
     # rild doesn't like being killed. (During device encryption.)
@@ -42,6 +56,8 @@ on fs
     mount yaffs2 mtd@cache /cache
     mount_all fstab.wave
     swapon_all fstab.wave
+
+    setprop ro.crypto.fuse_sdcard true
 
 # permissions for bluetooth.
     chown bluetooth net_bt_stack /dev/s3c2410_serial0
@@ -124,6 +140,7 @@ on fs
     restorecon /sys/devices/virtual/misc/voodoo_sound/stereo_expansion_gain
 
 on post-fs
+    mkdir /data/media 0770 media_rw media_rw
 
 # symlinks for samsung RIL
     mkdir /data/radio
@@ -235,6 +252,10 @@ on property:init.svc.bootanim=running
 
 #- Begin late_start Services-#
 
+# virtual sdcard daemon running as media_rw (1023)
+service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
+    class late_start
+
 service tvout /system/bin/tvoutserver
     class late_start
     user system
@@ -246,6 +267,6 @@ service tvouthack /system/bin/tvouthack
     disabled
 
 # fusewrapped external sdcard daemon running as media_rw (1023)
-service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard0 /storage/sdcard0
+service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
     class late_start
     disabled

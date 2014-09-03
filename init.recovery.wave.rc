@@ -8,6 +8,3 @@ on fs
 on boot
     write /dev/graphics/fb3 1
 
-    # mass_storage support
-    setprop sys.usb.config mass_storage,adb
-
