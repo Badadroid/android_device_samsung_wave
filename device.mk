@@ -65,7 +65,8 @@ PRODUCT_COPY_FILES += \
 	device/samsung/wave/fstab.wave:root/fstab.wave2 \
 	device/samsung/wave/ueventd.wave.rc:root/ueventd.wave.rc \
 	device/samsung/wave/ueventd.wave.rc:root/ueventd.wave2.rc \
-	device/samsung/wave/twrp.fstab:recovery/root/etc/twrp.fstab
+	device/samsung/wave/twrp.fstab:recovery/root/etc/twrp.fstab\
+	device/samsung/wave/partition.sh:recovery/root/partition.sh
 
 # Keylayout and Keychars
 PRODUCT_COPY_FILES += \
