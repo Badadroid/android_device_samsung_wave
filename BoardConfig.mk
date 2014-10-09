@@ -21,7 +21,7 @@
 BOARD_SECOND_CAMERA_DEVICE := /dev/video2
 
 # Kernel Config
-TARGET_KERNEL_CONFIG := wave_defconfig
+TARGET_KERNEL_CONFIG := omni_wave_defconfig
 
 # FM Radio
 BOARD_HAVE_FM_RADIO := true
@@ -52,7 +52,7 @@ TARGET_BOOTLOADER_BOARD_NAME := wave
 BOARD_MOBILEDATA_INTERFACE_NAME = "pdp0"
 
 # Kernel Source
-TARGET_KERNEL_SOURCE := kernel/samsung/wave
+TARGET_KERNEL_SOURCE := kernel/samsung/aries
 
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/wave
