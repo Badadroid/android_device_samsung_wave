@@ -70,9 +70,10 @@ on fs
 
 # Permissions for Battery Control
 
-    chmod 0666 /sys/devices/platform/i2c-gpio.6/i2c-6/6-0066/max8998-charger/power_supply/battery/capacity
-    chmod 0666 /sys/devices/platform/i2c-gpio.6/i2c-6/6-0066/max8998-charger/power_supply/battery/voltage_now
-    chmod 0666 /sys/devices/platform/i2c-gpio.6/i2c-6/6-0066/max8998-charger/power_supply/battery/temp
+    chmod 0666 /sys/devices/platform/i2c-gpio.6/i2c-6/6-0066/max8998-charger/power_supply/battery/batt_soc
+    chmod 0666 /sys/devices/platform/i2c-gpio.6/i2c-6/6-0066/max8998-charger/power_supply/battery/batt_volt
+    chmod 0666 /sys/devices/platform/i2c-gpio.6/i2c-6/6-0066/max8998-charger/power_supply/battery/batt_temp_adc
+    chmod 0666 /sys/devices/platform/i2c-gpio.6/i2c-6/6-0066/max8998-charger/power_supply/battery/batt_full_interrupt
     chmod 0666 /sys/devices/platform/i2c-gpio.6/i2c-6/6-0066/max8998-charger/power_supply/ac/online
     chmod 0666 /sys/devices/platform/i2c-gpio.6/i2c-6/6-0066/max8998-charger/power_supply/usb/online
 
