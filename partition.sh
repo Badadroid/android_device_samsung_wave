@@ -23,5 +23,9 @@ MMC_PART='/dev/block/mmcblk0p1 /dev/block/mmcblk0p2 /dev/block/mmcblk0p3'
 
 # format data (/system will be formatted by updater-script)
 make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -l -16384 -a /data /dev/lvpool/userdata
+mount -t ext4 /dev/lvpool/userdata /data
+busybox mkdir /data/media
+busybox mkdir /data/media/0
+umount /data
 
 ui_print "Partitions had been prepared"

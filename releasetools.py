@@ -28,9 +28,6 @@ def FullOTA_Assertions(info):
   info.output_zip.write(os.path.join(UTILITIES_DIR, "flash_image"), "flash_image")
 
   info.script.AppendExtra(
-        ('package_extract_file("system/bin/updater.sh", "/tmp/updater.sh");\n'
-         'set_perm(0, 0, 0777, "/tmp/updater.sh");'))
-  info.script.AppendExtra(
        ('package_extract_file("make_ext4fs", "/tmp/make_ext4fs");\n'
         'set_perm(0, 0, 0777, "/tmp/make_ext4fs");'))
   info.script.AppendExtra(
@@ -41,8 +38,6 @@ def FullOTA_Assertions(info):
          'set_perm(0, 0, 0777, "/tmp/flash_image");'))
 
   info.script.AppendExtra('package_extract_file("boot.img", "/tmp/boot.img");')
-  info.script.AppendExtra('assert(run_program("/tmp/updater.sh") == 0);')
-
 
 def FullOTA_InstallEnd(info):
   # Remove writing boot.img from script (we do it in updater.sh)
