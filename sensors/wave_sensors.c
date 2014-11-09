@@ -36,13 +36,13 @@
 
 struct sensor_t wave_sensors[] = {
 	{ "SMB380 Acceleration Sensor", "Bosch", 1, SENSOR_TYPE_ACCELEROMETER,
-		SENSOR_TYPE_ACCELEROMETER, 2 * GRAVITY_EARTH, GRAVITY_EARTH / 256.0f, 0.20f, 10000, 0, 0, {}, },
+		SENSOR_TYPE_ACCELEROMETER, 2 * GRAVITY_EARTH, GRAVITY_EARTH / 256.0f, 0.20f, 10000, 0, 0, 0, 0, 10000, SENSOR_FLAG_CONTINUOUS_MODE, {}, },
 	{ "AKM8973 Magnetic Sensor", "Asahi Kasei", 1, SENSOR_TYPE_MAGNETIC_FIELD,
-		SENSOR_TYPE_MAGNETIC_FIELD, 2000.0f, 1.0f / 16, 6.8f, 16667, 0, 0, {}, },
+		SENSOR_TYPE_MAGNETIC_FIELD, 2000.0f, 1.0f / 16, 6.8f, 16667, 0, 0, 0, 0, 16667, SENSOR_FLAG_CONTINUOUS_MODE, {}, },
 	{ "Orientation Sensor", "Wave Sensors", 1, SENSOR_TYPE_ORIENTATION,
-		SENSOR_TYPE_ORIENTATION, 360.0f, 0.1f, 0.0f, 16667, 0, 0, {}, },
+		SENSOR_TYPE_ORIENTATION, 360.0f, 0.1f, 0.0f, 16667, 0, 0, 0, 0, 16667, SENSOR_FLAG_CONTINUOUS_MODE,{}, },
 	{ "GP2A Proximity Sensor", "Sharp", 1, SENSOR_TYPE_PROXIMITY,
-		SENSOR_TYPE_PROXIMITY, 5.0f, 5.0f, 0.75f, 0, 0, 0, {}, },
+		SENSOR_TYPE_PROXIMITY, 5.0f, 5.0f, 0.75f, 0, 0, 0, 0, 0, 0, SENSOR_FLAG_WAKE_UP | SENSOR_FLAG_ON_CHANGE_MODE, {}, },
 };
 
 int wave_sensors_count = sizeof(wave_sensors) / sizeof(struct sensor_t);
