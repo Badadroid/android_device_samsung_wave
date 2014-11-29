@@ -36,10 +36,9 @@ BOARD_NO_PAGE_FLIPPING := false
 BOARD_NO_32BPP := false
 
 TARGET_ARCH := arm
+TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
-TARGET_ARCH_VARIANT := armv7-a-neon
-TARGET_ARCH_VARIANT_CPU := cortex-a8
 TARGET_CPU_VARIANT := cortex-a8
 
 TARGET_NO_BOOTLOADER := true
@@ -80,9 +79,7 @@ BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_CMDLINE := console=ttyFIQ0,115200 init=/init no_console_suspend
 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 7864320
-#350MB
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 393216000
-#400MB
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 629145600
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 419430400
 BOARD_FLASH_BLOCK_SIZE := 4096
 
@@ -129,6 +126,8 @@ BOARD_USES_SKTEXTBOX := true
 
 # Hardware rendering
 USE_OPENGL_RENDERER := true
+
+BOARD_EGL_CFG := device/samsung/wave/prebuilt/egl.cfg
 
 # TARGET_DISABLE_TRIPLE_BUFFERING can be used to disable triple buffering
 # on per target basis. On crespo it is possible to do so in theory
