@@ -198,10 +198,11 @@ on property:dev.bootcomplete=1
     group radio cache inet misc audio log
 
 # 3D init
-service pvrsrvinit /system/vendor/bin/pvrsrvinit
+service pvrsrvinit /system/bin/pvrsrvinit
     class core
     user root
     group root
+    seclabel u:r:pvrsrvinit:s0
     oneshot
 
 #- End core Services -#

@@ -121,6 +121,10 @@ PRODUCT_PACKAGES += \
 	libril-client \
 	libs3cjpeg
 
+# PVR
+PRODUCT_PACKAGES += \
+	pvrsrvinit
+
 # Libs
 PRODUCT_PACKAGES += \
 	libstagefrighthw
