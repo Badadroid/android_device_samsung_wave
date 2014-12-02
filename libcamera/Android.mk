@@ -10,6 +10,7 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 LOCAL_C_INCLUDES += hardware/samsung/exynos3/s5pc110/include
 LOCAL_C_INCLUDES += hardware/samsung/exynos3/s5pc110/libs3cjpeg
 LOCAL_C_INCLUDES += frameworks/native/include/media/hardware
+LOCAL_C_INCLUDES += system/media/camera/include
 
 LOCAL_SRC_FILES:= \
 	SecCamera.cpp \
