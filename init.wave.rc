@@ -53,7 +53,7 @@ on fs
     restorecon /dev/mapper/lvpool-system
     restorecon /dev/mapper/lvpool-userdata
 
-    mount yaffs2 mtd@cache /cache
+    mount yaffs2 mtd@cache /cache noatime nosuid nodev
     mount_all fstab.wave
     swapon_all fstab.wave
 
@@ -147,7 +147,7 @@ on post-fs
     mkdir /data/radio
     chown radio radio /data/radio
     chmod 0666 /data/radio
-    exec /system/bin/restorecon -r /data/radio
+    restorecon_recursive /data/radio
 
 	
 # allow system to modify cpufreq control files
