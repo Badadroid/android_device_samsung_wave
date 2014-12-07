@@ -14,14 +14,6 @@
 	<string name="mdnie_title_head">Mod mDNIe</string>
 	<string name="mdnie_summary_head">Reglaj post-procesare mDNIe</string>
 
-	<string name="category_tvout_title">TV Out</string>
-	<string name="tvout_enable_head">TV Out</string>
-	<string name="tvout_enable_summary_nocable">Cablul TV Out nu este conectat</string>
-	<string name="tvout_enable_summary">Cablul TV Out este conectat, selectaţi pentru activare</string>
-	<string name="tvout_enable_summary_on">TV Out activat</string>
-	<string name="tvout_system_head">Standard TV</string>
-	<string name="tvout_system_summary">Setează standardul TV pentru TV Out</string>
-
 	<string name="category_volume_boost_title">Control Volum</string>
 	<string name="volume_boost_title_head">Control Volum Apel Intrare</string>
 	<string name="volume_boost_summary_head">Setări volum amplificare apel intrare </string>

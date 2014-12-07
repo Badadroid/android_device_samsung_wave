@@ -28,14 +28,6 @@
     <string name="mdnie_title_head">mDNIe 模式</string>
     <string name="mdnie_summary_head">调整 mDNIe 显示后期处理</string>
 
-    <string name="category_tvout_title">电视输出</string>
-    <string name="tvout_enable_head">电视输出</string>
-    <string name="tvout_enable_summary_nocable">电视输出线未连接</string>
-    <string name="tvout_enable_summary">电视输出线已连接，点击以启用</string>
-    <string name="tvout_enable_summary_on">电视输出已启用</string>
-    <string name="tvout_system_head">电视制式</string>
-    <string name="tvout_system_summary">设定电视输出使用的制式</string>
-
     <string name="category_volume_boost_title">音量控制</string>
     <string name="volume_boost_title_head">通话音量控制</string>
     <string name="volume_boost_summary_head">增强通话音量设置</string>

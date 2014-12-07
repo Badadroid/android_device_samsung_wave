@@ -259,16 +259,6 @@ on property:init.svc.bootanim=running
 service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
     class late_start
 
-service tvout /system/bin/tvoutserver
-    class late_start
-    user system
-    group graphics
-
-service tvouthack /system/bin/tvouthack
-    user system
-    group graphics
-    disabled
-
 # fusewrapped external sdcard daemon running as media_rw (1023)
 service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
     class late_start

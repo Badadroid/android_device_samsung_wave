@@ -26,13 +26,6 @@
     <string name="color_blue_gamma_title">Gamma bleu</string>
     <string name="mdnie_title_head">Mode mDNIe</string>
     <string name="mdnie_summary_head">Ajuster le pré-traitement de l\'affichage mDNIe</string>
-    <string name="category_tvout_title">Sortie TV</string>
-    <string name="tvout_enable_head">Sortie TV</string>
-    <string name="tvout_enable_summary_nocable">Câble de sortie TV non connecté</string>
-    <string name="tvout_enable_summary">Câble de sortie TV connecté, vérification de l\'activation</string>
-    <string name="tvout_enable_summary_on">Sortie TV activée</string>
-    <string name="tvout_system_head">Système TV</string>
-    <string name="tvout_system_summary">Définir le système de sortie TV</string>
     <string name="category_volume_boost_title">Bouton volume</string>
     <string name="volume_boost_title_head">Bouton de volume pendant un appel</string>
     <string name="volume_boost_summary_head">Augmenter les paramètres de volume pendant un appel</string>

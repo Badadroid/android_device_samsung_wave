@@ -12,10 +12,6 @@
 # GFX
 /system/vendor/bin/pvrsrvinit                       u:object_r:pvrsrvinit_exec:s0
 
-# TV-Out
-/system/bin/tvoutserver                             u:object_r:tvoutserver_exec:s0
-/system/bin/tvouthack                               u:object_r:tvouthack_exec:s0
-
 # Bluetooth
 /system/bin/bdaddr_read                             u:object_r:bdaddr_read_exec:s0
 

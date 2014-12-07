@@ -136,7 +136,6 @@ PRODUCT_PACKAGES += \
 # Device-specific packages
 PRODUCT_PACKAGES += \
 	DeviceSettings \
-	tvouthack \
 	OmniTorch
 
 # These are the hardware-specific features

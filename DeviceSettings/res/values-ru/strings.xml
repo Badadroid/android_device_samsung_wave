@@ -14,14 +14,6 @@
     <string name="mdnie_title_head">Режим mDNIe</string>
     <string name="mdnie_summary_head">Настройте пост-обработку mDNIe</string>
 
-    <string name="category_tvout_title">ТВ выход</string>
-    <string name="tvout_enable_head">ТВ выход</string>
-    <string name="tvout_enable_summary_nocable">ТВ выход - кабель не подключен</string>
-    <string name="tvout_enable_summary">ТВ выход - кабель подключен, нажмите для включения</string>
-    <string name="tvout_enable_summary_on">ТВ выход включен</string>
-    <string name="tvout_system_head">Система ТВ</string>
-    <string name="tvout_system_summary">Установите систему вещания</string>
-
     <string name="category_volume_boost_title">Регулировка громкости</string>
     <string name="volume_boost_title_head">Регулировка громкости разговора</string>
     <string name="volume_boost_summary_head">Увеличение громкости в телефонных разговорах</string>

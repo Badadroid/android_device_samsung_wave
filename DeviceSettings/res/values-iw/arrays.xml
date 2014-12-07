@@ -22,9 +22,4 @@
         <item>מצב וידאו קר</item>
         <item>מצב מצלמה</item>
     </string-array>
-
-    <string-array name="tvout_system_entries">
-        <item>NTSC</item>
-        <item>PAL</item>
-    </string-array>
 </resources>

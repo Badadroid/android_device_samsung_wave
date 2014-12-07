@@ -28,14 +28,6 @@
     <string name="mdnie_title_head">mDNIe-tilstand</string>
     <string name="mdnie_summary_head">Justér mDNIe-skærm-post-processering</string>
 
-    <string name="category_tvout_title">TV-OUT</string>
-    <string name="tvout_enable_head">TV-OUT</string>
-    <string name="tvout_enable_summary_nocable">TV-OUT-kabel ikke tilsluttet</string>
-    <string name="tvout_enable_summary">TV-OUT-kabel tilsluttet, markér for at slå til</string>
-    <string name="tvout_enable_summary_on">TV-OUT slået til</string>
-    <string name="tvout_system_head">TV-system</string>
-    <string name="tvout_system_summary">Indstil dit TV-system til TV-OUT</string>
-
     <string name="category_volume_boost_title">Kontrol af lydstyrke</string>
     <string name="volume_boost_title_head">Kontrol af opkaldslydstyrke</string>
     <string name="volume_boost_summary_head">Indstillinger til at øge opkaldslydstyrke</string>

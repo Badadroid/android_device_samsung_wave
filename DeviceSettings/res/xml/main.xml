@@ -34,26 +34,7 @@
 	        android:defaultValue="6" />
 	</PreferenceCategory>
 
-	<PreferenceCategory
-                android:title="@string/category_tvout_title"
-                android:key="category_tvout">
-		<CheckBoxPreference
-			android:key="tvout_enable"
-			android:title="@string/tvout_enable_head"
-			android:summaryOn="@string/tvout_enable_summary_on"
-			android:summaryOff="@string/tvout_enable_summary_nocable"
-			android:persistent="false"
-			android:enabled="false" />
-		<ListPreference
-			android:key="tvout_system"
-			android:title="@string/tvout_system_head"
-			android:summary="@string/tvout_system_summary"
-			android:entries="@array/tvout_system_entries"
-			android:entryValues="@array/tvout_system_entries_values"
-			android:defaultValue="2" />
-	</PreferenceCategory>
-
-        <PreferenceCategory
+    <PreferenceCategory
             android:title="@string/category_volume_boost_title"
             android:key="category_volume_boost">
                 <!-- Volume Boost -->

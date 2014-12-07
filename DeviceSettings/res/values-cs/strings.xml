@@ -28,14 +28,6 @@
     <string name="mdnie_title_head">Režim mDNIe</string>
     <string name="mdnie_summary_head">Upravit mDNIe</string>
 
-    <string name="category_tvout_title">Výstup na TV</string>
-    <string name="tvout_enable_head">Výstup na TV</string>
-    <string name="tvout_enable_summary_nocable">Kabel pro připojení TV není připojen</string>
-    <string name="tvout_enable_summary">Kabel pro připojení TV připojen. Lze povolit výstup na TV.</string>
-    <string name="tvout_enable_summary_on">Výstup na TV povolen</string>
-    <string name="tvout_system_head">Systém TV</string>
-    <string name="tvout_system_summary">Zvolte systém kódování obrazu pro výstup na TV</string>
-
     <string name="category_volume_boost_title">Ovládání hlasitosti</string>
     <string name="volume_boost_title_head">Ovládání hlasitosti při hovoru</string>
     <string name="volume_boost_summary_head">Nastavení zesílení při hovoru</string>

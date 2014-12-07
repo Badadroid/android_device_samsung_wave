@@ -28,14 +28,6 @@
     <string name="mdnie_title_head">Tryb mDNIe</string>
     <string name="mdnie_summary_head">Dostosuj końcowe przetwarzanie trybu mDNIe</string>
 
-    <string name="category_tvout_title">Wyjście TV</string>
-    <string name="tvout_enable_head">Wyjście TV</string>
-    <string name="tvout_enable_summary_nocable">Kabel nie jest podłączony do wyjścia TV</string>
-    <string name="tvout_enable_summary">Kabel podłączony do wyjścia TV. Zaznacz, aby aktywować</string>
-    <string name="tvout_enable_summary_on">Wyjście TV aktywowane</string>
-    <string name="tvout_system_head">System na wyjściu TV</string>
-    <string name="tvout_system_summary">Ustaw system na wyjściu TV</string>
-
     <string name="category_volume_boost_title">Regulatory głośności</string>
     <string name="volume_boost_title_head">Głośność podczas rozmowy</string>
     <string name="volume_boost_summary_head">Podbij głośność podczas rozmowy</string>

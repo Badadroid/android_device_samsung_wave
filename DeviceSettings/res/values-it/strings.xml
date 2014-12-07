@@ -28,14 +28,6 @@
     <string name="mdnie_title_head">Modalità mDNIe</string>
     <string name="mdnie_summary_head">Imposta grado di post-processamento del display</string>
 
-    <string name="category_tvout_title">Uscita TV</string>
-    <string name="tvout_enable_head">Uscita TV</string>
-    <string name="tvout_enable_summary_nocable">Cavo per uscita TV non connesso</string>
-    <string name="tvout_enable_summary">Cavo per uscita TV connesso, clicca per attivare</string>
-    <string name="tvout_enable_summary_on">Uscita TV attivata</string>
-    <string name="tvout_system_head">Sistema TV</string>
-    <string name="tvout_system_summary">Imposta il sistema TV per l\'uscita TV</string>
-
     <string name="category_volume_boost_title">Controlli del Volume</string>
     <string name="volume_boost_title_head">Regolazioni volume chiamate</string>
     <string name="volume_boost_summary_head">Potenzia il volume delle chiamate</string>

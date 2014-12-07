@@ -26,13 +26,6 @@
     <string name="color_blue_gamma_title">Blauw gamma</string>
     <string name="mdnie_title_head">mDNIe-modus</string>
     <string name="mdnie_summary_head">mDNIe-schermnabewerking aanpassen</string>
-    <string name="category_tvout_title">Tv-uitvoer</string>
-    <string name="tvout_enable_head">Tv-uitvoer</string>
-    <string name="tvout_enable_summary_nocable">Kabel voor tv-uitvoer niet verbonden</string>
-    <string name="tvout_enable_summary">Kabel voor tv-uitvoer verbonden, activeer om in te schakelen</string>
-    <string name="tvout_enable_summary_on">Tv-uitvoer ingeschakeld</string>
-    <string name="tvout_system_head">Tv-systeem</string>
-    <string name="tvout_system_summary">Tv-systeem instellen voor tv-uitvoer</string>
     <string name="category_volume_boost_title">Volume-instellingen</string>
     <string name="volume_boost_title_head">Volume-instellingen tijdens gesprek</string>
     <string name="volume_boost_summary_head">Instellingen voor volumeverhoging tijdens gesprek</string>

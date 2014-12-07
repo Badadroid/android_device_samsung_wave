@@ -22,8 +22,4 @@
         <item>Vidéo froide</item>
         <item>Caméra</item>
     </string-array>
-    <string-array name="tvout_system_entries">
-        <item>NTSC</item>
-        <item>PAL</item>
-    </string-array>
 </resources>

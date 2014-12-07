@@ -28,14 +28,6 @@
     <string name="mdnie_title_head">מצב mDNIe</string>
     <string name="mdnie_summary_head">התאם אישית את אופן פעולת מנוע התמונה הטבעית הדיגיטלית</string>
 
-    <string name="category_tvout_title">יציאת טלוויזיה</string>
-    <string name="tvout_enable_head">יציאת טלוויזיה</string>
-    <string name="tvout_enable_summary_nocable">כבל יציאת הטלוויזיה אינו מחובר</string>
-    <string name="tvout_enable_summary">כבל יציאת הטלוויזיה מחובר, סמן כדי להפעיל</string>
-    <string name="tvout_enable_summary_on">יציאת הטלוויזיה פועלת</string>
-    <string name="tvout_system_head">שיטת שידור</string>
-    <string name="tvout_system_summary">בחר את שיטת השידור לטלוויזיה</string>
-
     <string name="category_volume_boost_title">עוצמות קול</string>
     <string name="volume_boost_title_head">עוצמת קול בזמן שיחה</string>
     <string name="volume_boost_summary_head">הגבר את עוצמת הקול בשיחה</string>

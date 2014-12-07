@@ -22,9 +22,4 @@
         <item>影像模式 (冷)</item>
         <item>相机模式</item>
     </string-array>
-
-    <string-array name="tvout_system_entries">
-        <item>NTSC</item>
-        <item>PAL</item>
-    </string-array>
 </resources>
