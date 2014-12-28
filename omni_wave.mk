@@ -27,8 +27,9 @@ $(call inherit-product, vendor/omni/config/common.mk)
 # Inherit device configuration
 $(call inherit-product, device/samsung/wave/device.mk)
 
-# Galaxy S uses high-density artwork where available
-PRODUCT_LOCALES += hdpi
+# Wave uses high-density artwork where available
+PRODUCT_AAPT_CONFIG := normal hdpi
+PRODUCT_AAPT_PREF_CONFIG := hdpi
 
 # Device identifier
 PRODUCT_RELEASE_NAME := Wave
