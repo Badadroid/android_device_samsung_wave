@@ -197,11 +197,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dexopt-data-only=1
 
-# Dalvik optimizations
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.debug.alloc=0 \
-    dalvik.vm.dexopt-flags=v=a,o=v,m=y,u=y
-
 # Set default USB interface and default to internal SD as /sdcard
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
