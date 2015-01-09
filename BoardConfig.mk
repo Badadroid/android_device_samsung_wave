@@ -125,6 +125,12 @@ TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 TARGET_BOOTANIMATION_USE_RGB565 := true
 
+# Enable dex-preoptimization to speed up first boot sequence
+ifeq ($(HOST_OS),linux)
+    WITH_DEXPREOPT := true
+endif
+DONT_DEXPREOPT_PREBUILTS := true
+
 # Hardware rendering
 USE_OPENGL_RENDERER := true
 
