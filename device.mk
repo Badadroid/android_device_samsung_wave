@@ -121,6 +121,15 @@ PRODUCT_PACKAGES += \
 	libril-client \
 	libs3cjpeg
 
+# Wi-Fi
+PRODUCT_PACKAGES += \
+	libwpa_client \
+	hostapd \
+	hostapd_default.conf \
+	dhcpcd.conf \
+	wpa_supplicant \
+	wpa_supplicant.conf
+
 # PVR
 PRODUCT_PACKAGES += \
 	pvrsrvinit
