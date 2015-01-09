@@ -62,6 +62,12 @@ on fs
 
     setprop ro.crypto.fuse_sdcard true
 
+# Permissions for MTP device node
+    chmod 0777 /dev/mtp_usb
+    restorecon /dev/mtp_usb
+    chmod 0777 /dev/usb_accessory
+    restorecon /dev/usb_accessory
+
 # permissions for bluetooth.
     chown bluetooth net_bt_stack /dev/s3c2410_serial0
     chmod 0600 /dev/s3c2410_serial0
