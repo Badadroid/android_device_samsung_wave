@@ -76,7 +76,7 @@ BOARD_NAND_PAGE_SIZE := 4096
 BOARD_NAND_SPARE_SIZE := 128
 BOARD_KERNEL_BASE := 0x32000000
 BOARD_KERNEL_PAGESIZE := 4096
-BOARD_KERNEL_CMDLINE := console=ttyFIQ0,115200 init=/init no_console_suspend
+BOARD_KERNEL_CMDLINE := console=ttyFIQ0,115200 androidboot.selinux=disabled init=/init no_console_suspend
 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 7864320
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 629145600
@@ -144,15 +144,15 @@ BOARD_CUSTOM_VSYNC_IOCTL := true
 BOARD_SCREENRECORD_LANDSCAPE_ONLY := true
 
 # SELinux
-BOARD_SEPOLICY_DIRS += \
-    device/samsung/wave/sepolicy
+#BOARD_SEPOLICY_DIRS += \
+#    device/samsung/wave/sepolicy
 
-BOARD_SEPOLICY_UNION += \
-    bdaddr_read.te \
-    file_contexts \
-    property_contexts \
-    pvrsrvinit.te \
-    rild.te \
+#BOARD_SEPOLICY_UNION += \
+#    bdaddr_read.te \
+#    file_contexts \
+#    property_contexts \
+#    pvrsrvinit.te \
+#    rild.te \
 
 # Include wave specific stuff
 -include device/samsung/wave/Android.mk
