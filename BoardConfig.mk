@@ -42,6 +42,9 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := false
 TARGET_CPU_VARIANT := cortex-a8
 
+# Non PIE verification
+TARGET_ENABLE_NON_PIE_SUPPORT := true
+
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
