@@ -46,6 +46,9 @@ on boot
 # call volume steps
     setprop ro.config.vc_call_vol_steps 15
 
+# Prevents permission denied error for telephony
+    chmod 0644 /proc/cmdline
+
 on fs
     # LVM: set up LVM volumes
     exec /lvm/sbin/lvm vgscan --mknodes --ignorelockingfailure
@@ -150,7 +153,7 @@ on post-fs
 # symlinks for samsung RIL
     mkdir /data/radio
     chown radio radio /data/radio
-    chmod 0666 /data/radio
+    chmod 0775 /data/radio
     restorecon_recursive /data/radio
 
 	
