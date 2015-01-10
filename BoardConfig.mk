@@ -131,6 +131,9 @@ ifeq ($(HOST_OS),linux)
 endif
 DONT_DEXPREOPT_PREBUILTS := true
 
+# Use dlmalloc instead of jemalloc for mallocs on low-ram target kernels
+MALLOC_IMPL := dlmalloc
+
 # Hardware rendering
 USE_OPENGL_RENDERER := true
 
