@@ -175,6 +175,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	wifi.interface=wlan0 \
 	mobiledata.interfaces=pdp0,eth0,gprs,ppp0 \
 	rild.libpath=/system/lib/libmocha-ril.so \
+	ro.telephony.ril.config=signalstrength \
 	ro.sf.lcd_density=240 \
 	ro.bq.gpu_to_cpu_unsupported=1 \
 	ro.config.low_ram=true \
