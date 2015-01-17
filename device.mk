@@ -56,6 +56,7 @@ PRODUCT_COPY_FILES := \
 PRODUCT_COPY_FILES += \
 	device/samsung/wave/init.wave.rc:root/init.wave.rc \
 	device/samsung/wave/init.wave2.rc:root/init.wave2.rc \
+	device/samsung/wave/init.trace.rc:root/init.trace.rc \
 	device/samsung/wave/init.wave.usb.rc:root/init.wave.usb.rc \
 	device/samsung/wave/init.recovery.wave.rc:root/init.recovery.wave.rc \
 	device/samsung/wave/init.recovery.wave2.rc:root/init.recovery.wave2.rc \
@@ -172,6 +173,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
         ro.com.google.locationfeatures=1 \
         ro.com.google.networklocation=1
 
+# Move Dalvik cache on /data partition
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dexopt-data-only=1
+
 # Extended JNI checks
 # The extended JNI checks will cause the system to run more slowly, but they can spot a variety of nasty bugs 
 # before they have a chance to cause problems.
@@ -188,14 +193,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.max_starting_bg=6
 
-# Override /proc/sys/vm/dirty_ratio on UMS
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vold.umsdirtyratio=20
-
-# Move Dalvik cache on /data partition
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dexopt-data-only=1
-
 # SELinux
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=1
@@ -204,10 +201,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
-include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
-
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
+
+include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
 
