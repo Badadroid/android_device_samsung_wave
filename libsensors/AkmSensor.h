@@ -39,7 +39,7 @@ public:
     enum {
      //   Accelerometer   = 0,
         MagneticField   = 0,
-     //   Orientation     = 2,
+        Orientation     = 1,
         numSensors
     };
 

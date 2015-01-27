@@ -73,12 +73,12 @@ AkmSensor::AkmSensor()
     mPendingEvents[MagneticField].sensor = ID_M;
     mPendingEvents[MagneticField].type = SENSOR_TYPE_MAGNETIC_FIELD;
     mPendingEvents[MagneticField].magnetic.status = SENSOR_STATUS_ACCURACY_HIGH;
-/*
+
     mPendingEvents[Orientation  ].version = sizeof(sensors_event_t);
     mPendingEvents[Orientation  ].sensor = ID_O;
     mPendingEvents[Orientation  ].type = SENSOR_TYPE_ORIENTATION;
     mPendingEvents[Orientation  ].orientation.status = SENSOR_STATUS_ACCURACY_HIGH;
-*/
+
     // read the actual value of all sensors if they're enabled already
     struct input_absinfo absinfo;
     short flags = 0;
@@ -108,7 +108,7 @@ AkmSensor::AkmSensor()
             mPendingEvents[MagneticField].magnetic.z = absinfo.value * CONVERT_M_Z;
         }
     }
-/*
+
     if (akm_is_sensor_enabled(SENSOR_TYPE_ORIENTATION))  {
         mEnabled |= 1<<Orientation;
         if (!ioctl(data_fd, EVIOCGABS(EVENT_TYPE_YAW), &absinfo)) {
@@ -124,7 +124,7 @@ AkmSensor::AkmSensor()
             mPendingEvents[Orientation].orientation.status = uint8_t(absinfo.value & SENSOR_STATE_MASK);
         }
     }
-*/
+
     // disable temperature sensor, since it is not supported
     akm_disable_sensor(SENSOR_TYPE_TEMPERATURE);
 }
@@ -143,7 +143,7 @@ int AkmSensor::enable(int32_t handle, int en)
     switch (handle) {
 //        case ID_A: what = Accelerometer; break;
         case ID_M: what = MagneticField; break;
-//        case ID_O: what = Orientation;   break;
+        case ID_O: what = Orientation;   break;
     }
 
     if (uint32_t(what) >= numSensors)
@@ -157,7 +157,7 @@ int AkmSensor::enable(int32_t handle, int en)
         switch (what) {
 //            case Accelerometer: sensor_type = SENSOR_TYPE_ACCELEROMETER;  break;
             case MagneticField: sensor_type = SENSOR_TYPE_MAGNETIC_FIELD; break;
-//            case Orientation:   sensor_type = SENSOR_TYPE_ORIENTATION;  break;
+            case Orientation:   sensor_type = SENSOR_TYPE_ORIENTATION;  break;
         }
         short flags = newState;
         if (en)
@@ -184,7 +184,7 @@ int AkmSensor::setDelay(int32_t handle, int64_t ns)
     switch (handle) {
 //        case ID_A: sensor_type = SENSOR_TYPE_ACCELEROMETER; break;
         case ID_M: sensor_type = SENSOR_TYPE_MAGNETIC_FIELD; break;
-//        case ID_O: sensor_type = SENSOR_TYPE_ORIENTATION; break;
+        case ID_O: sensor_type = SENSOR_TYPE_ORIENTATION; break;
     }
 
     if (sensor_type == 0)
@@ -285,7 +285,7 @@ void AkmSensor::processEvent(int code, int value)
             mPendingMask |= 1<<MagneticField;
             mPendingEvents[MagneticField].magnetic.z = value * CONVERT_M_Z;
             break;
-/*
+
         case EVENT_TYPE_YAW:
             mPendingMask |= 1<<Orientation;
             mPendingEvents[Orientation].orientation.azimuth = value * CONVERT_O_A;
@@ -305,6 +305,6 @@ void AkmSensor::processEvent(int code, int value)
             mPendingMask |= 1<<Orientation;
             mPendingEvents[Orientation].orientation.status = status;
             break;
-*/
+
     }
 }

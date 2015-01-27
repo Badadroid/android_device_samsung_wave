@@ -36,7 +36,6 @@
 #include "AkmSensor.h"
 #include "ProximitySensor.h"
 #include "Smb380Sensor.h"
-#include "OrientationSensor.h"
 
 /*****************************************************************************/
 
@@ -62,17 +61,17 @@ static const struct sensor_t sSensorList[] = {
         { "BMA023 3-axis Accelerometer",
           "Bosch Sensortec",
           1, SENSORS_ACCELERATION_HANDLE,
-          SENSOR_TYPE_ACCELEROMETER, RANGE_A, RESOLUTION_A, 0.20f, 10000, 0, 0, 0, 0, 10000,
+          SENSOR_TYPE_ACCELEROMETER, RANGE_A, CONVERT_A, 0.20f, 20000, 0, 0, 0, 0, 20000,
 		  SENSOR_FLAG_CONTINUOUS_MODE, { } },
         { "AK8973 3-axis Magnetic field sensor",
           "Asahi Kasei Microdevices",
           1, SENSORS_MAGNETIC_FIELD_HANDLE,
           SENSOR_TYPE_MAGNETIC_FIELD, 2000.0f, CONVERT_M, 6.8f, 16667, 0, 0, 0, 0, 16667,
 		  SENSOR_FLAG_CONTINUOUS_MODE, { } },
-		{ "CM Hacked Orientation Sensor",
-          "CM Team",
+		{ "AK8973 3-axis Orientation sensor",
+          "Asahi Kasei Microdevices",
           1, SENSORS_ORIENTATION_HANDLE,
-          SENSOR_TYPE_ORIENTATION,  360.0f, CONVERT_O, 7.8f, 10000, 0, 0, 0, 0, 10000,
+          SENSOR_TYPE_ORIENTATION,  360.0f, CONVERT_O, 7.8f, 16667, 0, 0, 0, 0, 16667,
 		  SENSOR_FLAG_CONTINUOUS_MODE, { } },
         { "GP2A Proximity sensor",
           "Sharp",
@@ -124,7 +123,6 @@ private:
         proximity    = 0,
         bosch        = 1,
         akm          = 2,
-        orientation  = 3,
         numSensorDrivers,
         numFds,
     };
@@ -140,13 +138,12 @@ private:
            
             case ID_A:
                 return bosch;
+            case ID_O:
             case ID_M:
                 return akm;
-            case ID_O:
-                return orientation;
             case ID_P:
 			    return proximity;
-                 
+
         }
         return -EINVAL;
     }
@@ -171,11 +168,6 @@ sensors_poll_context_t::sensors_poll_context_t()
     mPollFds[akm].fd = mSensors[akm]->getFd();
     mPollFds[akm].events = POLLIN;
     mPollFds[akm].revents = 0;
-
-    mSensors[orientation] = new OrientationSensor();
-    mPollFds[orientation].fd = mSensors[orientation]->getFd();
-    mPollFds[orientation].events = POLLIN;
-    mPollFds[orientation].revents = 0;
 
     int wakeFds[2];
     int result = pipe(wakeFds);

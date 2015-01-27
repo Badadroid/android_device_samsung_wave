@@ -51,13 +51,13 @@ __BEGIN_DECLS
 
 /*****************************************************************************/
 
-#define EVENT_TYPE_ACCEL_X          ABS_X
-#define EVENT_TYPE_ACCEL_Y          ABS_Y
-#define EVENT_TYPE_ACCEL_Z          ABS_Z
+#define EVENT_TYPE_ACCEL_X          REL_X
+#define EVENT_TYPE_ACCEL_Y          REL_Y
+#define EVENT_TYPE_ACCEL_Z          REL_Z
 
-#define EVENT_TYPE_YAW              REL_X
-#define EVENT_TYPE_PITCH            REL_Y
-#define EVENT_TYPE_ROLL             REL_Z
+#define EVENT_TYPE_YAW              REL_RX
+#define EVENT_TYPE_PITCH            REL_RY
+#define EVENT_TYPE_ROLL             REL_RZ
 #define EVENT_TYPE_ORIENT_STATUS    REL_WHEEL
 
 /* For AK8973iB */
@@ -69,7 +69,6 @@ __BEGIN_DECLS
 
 // conversion of acceleration data to SI units (m/s^2)
 #define RANGE_A                     (2*GRAVITY_EARTH)
-#define RESOLUTION_A                (RANGE_A/(512))
 #define CONVERT_A                   (RANGE_A/(512))
 #define CONVERT_A_X                 (-CONVERT_A)
 #define CONVERT_A_Y                 (-CONVERT_A)

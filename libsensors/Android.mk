@@ -40,7 +40,6 @@ LOCAL_SRC_FILES := 						\
 				AkmSensor.cpp			\
 				ProximitySensor.cpp		\
 				Smb380Sensor.cpp         \
-				OrientationSensor.cpp	\
 	            InputEventReader.cpp
 
 LOCAL_SHARED_LIBRARIES := liblog libcutils libdl
