@@ -276,9 +276,3 @@ service tvouthack /system/bin/tvouthack
 service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
     class late_start
     disabled
-
-service orientationd /system/vendor/bin/orientationd
-    class late_start
-    user compass
-    group system input
-    disabled

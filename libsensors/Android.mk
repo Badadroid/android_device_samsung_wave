@@ -12,13 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ifneq ($(TARGET_PROVIDES_LIBSENSORS),true)
-
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(TARGET_SIMULATOR),true)
 
-# HAL module implemenation, not prelinked, and stored in
+# HAL module implemenation stored in
 # hw/<SENSORS_HARDWARE_MODULE_ID>.<ro.product.board>.so
 include $(CLEAR_VARS)
 
@@ -29,25 +26,14 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 LOCAL_MODULE_TAGS := optional
 
 LOCAL_CFLAGS := -DLOG_TAG=\"Sensors\"
-
-ifeq ($(TARGET_DEVICE),captivate)
-	LOCAL_CFLAGS +=  -DCAPTIVATE
-endif
-
 LOCAL_SRC_FILES := 						\
 				sensors.cpp 			\
 				SensorBase.cpp			\
 				AkmSensor.cpp			\
 				ProximitySensor.cpp		\
 				Smb380Sensor.cpp         \
-				OrientationSensor.cpp	\
 	            InputEventReader.cpp
 
 LOCAL_SHARED_LIBRARIES := liblog libcutils libdl
-LOCAL_PRELINK_MODULE := false
 
 include $(BUILD_SHARED_LIBRARY)
-
-endif
-
-endif

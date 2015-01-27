@@ -35,8 +35,7 @@ __BEGIN_DECLS
 
 #define ID_A  (0)
 #define ID_M  (1)
-#define ID_O  (2)
-#define ID_P  (3)
+#define ID_P  (2)
 
 
 /*****************************************************************************/
@@ -51,14 +50,9 @@ __BEGIN_DECLS
 
 /*****************************************************************************/
 
-#define EVENT_TYPE_ACCEL_X          ABS_X
-#define EVENT_TYPE_ACCEL_Y          ABS_Y
-#define EVENT_TYPE_ACCEL_Z          ABS_Z
-
-#define EVENT_TYPE_YAW              REL_X
-#define EVENT_TYPE_PITCH            REL_Y
-#define EVENT_TYPE_ROLL             REL_Z
-#define EVENT_TYPE_ORIENT_STATUS    REL_WHEEL
+#define EVENT_TYPE_ACCEL_X          REL_X
+#define EVENT_TYPE_ACCEL_Y          REL_Y
+#define EVENT_TYPE_ACCEL_Z          REL_Z
 
 /* For AK8973iB */
 #define EVENT_TYPE_MAGV_X           REL_DIAL
@@ -69,7 +63,6 @@ __BEGIN_DECLS
 
 // conversion of acceleration data to SI units (m/s^2)
 #define RANGE_A                     (2*GRAVITY_EARTH)
-#define RESOLUTION_A                (RANGE_A/(512))
 #define CONVERT_A                   (RANGE_A/(512))
 #define CONVERT_A_X                 (-CONVERT_A)
 #define CONVERT_A_Y                 (-CONVERT_A)
@@ -80,12 +73,6 @@ __BEGIN_DECLS
 #define CONVERT_M_X                 (CONVERT_M)
 #define CONVERT_M_Y                 (-CONVERT_M)
 #define CONVERT_M_Z                 (CONVERT_M)
-
-/* conversion of orientation data to degree units */
-#define CONVERT_O                   (1.0f/64.0f)
-#define CONVERT_O_A                 (CONVERT_O)
-#define CONVERT_O_P                 (CONVERT_O)
-#define CONVERT_O_R                 (CONVERT_O)
 
 #define SENSOR_STATE_MASK           (0x7FFF)
 

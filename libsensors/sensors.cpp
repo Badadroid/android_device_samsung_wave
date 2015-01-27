@@ -26,7 +26,7 @@
 #include <stdlib.h>
 
 #include <linux/input.h>
-
+#include <linux/akm8973.h>
 
 #include <utils/Atomic.h>
 #include <utils/Log.h>
@@ -36,19 +36,16 @@
 #include "AkmSensor.h"
 #include "ProximitySensor.h"
 #include "Smb380Sensor.h"
-#include "OrientationSensor.h"
 
 /*****************************************************************************/
 
 #define SENSORS_ACCELERATION     (1<<ID_A)
 #define SENSORS_MAGNETIC_FIELD   (1<<ID_M)
-#define SENSORS_ORIENTATION      (1<<ID_O)
 #define SENSORS_PROXIMITY        (1<<ID_P)
 
 #define SENSORS_ACCELERATION_HANDLE     0
 #define SENSORS_MAGNETIC_FIELD_HANDLE   1
-#define SENSORS_ORIENTATION_HANDLE      2
-#define SENSORS_PROXIMITY_HANDLE        3
+#define SENSORS_PROXIMITY_HANDLE        2
 
 #define AKM_FTRACE 0
 #define AKM_DEBUG 0
@@ -62,15 +59,11 @@ static const struct sensor_t sSensorList[] = {
         { "BMA023 3-axis Accelerometer",
           "Bosch Sensortec",
           1, SENSORS_ACCELERATION_HANDLE,
-          SENSOR_TYPE_ACCELEROMETER, RANGE_A, RESOLUTION_A, 0.20f, 10000, 0, 0, { } },
+          SENSOR_TYPE_ACCELEROMETER, RANGE_A, CONVERT_A, 0.20f, 20000, 0, 0, { } },
         { "AK8973 3-axis Magnetic field sensor",
           "Asahi Kasei Microdevices",
           1, SENSORS_MAGNETIC_FIELD_HANDLE,
           SENSOR_TYPE_MAGNETIC_FIELD, 2000.0f, CONVERT_M, 6.8f, 16667, 0, 0, { } },
-		{ "CM Hacked Orientation Sensor",
-          "CM Team",
-          1, SENSORS_ORIENTATION_HANDLE,
-          SENSOR_TYPE_ORIENTATION,  360.0f, CONVERT_O, 7.8f, 10000, 0, 0, { } },
         { "GP2A Proximity sensor",
           "Sharp",
           1, SENSORS_PROXIMITY_HANDLE,
@@ -120,7 +113,6 @@ private:
         proximity    = 0,
         bosch        = 1,
         akm          = 2,
-        orientation  = 3,
         numSensorDrivers,
         numFds,
     };
@@ -138,11 +130,9 @@ private:
                 return bosch;
             case ID_M:
                 return akm;
-            case ID_O:
-                return orientation;
             case ID_P:
 			    return proximity;
-                 
+
         }
         return -EINVAL;
     }
@@ -167,11 +157,6 @@ sensors_poll_context_t::sensors_poll_context_t()
     mPollFds[akm].fd = mSensors[akm]->getFd();
     mPollFds[akm].events = POLLIN;
     mPollFds[akm].revents = 0;
-
-    mSensors[orientation] = new OrientationSensor();
-    mPollFds[orientation].fd = mSensors[orientation]->getFd();
-    mPollFds[orientation].events = POLLIN;
-    mPollFds[orientation].revents = 0;
 
     int wakeFds[2];
     int result = pipe(wakeFds);
