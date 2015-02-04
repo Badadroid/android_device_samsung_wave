@@ -1,7 +1,7 @@
 # mount point fstype device options (length for cryptfs encryption footer)
 /boot		mtd	boot
 
-/data 		ext4	/dev/lvpool/userdata 	length=-16384 flags=backup=1;canbewiped;wipeingui;wipeduringfactoryreset
+/data 		auto	/dev/lvpool/userdata 	length=-16384 flags=backup=1;canbewiped;wipeingui;wipeduringfactoryreset
 /cache		yaffs2	cache				flags=backup=1;canbewiped;wipeingui;wipeduringfactoryreset
 /system	ext4	/dev/lvpool/system		flags=backup=1;canbewiped;wipeingui
 

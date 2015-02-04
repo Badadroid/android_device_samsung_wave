@@ -146,6 +146,12 @@ PRODUCT_PACKAGES += \
 	DeviceSettings \
 	OmniTorch
 
+# f2fs
+PRODUCT_PACKAGES += \
+	fsck.f2fs \
+	mkfs.f2fs \
+	fibmap.f2fs
+
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
