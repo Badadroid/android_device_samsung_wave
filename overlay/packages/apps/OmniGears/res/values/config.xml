@@ -21,4 +21,8 @@ Setting to false will disable Volume Rocker Wake support -->
 
     <!-- Whether device has hardware buttons -->
     <bool name="config_has_hardware_buttons">true</bool>
+
+    <!-- Home button Wake Support. Some devices do not support this.
+Setting to false will disable Home button Wake support -->
+    <bool name="config_show_homeWake">true</bool>
 </resources>
