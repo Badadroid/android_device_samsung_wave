@@ -130,7 +130,6 @@ TARGET_BOOTANIMATION_USE_RGB565 := true
 ifeq ($(HOST_OS),linux)
     WITH_DEXPREOPT := true
 endif
-DONT_DEXPREOPT_PREBUILTS := true
 
 # Use dlmalloc instead of jemalloc for mallocs on low-ram target kernels
 MALLOC_IMPL := dlmalloc
