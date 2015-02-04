@@ -122,8 +122,7 @@ TARGET_RECOVERY_FSTAB := device/samsung/wave/fstab.wave
 RECOVERY_FSTAB_VERSION := 2
 
 # Boot Animation
-TARGET_BOOTANIMATION_PRELOAD := true
-TARGET_BOOTANIMATION_TEXTURE_CACHE := true
+TARGET_BOOTANIMATION_TEXTURE_CACHE := false
 TARGET_BOOTANIMATION_USE_RGB565 := true
 
 # Enable dex-preoptimization to speed up first boot sequence
