@@ -41,6 +41,7 @@ TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := false
 TARGET_CPU_VARIANT := cortex-a8
+TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.7
 
 # Non PIE verification
 TARGET_ENABLE_NON_PIE_SUPPORT := true
