@@ -185,6 +185,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.sf.lcd_density=240 \
 	ro.bq.gpu_to_cpu_unsupported=1 \
 	ro.config.low_ram=true \
+	persist.sys.force_highendgfx=true \
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	camera2.portability.force_api=1
