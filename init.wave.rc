@@ -274,10 +274,7 @@ on property:init.svc.bootanim=running
 
 # LMK values
 on property:sys.boot_completed=1
-    write /sys/module/lowmemorykiller/parameters/adj 0,1,2,4,6,15
     write /sys/module/lowmemorykiller/parameters/minfree 3072,5120,8192,10241,12288,14336
-    write /proc/1/oom_adj -16
-
 
 #- End main Services -#
 
