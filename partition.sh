@@ -21,8 +21,9 @@ MMC_PART='/dev/block/mmcblk0p1 /dev/block/mmcblk0p2 /dev/block/mmcblk0p3'
 /lvm/sbin/lvm lvcreate -L ${SYSTEM_SIZE}B -n system lvpool
 /lvm/sbin/lvm lvcreate -l 100%FREE -n userdata lvpool
 
-# format data (/system will be formatted by updater-script)
-make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -l -16384 -a /data /dev/lvpool/userdata
+# format partitions
+make_ext4fs -b 4096 -g 32768 -i 7680 -I 256 -a /system /dev/lvpool/system
+make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data /dev/lvpool/userdata
 mount -t ext4 /dev/lvpool/userdata /data
 busybox mkdir /data/media
 busybox mkdir /data/media/0
