@@ -1621,6 +1621,13 @@ status_t AudioHardware::AudioStreamOutALSA::getRenderPosition(uint32_t *dspFrame
     return INVALID_OPERATION;
 }
 
+status_t AudioStreamOut::getPresentationPosition(uint64_t *frames,
+    struct timespec *timestamp)
+{
+    //TODO
+    return INVALID_OPERATION;
+}
+
 int AudioHardware::AudioStreamOutALSA::prepareLock()
 {
     // request sleep next time write() is called so that caller can acquire
