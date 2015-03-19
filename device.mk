@@ -96,7 +96,7 @@ PRODUCT_COPY_FILES += \
 	device/samsung/wave/prebuilt/media_codecs.xml:system/etc/media_codecs.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-	frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
+	frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml
 
 # These are the OpenMAX IL modules
 PRODUCT_PACKAGES += \
@@ -178,6 +178,7 @@ PRODUCT_PROPERTY_OVERRIDES := \
 # Note that the only such settings should be the ones that are too low-level to
 # be reachable from resources or other mechanisms.
 PRODUCT_PROPERTY_OVERRIDES += \
+	persist.sys.media.legacy-drm=1 \
 	wifi.interface=wlan0 \
 	mobiledata.interfaces=pdp0,eth0,gprs,ppp0 \
 	rild.libpath=/system/lib/libmocha-ril.so \
