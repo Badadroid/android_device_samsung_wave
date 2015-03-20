@@ -45,7 +45,8 @@ TARGET_CPU_SMP := false
 TARGET_CPU_VARIANT := cortex-a8
 TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.7
 
-# Non PIE verification
+# Bionic stuff
+BOARD_USES_LEGACY_MMAP := true
 TARGET_ENABLE_NON_PIE_SUPPORT := true
 
 TARGET_NO_BOOTLOADER := true
