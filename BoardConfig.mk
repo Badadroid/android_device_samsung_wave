@@ -140,8 +140,8 @@ MALLOC_IMPL := dlmalloc
 
 # Hardware rendering
 USE_OPENGL_RENDERER := true
-
 BOARD_EGL_CFG := device/samsung/wave/prebuilt/egl.cfg
+BOARD_EGL_SYSTEMUI_PBSIZE_HACK := true
 
 # TARGET_DISABLE_TRIPLE_BUFFERING can be used to disable triple buffering
 # on per target basis. On crespo it is possible to do so in theory
