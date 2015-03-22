@@ -36,4 +36,7 @@
         <item>reboot_recovery</item>
     </string-array>
 
+    <!-- Set Home Button Wake Support as a persistent behaviour. -->
+    <bool name="config_persistHomeWakeSupport">true</bool>
+
 </resources>
