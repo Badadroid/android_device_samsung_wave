@@ -136,4 +136,12 @@
     -->
     <integer name="config_longPressOnHomeBehavior">1</integer>
 
+    <!-- Global action menu -->
+    <string-array translatable="false" name="config_globalActionsList">
+        <item>power</item>
+        <item>reboot</item>
+        <item>airplane</item>
+        <item>silent</item>
+    </string-array>
+
 </resources>
