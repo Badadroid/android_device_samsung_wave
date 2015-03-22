@@ -64,6 +64,9 @@ TARGET_KERNEL_SOURCE := kernel/samsung/aries
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/wave
 
+# Fonts
+EXTENDED_FONT_FOOTPRINT := true
+
 # Camera
 USE_CAMERA_STUB := false
 ifeq ($(USE_CAMERA_STUB),false)
