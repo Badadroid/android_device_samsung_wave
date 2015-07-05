@@ -53,6 +53,18 @@
 			android:defaultValue="2" />
 	</PreferenceCategory>
 
+	<PreferenceCategory
+	android:title="@string/category_bigmem_title">
+	    <!-- Bigmem Config -->
+	    <ListPreference
+	        android:key="bigmem"
+	        android:title="@string/bigmem_title_head"
+	        android:summary="@string/bigmem_summary_head"
+	        android:entries="@array/bigmem_entries"
+			android:entryValues="@array/bigmem_entries_values"
+			android:defaultValue="0" />
+	</PreferenceCategory>
+
         <PreferenceCategory
             android:title="@string/category_volume_boost_title"
             android:key="category_volume_boost">

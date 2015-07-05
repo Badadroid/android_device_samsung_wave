@@ -89,6 +89,10 @@ on fs
     chmod 660 /sys/class/sec/uart_switch/UART_SEL/value
 
 # permission for tuning knobs
+    chown system system /sys/kernel/bigmem/enable
+    chmod 660 /sys/kernel/bigmem/enable
+    restorecon /sys/kernel/bigmem/enable
+
     chown system system /sys/class/misc/pwm_duty/pwm_duty
     chmod 660 /sys/class/misc/pwm_duty/pwm_duty
     restorecon /sys/class/misc/pwm_duty/pwm_duty

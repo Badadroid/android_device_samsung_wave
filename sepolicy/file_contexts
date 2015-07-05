@@ -27,6 +27,7 @@
 /sys/class/misc/dockaudio/(.*)_enable               u:object_r:sysfs_writable:s0
 /sys/devices/virtual/misc/color_tuning/(.*)         u:object_r:sysfs_writable:s0
 /sys/devices/virtual/misc/voodoo_sound/(.*)         u:object_r:sysfs_writable:s0
+/sys/kernel/bigmem/enable                           u:object_r:sysfs_writable:s0
 
 # LVM
 /dev/mapper/lvpool-(.*)                             u:object_r:block_device:s0

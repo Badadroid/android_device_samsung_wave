@@ -36,6 +36,7 @@ public class DeviceSettings extends PreferenceActivity  {
     public static final String KEY_TVOUT_ENABLE = "tvout_enable";
     public static final String KEY_TVOUT_SYSTEM = "tvout_system";
     public static final String KEY_TVOUT_CATEGORY = "category_tvout";
+    public static final String KEY_BIGMEM = "bigmem";
     public static final String KEY_VOLUME_BOOST = "volume_boost";
     public static final String KEY_VOLUME_CATEGORY = "category_volume_boost";
     public static final String KEY_CARDOCK_AUDIO = "cardock_audio";
@@ -48,6 +49,7 @@ public class DeviceSettings extends PreferenceActivity  {
     private CheckBoxPreference mTvOutEnable;
     private ListPreference mTvOutSystem;
     private TvOut mTvOut;
+    private ListPreference mBigmem;
     private VolumeBoostPreference mVolumeBoost;
     private CheckBoxPreference mCarDockAudio;
     private CheckBoxPreference mDeskDockAudio;
@@ -74,6 +76,10 @@ public class DeviceSettings extends PreferenceActivity  {
         mMdnie = (ListPreference) findPreference(KEY_MDNIE);
         mMdnie.setEnabled(Mdnie.isSupported());
         mMdnie.setOnPreferenceChangeListener(new Mdnie());
+
+        mBigmem = (ListPreference) findPreference(KEY_BIGMEM);
+        mBigmem.setEnabled(Bigmem.isSupported());
+        mBigmem.setOnPreferenceChangeListener(new Bigmem());
 
         mVolumeBoost = (VolumeBoostPreference) findPreference(KEY_VOLUME_BOOST);
         if (!VolumeBoostPreference.isSupported()) {
