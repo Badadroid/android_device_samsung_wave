@@ -114,7 +114,6 @@ PRODUCT_PACKAGES += \
 	gps.wave \
 	audio.primary.wave \
 	audio.a2dp.default \
-	audio.usb.default \
 	libril-client \
 	libs3cjpeg
 
