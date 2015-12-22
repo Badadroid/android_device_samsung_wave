@@ -1628,6 +1628,32 @@ status_t AudioStreamOut::getPresentationPosition(uint64_t *frames,
     return INVALID_OPERATION;
 }
 
+
+status_t AudioHardware::setMasterMute(bool muted) {
+    return INVALID_OPERATION;
+}
+
+int AudioHardware::createAudioPatch(unsigned int num_sources,
+        const struct audio_port_config *sources,
+        unsigned int num_sinks,
+        const struct audio_port_config *sinks,
+        audio_patch_handle_t *handle) {
+    return INVALID_OPERATION;
+}
+
+int AudioHardware::releaseAudioPatch(audio_patch_handle_t handle) {
+    return INVALID_OPERATION;
+}
+
+int AudioHardware::getAudioPort(struct audio_port *port) {
+    return INVALID_OPERATION;
+}
+
+int AudioHardware::setAudioPortConfig(
+        const struct audio_port_config *config) {
+    return INVALID_OPERATION;
+}
+
 int AudioHardware::AudioStreamOutALSA::prepareLock()
 {
     // request sleep next time write() is called so that caller can acquire

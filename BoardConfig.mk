@@ -17,7 +17,7 @@
 # Product-specific compile-time definitions.
 #
 
-#Video Devices
+# Video Devices
 BOARD_SECOND_CAMERA_DEVICE := /dev/video2
 
 # Kernel Config
@@ -28,22 +28,20 @@ BOARD_HAVE_FM_RADIO := true
 BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
 BOARD_FM_DEVICE := si4709
 
-BOARD_USES_GENERIC_AUDIO := false
-AUDIO_FEATURE_ENABLED_INCALL_MUSIC := false
-AUDIO_FEATURE_ENABLED_COMPRESS_VOIP := false
-
 BOARD_USES_LIBSECRIL_STUB := true
-
-BOARD_NO_PAGE_FLIPPING := false
-BOARD_NO_32BPP := false
 
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_ARCH_VARIANT_CPU := cortex-a8
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := false
 TARGET_CPU_VARIANT := cortex-a8
-TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.7
+ARCH_ARM_HAVE_TLS_REGISTER := true
+TARGET_GLOBAL_CFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
+
+KERNEL_TOOLCHAIN := "$(ANDROID_BUILD_TOP)/prebuilts/gcc/$(strip $(HOST_OS))-x86/arm/arm-eabi-5.2/bin/"
 
 # Bionic stuff
 BOARD_USES_LEGACY_MMAP := true
@@ -65,7 +63,7 @@ TARGET_KERNEL_SOURCE := kernel/samsung/aries
 TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/wave
 
 # Fonts
-EXTENDED_FONT_FOOTPRINT := true
+SMALLER_FONT_FOOTPRINT := true
 
 # Camera
 USE_CAMERA_STUB := false
@@ -87,11 +85,12 @@ BOARD_NAND_PAGE_SIZE := 4096
 BOARD_NAND_SPARE_SIZE := 128
 BOARD_KERNEL_BASE := 0x32000000
 BOARD_KERNEL_PAGESIZE := 4096
-BOARD_KERNEL_CMDLINE := console=ttyFIQ0,115200 androidboot.selinux=disabled init=/init no_console_suspend
+# BOARD_KERNEL_CMDLINE := console=ttyFIQ0,115200 androidboot.selinux=disabled init=/init no_console_suspend
 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 7864320
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 629145600
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 419430400
+BOARD_CACHEIMAGE_PARTITION_SIZE := 17920
 BOARD_FLASH_BLOCK_SIZE := 4096
 
 # Connectivity - Wi-Fi
@@ -108,9 +107,6 @@ WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/bcmdhd/parameters/firmware_path"
 WIFI_DRIVER_FW_PATH_STA     := "/vendor/firmware/fw_bcmdhd.bin"
 WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 
-# adb has root
-ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
-
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/wave/bluetooth 
 BOARD_BLUEDROID_VENDOR_CONF := device/samsung/wave/prebuilt/libbt_vndcfg.txt 
@@ -118,6 +114,9 @@ BOARD_BLUEDROID_VENDOR_CONF := device/samsung/wave/prebuilt/libbt_vndcfg.txt
 # Vold
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/s3c-usbgadget/gadget/lun%d/file"
+
+# ART
+WITH_ART_SMALL_MODE := true
 
 # Recovery
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -136,10 +135,11 @@ TARGET_BOOTANIMATION_USE_RGB565 := true
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
     WITH_DEXPREOPT := true
+    WITH_DEXPREOPT_BOOT_IMG_ONLY := true
+    DONT_DEXPREOPT_PREBUILTS := true
 endif
 
-# Use dlmalloc instead of jemalloc for mallocs on low-ram target kernels
-MALLOC_IMPL := dlmalloc
+TARGET_USES_AOSP_BROWSER := true
 
 # Hardware rendering
 USE_OPENGL_RENDERER := true
@@ -155,7 +155,9 @@ TARGET_DISABLE_TRIPLE_BUFFERING := false
 
 BOARD_ALLOW_EGL_HIBERNATION := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
+BOARD_EGL_NEEDS_HANDLE_VALUE := true
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
+HWUI_COMPILE_FOR_PERF := true
 
 # hwcomposer: custom vsync ioctl
 BOARD_CUSTOM_VSYNC_IOCTL := true

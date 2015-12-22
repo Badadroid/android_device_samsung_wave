@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Bootanimation resolution
-TARGET_BOOTANIMATION_SIZE := 420x280
+# Boot animation
+TARGET_SCREEN_HEIGHT := 320
+TARGET_SCREEN_WIDTH := 240
 
 # Wave is low-memory device
 TARGET_LOW_RAM_DEVICE := true
@@ -31,8 +32,8 @@ $(call inherit-product, vendor/omni/config/common.mk)
 $(call inherit-product, device/samsung/wave/device.mk)
 
 # Wave uses high-density artwork where available
-PRODUCT_AAPT_CONFIG := normal hdpi
-PRODUCT_AAPT_PREF_CONFIG := hdpi
+PRODUCT_AAPT_CONFIG := normal
+PRODUCT_AAPT_PREF_CONFIG := mdpi
 
 # Device identifier
 PRODUCT_RELEASE_NAME := Wave
