@@ -20,16 +20,21 @@ import os
 
 TARGET_DIR = os.getenv('OUT')
 UTILITIES_DIR = os.path.join(TARGET_DIR, 'utilities')
+SYSBIN_DIR = os.path.join(TARGET_DIR, 'recovery/root/sbin')
 
 def FullOTA_Assertions(info):
 
   info.output_zip.write(os.path.join(UTILITIES_DIR, "make_ext4fs"), "make_ext4fs")
+  info.output_zip.write(os.path.join(SYSBIN_DIR, "mkfs.f2fs"), "mkfs.f2fs")
   info.output_zip.write(os.path.join(UTILITIES_DIR, "busybox"), "busybox")
   info.output_zip.write(os.path.join(UTILITIES_DIR, "flash_image"), "flash_image")
 
   info.script.AppendExtra(
        ('package_extract_file("make_ext4fs", "/tmp/make_ext4fs");\n'
          'set_metadata("/tmp/make_ext4fs", "uid", 0, "gid", 0, "mode", 0777);'))
+  info.script.AppendExtra(
+       ('package_extract_file("mkfs.f2fs", "/tmp/mkfs.f2fs");\n'
+         'set_metadata("/tmp/mkfs.f2fs", "uid", 0, "gid", 0, "mode", 0777);'))
   info.script.AppendExtra(
         ('package_extract_file("busybox", "/tmp/busybox");\n'
          'set_metadata("/tmp/busybox", "uid", 0, "gid", 0, "mode", 0777);'))

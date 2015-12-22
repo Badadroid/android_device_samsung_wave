@@ -24,9 +24,15 @@ MMC_PART='/dev/block/mmcblk0p1 /dev/block/mmcblk0p2 /dev/block/mmcblk0p3'
 # format partitions
 make_ext4fs -b 4096 -g 32768 -i 7680 -I 256 -a /system /dev/lvpool/system
 make_ext4fs -b 4096 -g 32768 -i 8192 -I 256 -a /data /dev/lvpool/userdata
-mount -t ext4 /dev/lvpool/userdata /data
+
+mkfs.f2fs /dev/lvpool/system
+mkfs.f2fs /dev/lvpool/userdata
+
+mount -t f2fs /dev/lvpool/userdata /data
+
 busybox mkdir /data/media
 busybox mkdir /data/media/0
+
 umount /data
 
 ui_print "Partitions had been prepared"
