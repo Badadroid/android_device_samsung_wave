@@ -21,20 +21,34 @@
      for different hardware and product builds. -->
 <resources>
 
-    <!-- There is no charging LED. -->
-    <bool name="config_unplugTurnsOnScreen">true</bool>
+    <!-- The attenuation in dB applied to the sound effects played
+         through AudioManager.playSoundEffect() when no volume is specified. -->
+    <integer name="config_soundEffectVolumeDb">-12</integer>
 
-    <!-- Our amoled doesn't animate well. -->
-    <bool name="config_animateScreenLights">false</bool>
+    <!-- Duration for the dim animation behind a dialog.  This may be either
+         a percentage, which is relative to the duration of the enter/open
+         animation of the window being shown that is dimming behind, or it may
+         be an integer for a constant duration. -->
+    <fraction name="config_dimBehindFadeDuration">0%</fraction>
 
-    <!-- disable menu hard key on Crespo in non-pattern lockscreen -->
-    <bool name="config_disableMenuKeyInLockScreen">true</bool>
+    <!-- Enables or disables fading edges when marquee is enabled in TextView. -->
+    <bool name="config_ui_enableFadingMarquee">false</bool>
 
-    <integer name="config_deskDockKeepsScreenOn">0</integer>
-    <integer name="config_carDockKeepsScreenOn">1</integer>
+    <!-- Device configuration indicating whether we should avoid using accelerated graphics
+         in certain places to reduce RAM footprint.  This is ignored if ro.config.low_ram
+         is true (in that case this is assumed true as well).  It can allow you to tune down
+         your device's memory use without going to the point of causing applications to turn
+         off features. -->
+    <bool name="config_avoidGfxAccel">false</bool>
 
-    <!-- XXXXX NOTE THE FOLLOWING RESOURCES USE THE WRONG NAMING CONVENTION.
-         Please don't copy them, copy anything else. -->
+    <!-- Device configuration setting the /proc/sys/vm/extra_free_kbytes tunable in the kernel
+         (if it exists).  A high value will increase the amount of memory that the kernel
+         tries to keep free, reducing allocation time and causing the lowmemorykiller to kill
+         earlier.  A low value allows more memory to be used by processes but may cause more
+         allocations to block waiting on disk I/O or lowmemorykiller.  Overrides the default
+         value chosen by ActivityManager based on screen size.  0 prevents keeping any extra
+         memory over what the kernel keeps by default.  -1 keeps the default. -->
+    <integer name="config_extraFreeKbytesAbsolute">3072</integer>
 
     <!-- This string array should be overridden by the device to present a list of network
          attributes.  This is used by the connectivity manager to decide which networks can coexist
@@ -94,8 +108,19 @@
         <item>7</item>
     </integer-array>
 
-    <!-- Minimum screen brightness allowed by the power manager. -->
-    <integer name="config_screenBrightnessDim">10</integer>
+    <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->
+    <bool name="config_unplugTurnsOnScreen">false</bool>
+
+    <!-- If this is true, the screen will fade off. -->
+    <bool name="config_animateScreenLights">true</bool>
+
+    <!-- Control whether being in the desk dock should enable accelerometer
+         based screen orientation.  This defaults to true because it is
+         common for desk docks to be sold in a variety of form factors
+         with different orientations.  Since we cannot always tell these docks
+         apart and the docks cannot report their true orientation on their own,
+         we rely on gravity to determine the effective orientation. -->
+    <integer name="config_deskDockKeepsScreenOn">0</integer>
 
     <!-- Vibrator pattern for a very short but reliable vibration for soft keyboard tap -->
     <integer-array name="config_keyboardTapVibePattern">
@@ -107,8 +132,22 @@
         <item>1</item>
     </integer-array>
 
-    <!-- crespo doesn't handle this blur effect very quickly. -->
-    <bool name="config_sf_slowBlur">true</bool>
+    <!-- Display low battery warning when battery level dips to this value.
+         Also, the battery stats are flushed to disk when we hit this level.  -->
+    <integer name="config_criticalBatteryWarningLevel">2</integer>
+
+    <!-- Allow the menu hard key to be disabled in LockScreen on some devices -->
+    <bool name="config_disableMenuKeyInLockScreen">true</bool>
+
+    <!-- Enable lockscreen translucent decor by default -->
+    <bool name="config_enableLockScreenTranslucentDecor">false</bool>
+
+    <!-- Enable translucent decor by default -->
+    <bool name="config_enableTranslucentDecor">false</bool>
+
+    <!-- Boolean indicating if current platform supports bluetooth wide band
+         speech -->
+    <bool name="config_bluetooth_wide_band_speech">false</bool>
 
     <!-- The default iface on which to monitor data use -->
     <string name="config_datause_iface">pdp0</string>
@@ -117,15 +156,66 @@
     <!-- The restoring is handled by modem if it is true -->
     <bool translatable="false" name="skip_restoring_network_selection">true</bool>
 
-    <!-- Boolean indicating if current platform supports bluetooth wide band
-         speech -->
-    <bool name="config_bluetooth_wide_band_speech">false</bool>
+    <!-- The default journal mode to use use when Write-Ahead Logging is not active.
+         Choices are: OFF, DELETE, TRUNCATE, PERSIST and MEMORY.
+         PERSIST may improve performance by reducing how often journal blocks are
+         reallocated (compared to truncation) resulting in better data block locality
+         and less churn of the storage media. -->
+    <string name="db_default_journal_mode">MEMORY</string>
 
-    <bool name="config_ui_enableFadingMarquee">false</bool>
+    <!-- The database synchronization mode when using the default journal mode.
+         FULL is safest and preserves durability at the cost of extra fsyncs.
+         NORMAL also preserves durability in non-WAL modes and uses checksums to ensure
+         integrity although there is a small chance that an error might go unnoticed.
+         Choices are: FULL, NORMAL, OFF. -->
+    <string name="db_default_sync_mode">NORMAL</string>
 
-    <!-- The attenuation in dB applied to the sound effects played
-         through AudioManager.playSoundEffect() when no volume is specified. -->
-    <integer name="config_soundEffectVolumeDb">-12</integer>
+    <!-- The database synchronization mode when using Write-Ahead Logging.
+         FULL is safest and preserves durability at the cost of extra fsyncs.
+         NORMAL sacrifices durability in WAL mode because syncs are only performed before
+         and after checkpoint operations.  If checkpoints are infrequent and power loss
+         occurs, then committed transactions could be lost and applications might break.
+         Choices are: FULL, NORMAL, OFF. -->
+    <string name="db_wal_sync_mode">NORMAL</string>
+
+    <!-- Max number of downloads allowed to proceed concurrently -->
+    <integer name="config_MaxConcurrentDownloadsAllowed">1</integer>
+
+    <!-- Is the dreams feature supported? -->
+    <bool name="config_dreamsSupported">false</bool>
+
+    <!-- Whether safe headphone volume is enabled or not (country specific). -->
+    <bool name="config_safe_media_volume_enabled">false</bool>
+
+    <!-- Timeout in MS for how long you have to long-press the back key to
+         kill the foreground app. -->
+    <integer name="config_backKillTimeout">1500</integer>
+
+    <!-- Hardware 'face' keys present on the device, stored as a bit field.
+         This integer should equal the sum of the corresponding value for each
+         of the following keys present:
+             1 - Home
+             2 - Back
+             4 - Menu
+             8 - Assistant (search)
+            16 - App switch
+            32 - Camera
+         For example, a device with Home, Back and Menu keys would set this
+         config to 7. -->
+    <integer name="config_deviceHardwareKeys">39</integer>
+
+    <!-- Control the behavior when the user long presses the menu button.
+            0 - Nothing
+            1 - Menu key
+            2 - Recent apps view in SystemUI
+            3 - Launch assist intent
+            4 - Voice Search
+            5 - In-app Search
+         This needs to match the constants in
+         policy/src/com/android/internal/policy/impl/PhoneWindowManager.java
+    -->
+    <integer name="config_longPressOnMenuBehavior">0</integer>
+	
 
     <!-- Control the behavior when the user long presses the home button.
         0 - Nothing
@@ -135,13 +225,14 @@
         policy/src/com/android/internal/policy/impl/PhoneWindowManager.java
     -->
     <integer name="config_longPressOnHomeBehavior">1</integer>
+	
+	<!-- The RadioAccessFamilies supported by the device.
+         Empty is viewed as "all".  Only used on devices which
+         don't support RIL_REQUEST_GET_RADIO_CAPABILITY
+         format is UMTS|LTE|...-->
+    <string translatable="false" name="config_radio_access_family">GPRS|EDGE|UMTS|HSDPA|HSUPA|HSPAP|GSM|WCDMA</string>
 
-    <!-- Global action menu -->
-    <string-array translatable="false" name="config_globalActionsList">
-        <item>power</item>
-        <item>reboot</item>
-        <item>airplane</item>
-        <item>silent</item>
-    </string-array>
+    <!-- enable doze powersaving mode -->
+    <bool name="config_enableAutoPowerModes">true</bool>
 
 </resources>
