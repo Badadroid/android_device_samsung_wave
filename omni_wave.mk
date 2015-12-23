@@ -12,9 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Boot animation
-TARGET_SCREEN_HEIGHT := 320
-TARGET_SCREEN_WIDTH := 240
+# Bootanimation resolution
+TARGET_BOOTANIMATION_SIZE := 420x280
 
 # Wave is low-memory device
 TARGET_LOW_RAM_DEVICE := true
