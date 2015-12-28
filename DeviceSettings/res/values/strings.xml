@@ -24,7 +24,7 @@
 
     <string name="category_bigmem_title">Bigmem</string>
     <string name="bigmem_title_head">Bigmem</string>
-    <string name="bigmem_summary_head">Increases available RAM but breaks 720p video recording (requires reboot)</string>
+    <string name="bigmem_summary_head">Increases available RAM but may break things (requires reboot)</string>
 
     <string name="category_volume_boost_title">Volume Controls</string>
     <string name="volume_boost_title_head">In-Call Volume Controls</string>
