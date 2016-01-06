@@ -1,7 +1,7 @@
 key 115    VOLUME_UP         WAKE
 key 114    VOLUME_DOWN       WAKE
 key 142    POWER             WAKE
-key 141    MENU              WAKE_DROPPED
+key 141    MENU
 key 139    HOME              WAKE_DROPPED
 key 171    FOCUS
 key 212    CAMERA
