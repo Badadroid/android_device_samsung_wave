@@ -47,6 +47,7 @@ typedef struct {
 	GpsStatus status;
 	GpsLocation location;
 	GpsSvStatus svStatus;
+	GpsNmea nmea;
 
 	pthread_mutex_t GpsMutex;
 } GpsState;
@@ -86,6 +87,16 @@ void update_gps_svstatus(void* arg) {
 	GPS_UNLOCK();
 }
 
+void send_nmea_cb(void* arg) {
+	GpsState* state = _gps_state;
+	D("%s(): NMEA String=%s", __FUNCTION__, state->nmea.nmea);
+
+	GPS_LOCK();
+	if(state->callbacks.nmea_cb)
+		state->callbacks.nmea_cb(state->nmea.timestamp, state->nmea.nmea, state->nmea.length);
+	GPS_UNLOCK();
+}
+
 /********************************* RIL interface *********************************/
 HRilClient	mRilClient;
 
@@ -110,6 +121,12 @@ int _GpsHandler(int type, void *data)
 		GPS_UNLOCK();
 		if(state->callbacks.create_thread_cb)
 			state->callbacks.create_thread_cb("update_gps_status", update_gps_status, NULL);
+	} else if (type == SRS_GPS_NMEA) {
+		GPS_LOCK();
+		memcpy(&state->nmea, data, sizeof(GpsNmea));
+		GPS_UNLOCK();
+		if(state->callbacks.create_thread_cb)
+			state->callbacks.create_thread_cb("send_nmea_cb", send_nmea_cb, NULL);
 	}
 	return 0;
 }
