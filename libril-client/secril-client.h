@@ -178,6 +178,11 @@ int GpsInit(HRilClient data, int enabled);
  */
 int GpsSetNavigationMode(HRilClient data, int enabled);
 
+/**
+ * GPS XTRA Inject Data
+ */
+int GpsXtraInjectData(HRilClient data, int length);
+
 #ifdef __cplusplus
 };
 #endif

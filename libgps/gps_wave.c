@@ -16,6 +16,7 @@
  */
 
 #include <fcntl.h>
+#include <sys/stat.h>
 #include <hardware/gps.h>
 #include <secril-client.h>
 #include <samsung-ril-socket.h>
@@ -44,6 +45,7 @@ enum {
 typedef struct {
 	int init;
 	GpsCallbacks callbacks;
+	GpsXtraCallbacks        xtra_callbacks;
 	GpsStatus status;
 	GpsLocation location;
 	GpsSvStatus svStatus;
@@ -94,6 +96,16 @@ void send_nmea_cb(void* arg) {
 	GPS_LOCK();
 	if(state->callbacks.nmea_cb)
 		state->callbacks.nmea_cb(state->nmea.timestamp, state->nmea.nmea, state->nmea.length);
+	GPS_UNLOCK();
+}
+
+void xtra_download_request(void* arg) {
+	D("%s() is called", __FUNCTION__);
+	GpsState*  state = _gps_state;
+
+	GPS_LOCK();
+	if(state->xtra_callbacks.download_request_cb)
+		state->xtra_callbacks.download_request_cb();
 	GPS_UNLOCK();
 }
 
@@ -151,6 +163,63 @@ int connectRILDIfRequired(void)
 	}
     return 0;
 }
+
+/******************************** GpsXtraInterface *******************************/
+
+static int gps_xtra_init(GpsXtraCallbacks* callbacks)
+{
+	D("%s() is called", __FUNCTION__);
+	GpsState*  s = _gps_state;
+
+	s->xtra_callbacks = *callbacks;
+
+	return 0;
+}
+
+static int gps_xtra_inject_xtra_data(char* data, int length)
+{
+	D("%s() is called", __FUNCTION__);
+	D("%s: xtra size = %d, data ptr = 0x%x\n", __FUNCTION__, length, (int) data);
+	GpsState*  s = _gps_state;
+	int fd, n;
+
+	if (!s->init) {
+		D("%s: called with uninitialized state !!", __FUNCTION__);
+		return -1;
+	}
+
+	if( (fd = open(RIL_XTRA_PATH, O_WRONLY | O_CREAT | O_TRUNC, 00600|00060|00006)) < 0 ) {
+		ALOGE("%s: Couldn't open %s for writing, errno: %d", __func__, RIL_XTRA_PATH, errno);
+		return -1;
+	}
+
+	n = write(fd, data, length);
+	if(n != length) {
+		ALOGE("%s: Wrote only %d of %d bytes to %s", __func__, n, length, RIL_XTRA_PATH);
+		close(fd);
+		return -1;
+	} else {
+		D("%s: Written %d bytes to %s", __func__, n, RIL_XTRA_PATH);
+		fchmod(fd, 0666);
+		close(fd);
+	}
+
+	if (connectRILDIfRequired() == 0)
+		if (GpsXtraInjectData(mRilClient, length)!= RIL_CLIENT_ERR_SUCCESS) {
+			D("%s: GpsXtraInjectData is failed", __FUNCTION__);
+			return -1;
+		}
+
+	D("%s: xtra data sent to RIL", __FUNCTION__);
+
+	return 0;
+}
+
+static const GpsXtraInterface  sGpsXtraInterface = {
+	sizeof(GpsXtraInterface),
+	gps_xtra_init,
+	gps_xtra_inject_xtra_data,
+};
 
 /********************************* GPS interface *********************************/
 
@@ -304,7 +373,9 @@ static const void*
 wave_gps_get_extension(const char* name)
 {
 	D("%s('%s') is called", __FUNCTION__, name);
-	/* not yet implemented */
+	if (!strcmp(name, GPS_XTRA_INTERFACE)) {
+		return &sGpsXtraInterface;
+	}
 	return NULL;
 }
 

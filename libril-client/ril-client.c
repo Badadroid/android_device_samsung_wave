@@ -336,3 +336,26 @@ int GpsSetNavigationMode(HRilClient data, int enabled)
 
 	return RIL_CLIENT_ERR_SUCCESS;
 }
+
+int GpsXtraInjectData(HRilClient data, int length)
+{
+	struct srs_client *client;
+	struct srs_xtra_data_length pkt;
+	int rc;
+
+	ALOGE("%s(%p, %d)", __func__, data, length);
+
+	if (data == NULL)
+		return RIL_CLIENT_ERR_INVAL;
+
+	client = (struct srs_client *) data;
+
+	pkt.length = length;
+
+	rc = srs_client_send(client, SRS_GPS_XTRA_INJECT_DATA, &pkt, sizeof(pkt));
+
+	if (rc < 0)
+		return RIL_CLIENT_ERR_UNKNOWN;
+
+	return RIL_CLIENT_ERR_SUCCESS;
+}
