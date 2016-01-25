@@ -79,7 +79,7 @@ public class VolumeBoostPreference extends DialogPreference implements OnClickLi
 
     private VolumeSeekBar mSeekBars[] = new VolumeSeekBar[8];
 
-    private static final int BOOST_DEFAULT_VALUE = 2;
+    private static final int BOOST_DEFAULT_VALUE = 1;
     private static final int BOOST_MAX_VALUE = 3;
 
     private static final int MIC_DEFAULT_VALUE = 18;
