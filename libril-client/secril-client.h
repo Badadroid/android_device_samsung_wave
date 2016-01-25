@@ -168,6 +168,11 @@ int PcmIfCtrl(HRilClient client, int enabled);
 int GpsHello(HRilClient data);
 
 /**
+ * GPS init
+ */
+int GpsInit(HRilClient data, int enabled);
+
+/**
  * Set navigation mode
  */
 int GpsSetNavigationMode(HRilClient data, int enabled);

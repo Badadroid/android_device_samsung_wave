@@ -180,6 +180,10 @@ wave_gps_init(GpsCallbacks* callbacks)
 			s->callbacks.create_thread_cb("update_gps_status", update_gps_status, NULL);
 
 		s->init = STATE_INIT;
+
+		if (connectRILDIfRequired() == 0) {
+			GpsInit(mRilClient, 1);
+		}
 	}
 	return 0;
 }
@@ -192,12 +196,18 @@ wave_gps_cleanup(void)
 	GpsState* s = _gps_state;
 
 	if (s->init) {
+
 		GPS_LOCK();
 		s->status.status = GPS_STATUS_ENGINE_OFF;
 		GPS_UNLOCK();
 		if(s->callbacks.create_thread_cb)
 			s->callbacks.create_thread_cb("update_gps_status", update_gps_status, NULL);
+
 		s->init = STATE_QUIT;
+
+		if (connectRILDIfRequired() == 0) {
+			GpsInit(mRilClient, 0);
+		}
 	}
 }
 

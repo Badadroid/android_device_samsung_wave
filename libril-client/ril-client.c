@@ -197,7 +197,6 @@ int SetAudioPath(HRilClient data, AudioPath path)
 {
 	struct srs_client *client;
 	struct srs_snd_set_path_packet audio_path;
-	struct srs_snd_enable_disable_packet en_pkt;
 	int rc;
 
 	ALOGE("%s(%p, %d)", __func__, data, path);
@@ -251,7 +250,7 @@ int SetAudioPath(HRilClient data, AudioPath path)
 int PcmIfCtrl(HRilClient data, int enabled)
 {
 	struct srs_client *client;
-	struct srs_snd_enable_disable_packet en_pkt;
+	struct srs_enable_disable_packet en_pkt;
 	int rc;
 
 	ALOGE("%s(%p, %d)", __func__, data, enabled);
@@ -293,10 +292,32 @@ int GpsHello(HRilClient data)
 	return RIL_CLIENT_ERR_SUCCESS;
 }
 
+int GpsInit(HRilClient data, int enabled)
+{
+	struct srs_client *client;
+	struct srs_enable_disable_packet en_pkt;
+	int rc;
+
+	ALOGE("%s(%p, %d)", __func__, data, enabled);
+
+	if (data == NULL)
+		return RIL_CLIENT_ERR_INVAL;
+
+	client = (struct srs_client *) data;
+
+	en_pkt.enabled = enabled;
+
+	rc = srs_client_send(client, SRS_GPS_INIT, &en_pkt, sizeof(en_pkt));
+
+	if (rc < 0)
+		return RIL_CLIENT_ERR_UNKNOWN;
+
+	return RIL_CLIENT_ERR_SUCCESS;
+}
 int GpsSetNavigationMode(HRilClient data, int enabled)
 {
 	struct srs_client *client;
-	struct srs_snd_enable_disable_packet en_pkt;
+	struct srs_enable_disable_packet en_pkt;
 	int rc;
 
 	ALOGE("%s(%p, %d)", __func__, data, enabled);
