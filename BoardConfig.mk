@@ -152,6 +152,7 @@ BOARD_SEPOLICY_DIRS += \
     device/samsung/wave/sepolicy
 
 BOARD_SEPOLICY_UNION += \
+    app.te \
     bdaddr_read.te \
     file_contexts \
     property_contexts \
