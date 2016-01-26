@@ -166,6 +166,7 @@ wave_gps_init(GpsCallbacks* callbacks)
 		mRilClient = OpenClient_RILD();
 		if (!mRilClient) {
 			ALOGE("OpenClient_RILD() error");
+			return -1;
 		}
 	}
 
@@ -181,9 +182,11 @@ wave_gps_init(GpsCallbacks* callbacks)
 
 		s->init = STATE_INIT;
 
-		if (connectRILDIfRequired() == 0) {
-			GpsInit(mRilClient, 1);
-		}
+		if (connectRILDIfRequired() == 0)
+			if (GpsInit(mRilClient, 1) != RIL_CLIENT_ERR_SUCCESS) {
+				ALOGE("GpsInit(1) error");
+				return -1;
+			}
 	}
 	return 0;
 }
@@ -205,9 +208,12 @@ wave_gps_cleanup(void)
 
 		s->init = STATE_QUIT;
 
-		if (connectRILDIfRequired() == 0) {
-			GpsInit(mRilClient, 0);
-		}
+		if (connectRILDIfRequired() == 0)
+			if (GpsInit(mRilClient, 0) != RIL_CLIENT_ERR_SUCCESS)
+				ALOGE("GpsInit(0) error");
+
+		if (Disconnect_RILD(mRilClient) != RIL_CLIENT_ERR_SUCCESS)
+			ALOGE("Disconnect_RILD() error");
 	}
 }
 
@@ -224,7 +230,10 @@ wave_gps_start()
 	}
 
 	if (connectRILDIfRequired() == 0) {
-		GpsSetNavigationMode(mRilClient, 1);
+		if (GpsSetNavigationMode(mRilClient, 1) != RIL_CLIENT_ERR_SUCCESS) {
+				ALOGE("GpsSetNavigationMode(1) error");
+				return -1;
+			}
 		s->init = STATE_START;
 	}
 
@@ -245,7 +254,10 @@ wave_gps_stop()
 	}
 
 	if (connectRILDIfRequired() == 0) {
-		GpsSetNavigationMode(mRilClient, 0);
+		if (GpsSetNavigationMode(mRilClient, 0) != RIL_CLIENT_ERR_SUCCESS) {
+				ALOGE("GpsSetNavigationMode(0) error");
+				return -1;
+			}
 		s->init = STATE_INIT;
 	}
 

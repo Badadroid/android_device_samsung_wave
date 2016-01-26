@@ -26,7 +26,8 @@ extern "C" {
 #endif
 
 struct RilClient {
-    void *prv;
+    int fd;
+    int type;
 };
 
 typedef struct RilClient * HRilClient;
