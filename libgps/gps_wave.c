@@ -46,6 +46,7 @@ typedef struct {
 	int init;
 	GpsCallbacks callbacks;
 	GpsXtraCallbacks        xtra_callbacks;
+	AGpsCallbacks           agps_callbacks;
 	GpsStatus status;
 	GpsLocation location;
 	GpsSvStatus svStatus;
@@ -221,6 +222,57 @@ static const GpsXtraInterface  sGpsXtraInterface = {
 	gps_xtra_inject_xtra_data,
 };
 
+/********************************** AGpsInterface ********************************/
+
+static void agps_init(AGpsCallbacks* callbacks)
+{
+	D("%s() is called", __FUNCTION__);
+	GpsState*  s = _gps_state;
+
+	s->agps_callbacks = *callbacks;
+
+	return;
+}
+
+static int agps_data_conn_open(const char* apn)
+{
+	D("%s() is called", __FUNCTION__);
+	D("apn=%s", apn);
+	/* not yet implemented */
+	return 0;
+}
+
+static int agps_data_conn_closed()
+{
+	D("%s() is called", __FUNCTION__);
+	/* not yet implemented */
+	return 0;
+}
+
+static int agps_data_conn_failed()
+{
+	D("%s() is called", __FUNCTION__);
+	/* not yet implemented */
+	return 0;
+}
+
+static int agps_set_server(AGpsType type, const char* hostname, int port)
+{
+	D("%s() is called", __FUNCTION__);
+	D("type=%d, hostname=%s, port=%d", type, hostname, port);
+	/* not yet implemented */
+	return 0;
+}
+
+static const AGpsInterface  sAGpsInterface = {
+	sizeof(AGpsInterface),
+	agps_init,
+	agps_data_conn_open,
+	agps_data_conn_closed,
+	agps_data_conn_failed,
+	agps_set_server,
+};
+
 /********************************* GPS interface *********************************/
 
 static int
@@ -375,6 +427,8 @@ wave_gps_get_extension(const char* name)
 	D("%s('%s') is called", __FUNCTION__, name);
 	if (!strcmp(name, GPS_XTRA_INTERFACE)) {
 		return &sGpsXtraInterface;
+	} else if (!strcmp(name, AGPS_INTERFACE)) {
+		return &sAGpsInterface;
 	}
 	return NULL;
 }
