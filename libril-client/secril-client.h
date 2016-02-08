@@ -188,6 +188,11 @@ int GpsXtraInjectData(HRilClient data, int length);
  */
 int GpsXtraInjectTime(HRilClient data, int64_t time, int64_t timeReference, int uncertainty);
 
+/**
+ * GPS Delete Data
+ */
+int GpsDeleteData(HRilClient data);
+
 #ifdef __cplusplus
 };
 #endif

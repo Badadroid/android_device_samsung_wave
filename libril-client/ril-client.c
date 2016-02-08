@@ -385,3 +385,23 @@ int GpsXtraInjectTime(HRilClient data, int64_t time, int64_t timeReference, int 
 
 	return RIL_CLIENT_ERR_SUCCESS;
 }
+
+int GpsDeleteData(HRilClient data)
+{
+	struct srs_client *client;
+	int rc;
+
+	ALOGE("%s(%p)", __func__, data);
+
+	if (data == NULL)
+		return RIL_CLIENT_ERR_INVAL;
+
+	client = (struct srs_client *) data;
+
+	rc = srs_client_send(client, SRS_GPS_DELETE_DATA, NULL, 0);
+
+	if (rc < 0)
+		return RIL_CLIENT_ERR_UNKNOWN;
+
+	return RIL_CLIENT_ERR_SUCCESS;
+}
