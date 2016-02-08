@@ -288,7 +288,14 @@ wave_gps_delete_aiding_data(GpsAidingData flags)
 {
 	D("%s() is called", __FUNCTION__);
 	D("flags=%d", flags);
-	/* not yet implemented */
+
+	if (flags == GPS_DELETE_ALL) {
+		if (connectRILDIfRequired() == 0) {
+			if (GpsDeleteData(mRilClient) != RIL_CLIENT_ERR_SUCCESS) {
+				ALOGE("GpsDeleteData error");
+			}
+		}
+	}
 }
 
 static int wave_gps_set_position_mode(GpsPositionMode mode, GpsPositionRecurrence recurrence,

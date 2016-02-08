@@ -314,6 +314,7 @@ int GpsInit(HRilClient data, int enabled)
 
 	return RIL_CLIENT_ERR_SUCCESS;
 }
+
 int GpsSetNavigationMode(HRilClient data, int enabled)
 {
 	struct srs_client *client;
@@ -330,6 +331,26 @@ int GpsSetNavigationMode(HRilClient data, int enabled)
 	en_pkt.enabled = enabled;
 
 	rc = srs_client_send(client, SRS_GPS_NAVIGATION_MODE, &en_pkt, sizeof(en_pkt));
+
+	if (rc < 0)
+		return RIL_CLIENT_ERR_UNKNOWN;
+
+	return RIL_CLIENT_ERR_SUCCESS;
+}
+
+int GpsDeleteData(HRilClient data)
+{
+	struct srs_client *client;
+	int rc;
+
+	ALOGE("%s(%p)", __func__, data);
+
+	if (data == NULL)
+		return RIL_CLIENT_ERR_INVAL;
+
+	client = (struct srs_client *) data;
+
+	rc = srs_client_send(client, SRS_GPS_DELETE_DATA, NULL, 0);
 
 	if (rc < 0)
 		return RIL_CLIENT_ERR_UNKNOWN;

@@ -178,6 +178,11 @@ int GpsInit(HRilClient data, int enabled);
  */
 int GpsSetNavigationMode(HRilClient data, int enabled);
 
+/**
+ * GPS Delete Data
+ */
+int GpsDeleteData(HRilClient data);
+
 #ifdef __cplusplus
 };
 #endif
