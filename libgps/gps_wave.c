@@ -391,7 +391,21 @@ wave_gps_inject_time(GpsUtcTime time, int64_t timeReference, int uncertainty)
 {
 	D("%s() is called", __FUNCTION__);
 	D("time=%lld, timeReference=%lld, uncertainty=%d", time, timeReference, uncertainty);
-	/* not yet implemented */
+
+	GpsState* s = _gps_state;
+
+	if (!s->init) {
+		D("%s: called with uninitialized state !!", __FUNCTION__);
+		return -1;
+	}
+
+	if (connectRILDIfRequired() == 0) {
+		if (GpsXtraInjectTime(mRilClient, time, timeReference, uncertainty) != RIL_CLIENT_ERR_SUCCESS) {
+				ALOGE("GpsXtraInjectTime error");
+				return -1;
+			}
+	}
+
 	return 0;
 }
 

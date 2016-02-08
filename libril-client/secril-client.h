@@ -183,6 +183,11 @@ int GpsSetNavigationMode(HRilClient data, int enabled);
  */
 int GpsXtraInjectData(HRilClient data, int length);
 
+/**
+ * GPS XTRA Inject Time
+ */
+int GpsXtraInjectTime(HRilClient data, int64_t time, int64_t timeReference, int uncertainty);
+
 #ifdef __cplusplus
 };
 #endif

@@ -314,6 +314,7 @@ int GpsInit(HRilClient data, int enabled)
 
 	return RIL_CLIENT_ERR_SUCCESS;
 }
+
 int GpsSetNavigationMode(HRilClient data, int enabled)
 {
 	struct srs_client *client;
@@ -353,6 +354,31 @@ int GpsXtraInjectData(HRilClient data, int length)
 	pkt.length = length;
 
 	rc = srs_client_send(client, SRS_GPS_XTRA_INJECT_DATA, &pkt, sizeof(pkt));
+
+	if (rc < 0)
+		return RIL_CLIENT_ERR_UNKNOWN;
+
+	return RIL_CLIENT_ERR_SUCCESS;
+}
+
+int GpsXtraInjectTime(HRilClient data, int64_t time, int64_t timeReference, int uncertainty)
+{
+	struct srs_client *client;
+	struct srs_xtra_time pkt;
+	int rc;
+
+	ALOGE("%s(%p)", __func__, data);
+
+	if (data == NULL)
+		return RIL_CLIENT_ERR_INVAL;
+
+	client = (struct srs_client *) data;
+
+	pkt.time = time;
+	pkt.timeReference = timeReference;
+	pkt.uncertainty = uncertainty;
+
+	rc = srs_client_send(client, SRS_GPS_XTRA_INJECT_TIME, &pkt, sizeof(pkt));
 
 	if (rc < 0)
 		return RIL_CLIENT_ERR_UNKNOWN;
