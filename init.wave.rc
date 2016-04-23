@@ -1,68 +1,52 @@
 import init.wave.usb.rc
 
-on init
-    loglevel 9
 
-    # See storage config details at http://source.android.com/tech/storage/
-    mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage/emulated 0555 root root
-
-    #External storage directories
-    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
-    mkdir /storage/sdcard1 0700 root root
-
-    export EXTERNAL_STORAGE        /storage/emulated/legacy
-    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
-    export EMULATED_STORAGE_TARGET /storage/emulated
-    export SECONDARY_STORAGE       /storage/sdcard1
-
-    # Support legacy paths
-    symlink /storage/emulated/legacy /sdcard
-    symlink /storage/emulated/legacy /mnt/sdcard
-    symlink /storage/emulated/legacy /storage/sdcard0
-    symlink /storage/emulated/legacy /storage/emulated/0
-    symlink /mnt/shell/emulated/0    /storage/emulated/legacy
-
-    symlink /storage/sdcard1 /extSdCard
-    symlink /storage/sdcard1 /mnt/extSdCard
-    symlink /storage/sdcard1 /external_sd
-
-    # We will create our own ril-daemon service in class 'core' because the
-    # rild doesn't like being killed. (During device encryption.)
-    stop ril-daemon
-
-on boot
+on early-init
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
+    write /sys/block/mmcblk0/queue/scheduler noop
+
+# Increase max readahead size to 256 KB
+    write /sys/block/mmcblk0/queue/read_ahead_kb 256
+    write /sys/block/mmcblk1/queue/read_ahead_kb 256
+
+# Flash storage isn't a good entropy source, and only causes
+# locking overhead in the kernel. Turn it off.
+    write /sys/block/mmcblk0/queue/add_random 0
+    write /sys/block/mmcblk1/queue/add_random 0
+
+on init
+    loglevel 9
+	
+	export LD_PRELOAD "/system/lib/libsamsung_symbols.so"
+
+    # for backwards compatibility
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard
+
+on boot
 # fake some battery state
     setprop status.battery.state Slow
     setprop status.battery.level 5
     setprop status.battery.level_raw  50
     setprop status.battery.level_scale 9
 
-# phone
-    setprop ro.telephony.call_ring.multiple 0
-
-# call volume steps
-    setprop ro.config.vc_call_vol_steps 15
-
 # KSM
     write /sys/kernel/mm/ksm/pages_to_scan 256
-    write /sys/kernel/mm/ksm/sleep_millisecs 1500
-    write /sys/kernel/mm/ksm/run 1
+    write /sys/kernel/mm/ksm/sleep_millisecs 4000
 
 # memory parameters
-    write /proc/sys/vm/page-cluster 0
-    write /proc/sys/vm/vfs_cache_pressure 85
-    write /proc/sys/vm/swappiness 70
     write /proc/sys/vm/dirty_ratio 16
     write /proc/sys/vm/dirty_background_ratio 12
     write /proc/sys/vm/dirty_expire_centisecs 500
     write /proc/sys/vm/dirty_writeback_centisecs 1000
+    write /proc/sys/vm/page-cluster 0
+    write /proc/sys/vm/swappiness 0
+    write /proc/sys/vm/vfs_cache_pressure 85
 
-# readahead
-    write /sys/block/mmcblk0/queue/read_ahead_kb 256
-    write /sys/block/mmcblk1/queue/read_ahead_kb 256
+# Set up kernel tracing, but disable it by default
+    chmod 0222 /sys/kernel/debug/tracing/trace_marker
+    write /sys/kernel/debug/tracing/tracing_on 0
 
 # Prevents permission denied error for telephony
     chmod 0644 /proc/cmdline
@@ -77,8 +61,6 @@ on fs
     mount yaffs2 mtd@cache /cache noatime nosuid nodev
     mount_all fstab.wave
     swapon_all fstab.wave
-
-    setprop ro.crypto.fuse_sdcard true
 
 # Permissions for MTP device node
     chmod 0777 /dev/mtp_usb
@@ -182,9 +164,6 @@ on post-fs
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
-# trigger governor change uevent
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
-
 on post-fs-data
 	
     # wi-fi
@@ -209,14 +188,6 @@ on property:dev.bootcomplete=1
 
 #- Begin Core Services -#
 
-
- service wave-ril-daemon /system/bin/rild
-    class core
-    socket rild stream 660 root radio
-    socket rild-debug stream 660 radio system
-    user root
-    group radio cache inet misc audio log
-
 # 3D init
 service pvrsrvinit /system/bin/pvrsrvinit
     class core
@@ -238,38 +209,28 @@ service wpa_supplicant /system/bin/wpa_supplicant \
 #   after setting up the capabilities required for WEXT
 #   user wifi
 #   group wifi inet keystore
-    class main
+    class late_start
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
 
-service dhcpcd_eth0 /system/bin/dhcpcd -aABDKL
-    class late_start
-    disabled
-    oneshot
-
-service iprenew_eth0 /system/bin/dhcpcd -n
-    class late_start
-    disabled
-    oneshot
-
 service dhcpcd_wlan0 /system/bin/dhcpcd -aABDKL
-    class main
+    class late_start
+    disabled
+    oneshot
+	
+service iprenew_wlan0 /system/bin/dhcpcd -n
+    class late_start
     disabled
     oneshot
 
 service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
-    class main
-    disabled
-    oneshot
-
-service iprenew_wlan0 /system/bin/dhcpcd -n
-    class main
+    class late_start
     disabled
     oneshot
 
 service iprenew_bt-pan /system/bin/dhcpcd -n
-    class main
+    class late_start
     disabled
     oneshot
 
@@ -285,17 +246,9 @@ on property:init.svc.bootanim=running
 
 # LMK values
 on property:sys.boot_completed=1
+    write /sys/block/mmcblk0/queue/scheduler row
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 400000
     write /sys/module/lowmemorykiller/parameters/minfree 3072,5120,8192,10241,12288,14336
 
 #- End main Services -#
-
-#- Begin late_start Services-#
-
-# virtual sdcard daemon running as media_rw (1023)
-service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
-    class late_start
-
-# fusewrapped external sdcard daemon running as media_rw (1023)
-service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
-    class late_start
-    disabled

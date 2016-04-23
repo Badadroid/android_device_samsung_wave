@@ -50,7 +50,7 @@ PRODUCT_COPY_FILES := \
 	device/samsung/wave/prebuilt/nvram_net_s8530.txt:system/vendor/firmware/nvram_net_s8530.txt \
 	device/samsung/wave/prebuilt/bcm4329_s8500.hcd:system/vendor/firmware/bcm4329_s8500.hcd \
 	device/samsung/wave/prebuilt/bcm4329_s8530.hcd:system/vendor/firmware/bcm4329_s8530.hcd \
-	device/samsung/wave/prebuilt/setmodel.sh:system/bin/setmodel.sh \
+	device/samsung/wave/prebuilt/setmodel.sh:system/bin/setmodel.sh
 
 # Init files
 PRODUCT_COPY_FILES += \
@@ -64,7 +64,7 @@ PRODUCT_COPY_FILES += \
 	device/samsung/wave/fstab.wave:root/fstab.wave2 \
 	device/samsung/wave/ueventd.wave.rc:root/ueventd.wave.rc \
 	device/samsung/wave/ueventd.wave.rc:root/ueventd.wave2.rc \
-	device/samsung/wave/twrp.fstab:recovery/root/etc/twrp.fstab\
+	device/samsung/wave/twrp.fstab:recovery/root/etc/twrp.fstab \
 	device/samsung/wave/partition.sh:recovery/root/partition.sh
 
 # Keylayout and Keychars
@@ -80,6 +80,10 @@ PRODUCT_COPY_FILES += \
 # SHP Modem interfaces
 PRODUCT_PACKAGES := \
 	libmocha-ril
+	
+# RIL
+PRODUCT_PACKAGES += \
+	libsamsung_symbols
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -97,6 +101,14 @@ PRODUCT_COPY_FILES += \
 	frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml
+	
+
+# We need to build the GPS interposition library for the GPS to work, also M removes
+# libstlport, but some of our binary-only prebuilts need it, so we'll add it back in
+# in source and here
+PRODUCT_PACKAGES += \
+    libdmitry \
+    libstlport
 
 # These are the OpenMAX IL modules
 PRODUCT_PACKAGES += \
@@ -116,7 +128,6 @@ PRODUCT_PACKAGES += \
 	gps.wave \
 	audio.primary.wave \
 	audio.a2dp.default \
-	audio.usb.default \
 	libril-client \
 	libs3cjpeg
 
@@ -165,14 +176,12 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
 	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
 	frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
-	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml
 
 # The OpenGL ES API level that is natively supported by this device.
 # This is a 16.16 fixed point number
 PRODUCT_PROPERTY_OVERRIDES := \
-	ro.opengles.version=131072 \
-	debug.hwui.render_dirty_regions=false \
-	ro.zygote.disable_gl_preload=true
+	ro.opengles.version=131072
 
 # These are the hardware-specific settings that are stored in system properties.
 # Note that the only such settings should be the ones that are too low-level to
@@ -208,12 +217,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.kernel.android.checkjni=0
 
-# ART parameters
+# ART
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dex2oat-flags "--compiler-filter=interpret-only" \
-    dalvik.vm.image-dex2oat-flags "" \
-    dalvik.vm.profiler=1 \
-    dalvik.vm.isa.arm.features=lpae
+    dalvik.vm.dex2oat-Xms=8m \
+    dalvik.vm.dex2oat-Xmx=96m \
+    dalvik.vm.image-dex2oat-Xms=48m \
+    dalvik.vm.image-dex2oat-Xmx=48m \
+    dalvik.vm.dex2oat-filter=interpret-only \
+    dalvik.vm.image-dex2oat-filter=speed
 
 # Reduce background apps limit to 12 on low-tier devices
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -223,11 +234,18 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.max_starting_bg=6
 
-# Set default USB interface and default to internal SD as /sdcard
+# Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp
+    persist.sys.usb.config=mtp \
+	persist.service.adb.enable=1
+	
+# Development & ADB authentication settings
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    ro.adb.secure=0 \
+    ro.debuggable=1 \
+    ro.secure=0
 
-include frameworks/native/build/phone-hdpi-dalvik-heap.mk
+$(call inherit-product-if-exists, frameworks/native/build/phone-hdpi-dalvik-heap.mk)
 
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
 

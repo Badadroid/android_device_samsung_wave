@@ -31,8 +31,6 @@ LOCAL_C_INCLUDES += \
 	$(call include-path-for, audio-utils) \
 	device/samsung/wave/libril-client
 
-LOCAL_CFLAGS += -DTARGET_LEGACY_UNSUPPORTED_LIBAUDIO
-
 include $(BUILD_SHARED_LIBRARY)
 
 endif

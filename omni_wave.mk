@@ -31,8 +31,8 @@ $(call inherit-product, vendor/omni/config/common.mk)
 $(call inherit-product, device/samsung/wave/device.mk)
 
 # Wave uses high-density artwork where available
-PRODUCT_AAPT_CONFIG := normal hdpi
-PRODUCT_AAPT_PREF_CONFIG := hdpi
+PRODUCT_AAPT_CONFIG := normal
+PRODUCT_AAPT_PREF_CONFIG := mdpi
 
 # Device identifier
 PRODUCT_RELEASE_NAME := Wave
